@@ -9,11 +9,17 @@ export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // 1. Define DynamoDB Table (Phase 7)
+    // 1. Define DynamoDB Table (Phase 7 & Phase 10)
     const casesTable = new dynamodb.Table(this, 'FnaCases', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Cost-effective for unpredictable workloads
       removalPolicy: cdk.RemovalPolicy.RETAIN, // Keep data safe on stack deletion
+    });
+
+    const doctorsTable = new dynamodb.Table(this, 'FnaDoctors', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     // 2. Define API Gateway (Phase 7)
@@ -55,10 +61,41 @@ export class BackendStack extends cdk.Stack {
       },
     });
 
-    // 4. Grant Permissions (Phase 7)
+    const listDoctorsLambda = new lambda.Function(this, 'ListDoctorsFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'listDoctors.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: {
+        TABLE_NAME: doctorsTable.tableName,
+      },
+    });
+
+    const createDoctorLambda = new lambda.Function(this, 'CreateDoctorFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'createDoctor.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: {
+        TABLE_NAME: doctorsTable.tableName,
+      },
+    });
+
+    const deleteDoctorLambda = new lambda.Function(this, 'DeleteDoctorFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'deleteDoctor.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: {
+        TABLE_NAME: doctorsTable.tableName,
+      },
+    });
+
+    // 4. Grant Permissions (Phase 7 & 10)
     casesTable.grantReadWriteData(createCaseLambda);
     casesTable.grantReadData(listCasesLambda);
     casesTable.grantReadWriteData(updateCaseLambda);
+
+    doctorsTable.grantReadData(listDoctorsLambda);
+    doctorsTable.grantReadWriteData(createDoctorLambda);
+    doctorsTable.grantReadWriteData(deleteDoctorLambda);
 
     // 5. Connect API Gateway to Lambda
     const casesResource = api.root.addResource('cases');
@@ -72,6 +109,19 @@ export class BackendStack extends cdk.Stack {
     // PATCH /cases/{id}
     const singleCaseResource = casesResource.addResource('{id}');
     singleCaseResource.addMethod('PATCH', new apigateway.LambdaIntegration(updateCaseLambda));
+
+    // /doctors Resource
+    const doctorsResource = api.root.addResource('doctors');
+
+    // GET /doctors
+    doctorsResource.addMethod('GET', new apigateway.LambdaIntegration(listDoctorsLambda));
+
+    // POST /doctors
+    doctorsResource.addMethod('POST', new apigateway.LambdaIntegration(createDoctorLambda));
+
+    // DELETE /doctors/{id}
+    const singleDoctorResource = doctorsResource.addResource('{id}');
+    singleDoctorResource.addMethod('DELETE', new apigateway.LambdaIntegration(deleteDoctorLambda));
 
     // Output the API URL
     new cdk.CfnOutput(this, 'ApiUrl', {

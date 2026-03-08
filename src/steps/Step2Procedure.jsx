@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormStore } from '../store/useFormStore';
 
 export default function Step2Procedure({ goNext, goPrev }) {
     const { formData, updateField } = useFormStore();
+    const [doctors, setDoctors] = useState([]);
+    const [isFetchingDocs, setIsFetchingDocs] = useState(true);
+
+    useEffect(() => {
+        const fetchDocs = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+                const response = await fetch(`${apiUrl}/doctors`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setDoctors(data);
+                }
+            } catch (err) {
+                console.error('Offline or error fetching doctors:', err);
+            } finally {
+                setIsFetchingDocs(false);
+            }
+        };
+        fetchDocs();
+    }, []);
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -45,21 +65,27 @@ export default function Step2Procedure({ goNext, goPrev }) {
                 </div>
 
                 <div className="form-group">
-                    <label className="form-label">Operator *</label>
+                    <label className="form-label">Operator (Doctor)</label>
                     <select
                         className="glass-input"
                         value={formData.operator}
                         onChange={(e) => updateField('operator', e.target.value)}
                         required
                     >
-                        <option value="">Select Operator</option>
-                        {/* Mocking the 6 IRs until Admin Panel is integrated */}
-                        <option value="Dr. Smith">Dr. Smith</option>
-                        <option value="Dr. Jones">Dr. Jones</option>
-                        <option value="Dr. Patel">Dr. Patel</option>
-                        <option value="Dr. Gupta">Dr. Gupta</option>
-                        <option value="Dr. Sharma">Dr. Sharma</option>
-                        <option value="Dr. Davis">Dr. Davis</option>
+                        <option value="">Select Doctor</option>
+                        {isFetchingDocs ? (
+                            <option value="" disabled>Loading Doctors...</option>
+                        ) : doctors.length > 0 ? (
+                            doctors.map(doc => (
+                                <option key={doc.id} value={doc.name}>{doc.name}</option>
+                            ))
+                        ) : (
+                            <>
+                                <option value="Dr. A. Sharma">Dr. A. Sharma</option>
+                                <option value="Dr. R. Gupta">Dr. R. Gupta</option>
+                                <option value="Dr. S. Mehta">Dr. S. Mehta</option>
+                            </>
+                        )}
                     </select>
                 </div>
 
