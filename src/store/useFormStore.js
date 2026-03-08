@@ -1,4 +1,7 @@
 import { create } from 'zustand';
+import { clearDraft } from '../services/db';
+
+const DRAFT_ID = 'current-fna-session';
 
 const initialFormState = {
     // Section 1
@@ -79,5 +82,34 @@ export const useFormStore = create((set) => ({
             }
         })),
 
-    resetForm: () => set({ formData: initialFormState })
+    loadDraft: (draftData) => set({ formData: draftData }),
+
+    resetForm: () => set({ formData: initialFormState }),
+
+    submitCaseToServer: async () => {
+        const { formData, resetForm } = useFormStore.getState();
+
+        try {
+            const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+            const response = await fetch(`${apiUrl}/cases`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit case to AWS');
+            }
+
+            // Clear the local draft now that we're safe on the server
+            await clearDraft(DRAFT_ID);
+            resetForm();
+            return true;
+        } catch (err) {
+            console.error('Submission failed. Data retained in IndexedDB draft.', err);
+            return false;
+        }
+    }
 }));

@@ -2,12 +2,16 @@ import React from 'react';
 import { useFormStore } from '../store/useFormStore';
 
 export default function Step8Histopathology({ goNext, goPrev }) {
-    const { formData, updateField, updateSite } = useFormStore();
+    const { formData, updateField, updateSite, submitCaseToServer } = useFormStore();
 
-    const handleNext = (e) => {
+    const handleNext = async (e) => {
         e.preventDefault();
-        // In a real app, this would submit to API
-        alert('Case saved and marked as ' + formData.caseStatus);
+        const success = await submitCaseToServer();
+        if (success) {
+            alert('Case saved and marked as ' + formData.caseStatus);
+        } else {
+            alert('Failed to save case to cloud. Data is securely saved offline.');
+        }
     };
 
     if (!formData.surgeryDone) {
