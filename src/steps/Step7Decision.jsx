@@ -1,12 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormStore } from '../store/useFormStore';
+import toast from 'react-hot-toast';
 
 export default function Step7Decision({ goNext, goPrev }) {
-    const { formData, updateField } = useFormStore();
+    const { formData, updateField, submitCaseToServer, isSubmitting } = useFormStore();
+    const navigate = useNavigate();
 
     const handleNext = (e) => {
         e.preventDefault();
         goNext();
+    };
+
+    const handleSaveAndExit = async () => {
+        const success = await submitCaseToServer();
+        if (success) {
+            toast.success(`Case saved as ${formData.caseStatus}. No histopathology needed.`);
+            navigate('/admin');
+        } else {
+            toast.error('Failed to save case to cloud. Data is securely saved offline.');
+        }
     };
 
     const handleAblationSelect = (e) => {
@@ -92,14 +105,27 @@ export default function Step7Decision({ goNext, goPrev }) {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '32px' }}>
-                    <button type="button" className="btn-secondary" onClick={goPrev}>Previous</button>
+                    <button type="button" className="btn-secondary" onClick={goPrev} disabled={isSubmitting}>Previous</button>
                     {formData.surgeryDone ? (
                         <button type="submit" className="btn-primary" style={{ background: 'linear-gradient(135deg, #00e1ff 0%, #0072ff 100%)' }}>Next: Histopathology</button>
                     ) : (
-                        <button type="button" className="btn-primary" style={{ background: 'linear-gradient(135deg, #2ed573 0%, #1e90ff 100%)' }}>Save Case & Exit</button>
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            style={{
+                                background: isSubmitting ? 'var(--card-bg)' : 'linear-gradient(135deg, #2ed573 0%, #1e90ff 100%)',
+                                opacity: isSubmitting ? 0.7 : 1,
+                                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            }}
+                            onClick={handleSaveAndExit}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Saving...' : 'Save Case & Exit'}
+                        </button>
                     )}
                 </div>
             </form>
         </div>
     );
 }
+

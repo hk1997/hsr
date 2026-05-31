@@ -5,6 +5,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import { useFormStore } from './store/useFormStore';
 import { getDraft, saveDraft } from './services/db';
 
+import { Toaster } from 'react-hot-toast';
+
 const DRAFT_ID = 'current-fna-session';
 
 function App() {
@@ -42,9 +44,31 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: 'var(--card-bg)',
+            color: 'var(--text-main)',
+            border: '1px solid var(--card-border)',
+            borderRadius: '12px',
+          },
+          success: {
+            style: {
+              border: '1px solid var(--primary)',
+            },
+          },
+          error: {
+            style: {
+              border: '1px solid var(--error)',
+            },
+          },
+        }}
+      />
       <Routes>
-        <Route path="/" element={<Navigate to="/procedure/step-1" replace />} />
+        <Route path="/" element={<Navigate to="/admin" replace />} />
         <Route path="/procedure/:stepId" element={<WizardContainer />} />
+        <Route path="/procedure/edit/:caseId/:stepId" element={<WizardContainer />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>

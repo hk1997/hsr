@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CaseManagement from '../components/Admin/CaseManagement';
 import DoctorManagement from '../components/Admin/DoctorManagement';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -12,16 +13,13 @@ export default function AdminDashboard() {
             <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0', borderBottom: '1px solid var(--card-border)', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontWeight: 'bold', fontSize: '18px' }}>
-                        A
+                        HS
                     </div>
                     <div>
-                        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Admin Dashboard</h1>
-                        <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Hospital Sarthi Thyroid FNA</p>
+                        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Hospital Sarthi</h1>
+                        <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Thyroid FNA Case Management</p>
                     </div>
                 </div>
-                <button className="btn-secondary" onClick={() => navigate('/procedure/step-1')}>
-                    Close Admin
-                </button>
             </header>
 
             <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
@@ -62,6 +60,9 @@ export default function AdminDashboard() {
             <main>
                 {activeTab === 'cases' ? <CaseManagement /> : <DoctorManagement />}
             </main>
+
+            <FloatingActionButton />
         </div>
     );
 }
+

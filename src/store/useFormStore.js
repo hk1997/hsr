@@ -50,6 +50,10 @@ const initialFormState = {
 
 export const useFormStore = create((set) => ({
     formData: initialFormState,
+    isSubmitting: false,
+    editingCaseId: null,
+
+    setSubmitting: (status) => set({ isSubmitting: status }),
 
     updateField: (field, value) =>
         set((state) => ({
@@ -84,20 +88,39 @@ export const useFormStore = create((set) => ({
 
     loadDraft: (draftData) => set({ formData: draftData }),
 
-    resetForm: () => set({ formData: initialFormState }),
+    loadCaseForEdit: (caseData) => {
+        const { id, createdAt, updatedAt, ...formFields } = caseData;
+        set({
+            formData: { ...initialFormState, ...formFields },
+            editingCaseId: id,
+        });
+    },
+
+    resetForm: () => set({ formData: initialFormState, editingCaseId: null }),
 
     submitCaseToServer: async () => {
-        const { formData, resetForm } = useFormStore.getState();
+        const { formData, resetForm, setSubmitting, editingCaseId } = useFormStore.getState();
 
+        setSubmitting(true);
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
-            const response = await fetch(`${apiUrl}/cases`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+
+            let response;
+            if (editingCaseId) {
+                // Update existing case
+                response = await fetch(`${apiUrl}/cases/${editingCaseId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+            } else {
+                // Create new case
+                response = await fetch(`${apiUrl}/cases`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+            }
 
             if (!response.ok) {
                 throw new Error('Failed to submit case to AWS');
@@ -106,10 +129,13 @@ export const useFormStore = create((set) => ({
             // Clear the local draft now that we're safe on the server
             await clearDraft(DRAFT_ID);
             resetForm();
+            setSubmitting(false);
             return true;
         } catch (err) {
             console.error('Submission failed. Data retained in IndexedDB draft.', err);
+            setSubmitting(false);
             return false;
         }
     }
 }));
+

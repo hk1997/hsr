@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CaseManagement() {
     const [cases, setCases] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchCases();
@@ -28,6 +30,10 @@ export default function CaseManagement() {
         }
     };
 
+    const handleEdit = (caseId) => {
+        navigate(`/procedure/edit/${caseId}/step-1`);
+    };
+
     if (isLoading) return <div style={{ color: 'var(--primary)', textAlign: 'center', padding: '40px' }}>Loading cases...</div>;
     if (error) return <div style={{ color: '#ff4757', textAlign: 'center', padding: '40px' }}>Error: {error}</div>;
 
@@ -46,17 +52,18 @@ export default function CaseManagement() {
                         <thead>
                             <tr style={{ borderBottom: '1px solid var(--card-border)' }}>
                                 <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Date</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Case ID</th>
+                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Patient</th>
                                 <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>UHID</th>
                                 <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sites</th>
                                 <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Status</th>
+                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {cases.map((record) => (
                                 <tr key={record.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: '16px' }}>{new Date(record.createdAt).toLocaleDateString()}</td>
-                                    <td style={{ padding: '16px', color: 'var(--primary)' }}>{record.id.substring(0, 10)}...</td>
+                                    <td style={{ padding: '16px', fontWeight: '500' }}>{record.patientName || '—'}</td>
                                     <td style={{ padding: '16px', fontWeight: 'bold' }}>{record.uhid || 'N/A'}</td>
                                     <td style={{ padding: '16px' }}>
                                         {record.sites && record.sites.length > 0 ? (
@@ -74,6 +81,30 @@ export default function CaseManagement() {
                                         }}></span>
                                         {record.caseStatus}
                                     </td>
+                                    <td style={{ padding: '16px' }}>
+                                        <button
+                                            onClick={() => handleEdit(record.id)}
+                                            style={{
+                                                padding: '6px 16px',
+                                                borderRadius: '8px',
+                                                border: '1px solid var(--primary)',
+                                                background: 'rgba(0, 225, 255, 0.08)',
+                                                color: 'var(--primary)',
+                                                fontSize: '13px',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s ease',
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.background = 'rgba(0, 225, 255, 0.2)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.background = 'rgba(0, 225, 255, 0.08)';
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -83,3 +114,4 @@ export default function CaseManagement() {
         </div>
     );
 }
+
