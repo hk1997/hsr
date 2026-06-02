@@ -1,5 +1,6 @@
 *.js
 !jest.config.js
+!src/handlers/*.js
 *.d.ts
 node_modules
 
