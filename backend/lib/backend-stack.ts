@@ -181,7 +181,9 @@ export class BackendStack extends cdk.Stack {
     // 10. Create CloudFront Distribution pointing to S3 website origin
     const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
       defaultBehavior: {
-        origin: new origins.HttpOrigin(websiteBucket.bucketWebsiteDomainName),
+        origin: new origins.HttpOrigin(websiteBucket.bucketWebsiteDomainName, {
+          protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
