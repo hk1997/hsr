@@ -3,7 +3,10 @@ import { Construct } from 'constructs';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as path from 'path';
+import * as fs from 'fs';
 
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -23,8 +26,8 @@ export class BackendStack extends cdk.Stack {
     });
 
     // 2. Define API Gateway (Phase 7)
-    const api = new apigateway.RestApi(this, 'HospitalSarthiApi', {
-      restApiName: 'Thyroid FNA Service',
+    const api = new apigateway.RestApi(this, 'MedantaIrRegistryApi', {
+      restApiName: 'Medanta IR Registry API',
       description: 'API for handling offline-first Thyroid FNA form submissions.',
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
@@ -127,6 +130,40 @@ export class BackendStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: api.url,
       description: 'The root URL of the API Gateway',
+    });
+
+    // Ensure the frontend dist directory exists (synthesis safeguard)
+    const distPath = path.join(__dirname, '../../dist');
+    if (!fs.existsSync(distPath)) {
+      fs.mkdirSync(distPath, { recursive: true });
+      fs.writeFileSync(path.join(distPath, 'index.html'), '<html><body>Medanta IR Registry Mock Frontend</body></html>');
+    }
+
+    // 6. Define S3 Bucket for Static Website Hosting
+    const websiteBucket = new s3.Bucket(this, 'MedantaIrRegistryWebsite', {
+      websiteIndexDocument: 'index.html',
+      websiteErrorDocument: 'index.html',
+      publicReadAccess: true,
+      blockPublicAccess: new s3.BlockPublicAccess({
+        blockPublicAcls: false,
+        blockPublicPolicy: false,
+        ignorePublicAcls: false,
+        restrictPublicBuckets: false,
+      }),
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+    });
+
+    // 7. Deploy Website Assets to S3
+    new s3deploy.BucketDeployment(this, 'DeployMedantaIrRegistryWebsite', {
+      sources: [s3deploy.Source.asset(distPath)],
+      destinationBucket: websiteBucket,
+    });
+
+    // Output the Website URL
+    new cdk.CfnOutput(this, 'WebsiteUrl', {
+      value: websiteBucket.bucketWebsiteUrl,
+      description: 'The static website URL hosting the frontend',
     });
   }
 }

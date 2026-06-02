@@ -9,7 +9,7 @@ export default function Step2Procedure({ goNext, goPrev }) {
     useEffect(() => {
         const fetchDocs = async () => {
             try {
-                const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+                const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
                 const response = await fetch(`${apiUrl}/doctors`);
                 if (response.ok) {
                     const data = await response.json();
