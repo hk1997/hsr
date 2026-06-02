@@ -1,6 +1,6 @@
-# Medanta IR Registry
+#  IR Registry
 
-Medanta IR Registry is a modern, offline-first Progressive Web App (PWA) designed to streamline the capture, management, and tracking of Thyroid Fine Needle Aspiration (FNA) and interventional radiology case registries. 
+IR Registry is a modern, offline-first Progressive Web App (PWA) designed to streamline the capture, management, and tracking of Thyroid Fine Needle Aspiration (FNA) and interventional radiology case registries. 
 
 The application utilizes a rich glassmorphism UI styled with vanilla CSS, a robust offline-first Zustand/IndexedDB state synchronizer, and a serverless AWS backend deployed via AWS Cloud Development Kit (CDK).
 
