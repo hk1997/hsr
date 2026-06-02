@@ -7,6 +7,11 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as targets from 'aws-cdk-lib/aws-route53-targets';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -154,16 +159,61 @@ export class BackendStack extends cdk.Stack {
       autoDeleteObjects: true,
     });
 
-    // 7. Deploy Website Assets to S3
+    // 7. Deploy Website Assets to S3 under medanta/thyroidfna prefix
     new s3deploy.BucketDeployment(this, 'DeployMedantaIrRegistryWebsite', {
       sources: [s3deploy.Source.asset(distPath)],
       destinationBucket: websiteBucket,
+      destinationKeyPrefix: 'medanta/thyroidfna',
+    });
+
+    // 8. Look up the Route53 Hosted Zone
+    const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
+      domainName: 'irflo.net',
+    });
+
+    // 9. Request SSL Certificate in us-east-1 for CloudFront
+    const certificate = new acm.DnsValidatedCertificate(this, 'SiteCertificate', {
+      domainName: 'irflo.net',
+      hostedZone,
+      region: 'us-east-1',
+    });
+
+    // 10. Create CloudFront Distribution pointing to S3 website origin
+    const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
+      defaultBehavior: {
+        origin: new origins.HttpOrigin(websiteBucket.bucketWebsiteDomainName),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+        cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
+      },
+      domainNames: ['irflo.net'],
+      certificate,
+      errorResponses: [
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          responsePagePath: '/medanta/thyroidfna/index.html',
+          ttl: cdk.Duration.seconds(0),
+        },
+        {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: '/medanta/thyroidfna/index.html',
+          ttl: cdk.Duration.seconds(0),
+        },
+      ],
+    });
+
+    // 11. Create Route53 ARecord Alias pointing to CloudFront Distribution
+    new route53.ARecord(this, 'SiteAliasRecord', {
+      zone: hostedZone,
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
     });
 
     // Output the Website URL
     new cdk.CfnOutput(this, 'WebsiteUrl', {
-      value: websiteBucket.bucketWebsiteUrl,
-      description: 'The static website URL hosting the frontend',
+      value: 'https://irflo.net/medanta/thyroidfna',
+      description: 'The custom domain URL hosting the frontend',
     });
   }
 }
