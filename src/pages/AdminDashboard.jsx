@@ -13,10 +13,10 @@ export default function AdminDashboard() {
             <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0', borderBottom: '1px solid var(--card-border)', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontWeight: 'bold', fontSize: '18px' }}>
-                        HS
+                        MIR
                     </div>
                     <div>
-                        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Hospital Sarthi</h1>
+                        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Medanta IR Registry</h1>
                         <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Thyroid FNA Case Management</p>
                     </div>
                 </div>

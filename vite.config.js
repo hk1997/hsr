@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Thyroid FNA App',
-        short_name: 'ThyroidFNA',
-        description: 'Hospital Sarthi - Thyroid FNA Progressive Web App',
+        name: 'Medanta IR Registry',
+        short_name: 'MedantaIR',
+        description: 'Medanta IR Registry - Thyroid FNA Progressive Web App',
         theme_color: '#0b162c',
         background_color: '#0b162c',
         display: 'standalone',

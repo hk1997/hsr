@@ -64,7 +64,7 @@ export const useFormStore = create((set) => ({
         set((state) => ({
             formData: {
                 ...state.formData,
-                sites: [...state.formData.sites, { ...siteData, id: crypto.randomUUID() }]
+                sites: [...state.formData.sites, { ...siteData, id: (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Math.random().toString(36).substring(2, 11) }]
             }
         })),
 
@@ -103,7 +103,7 @@ export const useFormStore = create((set) => ({
 
         setSubmitting(true);
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+            const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
 
             let response;
             if (editingCaseId) {

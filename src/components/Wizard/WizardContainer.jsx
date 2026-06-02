@@ -41,7 +41,7 @@ export default function WizardContainer() {
                 setIsLoadingCase(true);
                 setLoadError(null);
                 try {
-                    const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+                    const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
                     const response = await fetch(`${apiUrl}/cases`);
                     if (!response.ok) throw new Error('Failed to fetch cases');
                     const allCases = await response.json();
@@ -120,7 +120,7 @@ export default function WizardContainer() {
             <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: isEditMode ? 'linear-gradient(135deg, #ffa502 0%, #ff6348 100%)' : 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontWeight: 'bold' }}>
-                        {isEditMode ? '✎' : 'HF'}
+                        {isEditMode ? '✎' : 'MIR'}
                     </div>
                     <div>
                         <h1 style={{ fontSize: '20px', fontWeight: '600' }}>

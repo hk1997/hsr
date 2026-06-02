@@ -36,15 +36,43 @@ export default function Step3Ultrasound({ goNext, goPrev }) {
             </div>
 
             {site.lobe !== 'Isthmus' && (
-                <div className="form-group">
-                    <label className="form-label">Position within lobe</label>
-                    <select className="glass-input" value={site.position} onChange={(e) => updateSite(site.id, { position: e.target.value })}>
-                        <option value="">Select Position</option>
-                        <option value="Upper pole">Upper Pole</option>
-                        <option value="Mid pole">Mid Pole</option>
-                        <option value="Lower pole">Lower Pole</option>
-                    </select>
-                </div>
+                <>
+                    <div className="form-group">
+                        <label className="form-label">Position within lobe</label>
+                        <select className="glass-input" value={site.position} onChange={(e) => updateSite(site.id, { position: e.target.value })}>
+                            <option value="">Select Position</option>
+                            <option value="Upper pole">Upper Pole</option>
+                            <option value="Mid pole">Mid Pole</option>
+                            <option value="Lower pole">Lower Pole</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">Additional Position Remark (Multi-select)</label>
+                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginTop: '8px' }}>
+                            {['Anterior', 'Posterior', 'Medial', 'Lateral'].map((rem) => {
+                                const currentRemarks = site.positionRemark || [];
+                                const isChecked = currentRemarks.includes(rem);
+                                return (
+                                    <label key={rem} style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '14px' }}>
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={(e) => {
+                                                const updated = e.target.checked
+                                                    ? [...currentRemarks, rem]
+                                                    : currentRemarks.filter(r => r !== rem);
+                                                updateSite(site.id, { positionRemark: updated });
+                                            }}
+                                            style={{ width: '16px', height: '16px', accentColor: 'var(--primary)' }}
+                                        />
+                                        <span>{rem}</span>
+                                    </label>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </>
             )}
 
             {site.lobe === 'Isthmus' && (
@@ -111,16 +139,42 @@ export default function Step3Ultrasound({ goNext, goPrev }) {
                         <option value="Not mentioned">Not mentioned</option>
                     </select>
                 </div>
-                <div className="form-group" style={{ flex: 1, display: 'flex', alignItems: 'flex-end', paddingBottom: '10px' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                        <input
-                            type="checkbox"
-                            checked={site.irAssessment}
-                            onChange={(e) => updateSite(site.id, { irAssessment: e.target.checked })}
-                            style={{ width: '18px', height: '18px', accentColor: 'var(--primary)' }}
-                        />
-                        <span>IR Suspicious Toggle</span>
-                    </label>
+                <div className="form-group" style={{ flex: 1 }}>
+                    <label className="form-label">IR Team Assessment</label>
+                    <div style={{ display: 'flex', gap: '4px', background: 'rgba(0,0,0,0.2)', padding: '4px', borderRadius: '8px', border: '1px solid var(--card-border)' }}>
+                        <button
+                            type="button"
+                            onClick={() => updateSite(site.id, { irAssessment: 'Suspicious' })}
+                            style={{
+                                flex: 1,
+                                padding: '8px 12px',
+                                borderRadius: '6px',
+                                fontSize: '13px',
+                                fontWeight: '600',
+                                background: site.irAssessment === 'Suspicious' ? 'rgba(0, 225, 255, 0.2)' : 'transparent',
+                                color: site.irAssessment === 'Suspicious' ? 'var(--primary)' : 'var(--text-muted)',
+                                border: site.irAssessment === 'Suspicious' ? '1px solid var(--primary)' : '1px solid transparent',
+                            }}
+                        >
+                            Suspicious
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => updateSite(site.id, { irAssessment: 'Non-suspicious' })}
+                            style={{
+                                flex: 1,
+                                padding: '8px 12px',
+                                borderRadius: '6px',
+                                fontSize: '13px',
+                                fontWeight: '600',
+                                background: site.irAssessment === 'Non-suspicious' ? 'rgba(46, 213, 115, 0.2)' : 'transparent',
+                                color: site.irAssessment === 'Non-suspicious' ? 'var(--success)' : 'var(--text-muted)',
+                                border: site.irAssessment === 'Non-suspicious' ? '1px solid var(--success)' : '1px solid transparent',
+                            }}
+                        >
+                            Non-suspicious
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

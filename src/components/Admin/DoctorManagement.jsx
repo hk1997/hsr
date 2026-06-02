@@ -7,7 +7,7 @@ export default function DoctorManagement() {
     const [newDocName, setNewDocName] = useState('');
     const [isSaving, setIsSaving] = useState(false);
 
-    const apiUrl = import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod';
+    const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
 
     useEffect(() => {
         fetchDoctors();

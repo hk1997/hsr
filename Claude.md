@@ -76,6 +76,24 @@ Verify that the following environment files exist:
   CDK_DEFAULT_REGION=ap-south-1
   ```
 
+### Step 8: Configure AWS CLI credentials locally
+To deploy or synthesize backend resources locally, you should install the AWS Command Line Interface (CLI) and configure your credentials.
+
+1. **Install AWS CLI:**
+   ```bash
+   brew install awscli
+   ```
+2. **Run Configuration Wizard:**
+   ```bash
+   aws configure
+   ```
+3. **Provide Credentials:**
+   When prompted, paste your AWS credentials:
+   - **AWS Access Key ID**: Paste your `AWS_ACCESS_KEY_ID` (e.g. from `backend/.env`)
+   - **AWS Secret Access Key**: Paste your `AWS_SECRET_ACCESS_KEY`
+   - **Default region name**: Type `ap-south-1`
+   - **Default output format**: Type `json`
+
 ---
 
 ## Part 2: The Issue-to-PR Flow (AI Workflow)
@@ -119,12 +137,24 @@ When Claude performs this task, it **must** strictly follow the instructions bel
    git checkout -b issue-<number>-<short-description>
    ```
 3. **Locate & Modify Files:** Find relevant frontend or backend files and make changes carefully, preserving code patterns.
-4. **Run Local Verifications:**
+4. **Run Local Verifications & Manual Testing:**
    - **Frontend Verification:**
      Run `npm run lint` and `npm run build` to ensure there are no build or compilation errors.
    - **Backend Verification:**
      Navigate to `/backend` and run `npm run test` (uses Jest) and `npm run build` (compiles TypeScript) to verify tests and build integrity.
-5. **Run the App Locally:**
+   - **CDK Local Deployment & Manual Testing:**
+     To verify the entire cloud deployment locally and obtain the staging URL:
+     1. Build the frontend production bundle (CDK uses these assets):
+        ```bash
+        npm run build
+        ```
+     2. Deploy the stack to AWS:
+        ```bash
+        cd backend
+        npx cdk deploy --require-approval never
+        ```
+     3. Once deployed, copy the `WebsiteUrl` value from the terminal outputs (e.g., `http://medantairregistrywebsite-xxx.s3-website.ap-south-1.amazonaws.com`) and open it in a web browser to manually test the application.
+5. **Run the App Locally (Development Mode):**
    - Launch Frontend: `npm run dev` (runs Vite dev server).
    - Watch Backend compilation: `cd backend && npm run watch` (tsc watcher).
 
@@ -213,3 +243,26 @@ When Claude is making changes, it should refer to the following structure of thi
   - `/backend/src/handlers`: Lambda functions (e.g., `createCase.js`, `createDoctor.js`).
   - `/backend/test`: Backend testing files (Jest).
   - `/backend/lib`: CDK stack definition files.
+
+---
+
+## Part 5: Automated GitHub Actions Deployment (CI/CD)
+
+The project includes an automated deployment pipeline using **GitHub Actions**. Whenever you push or merge a Pull Request into the `main` branch, the pipeline will automatically compile the latest frontend code, build the backend TypeScript, and deploy the entire CDK stack to AWS.
+
+### Setting Up GitHub Repository Secrets
+For the pipeline to deploy successfully, you must add your AWS credentials as secrets in your GitHub repository:
+
+1. On GitHub, navigate to your repository homepage.
+2. Click on the **Settings** tab.
+3. In the left sidebar, click **Secrets and variables** -> **Actions**.
+4. Click the green **New repository secret** button.
+5. Add the following three secrets:
+   - **Name**: `AWS_ACCESS_KEY_ID`
+     - **Value**: *(Your AWS access key)*
+   - **Name**: `AWS_SECRET_ACCESS_KEY`
+     - **Value**: *(Your AWS secret key)*
+   - **Name**: `AWS_REGION`
+     - **Value**: `ap-south-1` (or your chosen region)
+
+Once configured, the next push to `main` will trigger the deploy workflow under the **Actions** tab of your repository!
