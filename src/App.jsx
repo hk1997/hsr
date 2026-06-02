@@ -43,7 +43,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/medanta/thyroidfna">
       <Toaster
         position="top-center"
         toastOptions={{
