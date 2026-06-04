@@ -264,8 +264,9 @@ export default function Step1Demographics({ goNext }) {
                             type="text"
                             className="glass-input"
                             placeholder="e.g. MED123456"
+                            style={{ textTransform: 'uppercase' }}
                             value={formData.uhid}
-                            onChange={(e) => updateField('uhid', e.target.value)}
+                            onChange={(e) => updateField('uhid', e.target.value.toUpperCase())}
                             required
                         />
                         <button

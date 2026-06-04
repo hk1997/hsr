@@ -93,9 +93,9 @@ export default function CaseManagement() {
                     <input
                         type="text"
                         value={uhidFilter}
-                        onChange={(e) => setUhidFilter(e.target.value)}
+                        onChange={(e) => setUhidFilter(e.target.value.toUpperCase())}
                         placeholder="Search by UHID…"
-                        style={searchInputStyle}
+                        style={{ ...searchInputStyle, textTransform: 'uppercase' }}
                     />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '160px', flex: '1 1 160px' }}>
