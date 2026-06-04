@@ -159,13 +159,6 @@ export class BackendStack extends cdk.Stack {
       autoDeleteObjects: true,
     });
 
-    // 7. Deploy Website Assets to S3 under medanta/thyroidfna prefix
-    new s3deploy.BucketDeployment(this, 'DeployMedantaIrRegistryWebsite', {
-      sources: [s3deploy.Source.asset(distPath)],
-      destinationBucket: websiteBucket,
-      destinationKeyPrefix: 'medanta/thyroidfna',
-    });
-
     // 8. Look up the Route53 Hosted Zone
     const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
       domainName: 'irflo.net',
@@ -204,6 +197,18 @@ export class BackendStack extends cdk.Stack {
           ttl: cdk.Duration.seconds(0),
         },
       ],
+    });
+
+    // 7. Deploy Website Assets to S3 under medanta/thyroidfna prefix.
+    //    Wired to the CloudFront distribution so each deploy invalidates the
+    //    cache (otherwise CloudFront keeps serving a stale index.html that
+    //    references old, hashed asset bundles).
+    new s3deploy.BucketDeployment(this, 'DeployMedantaIrRegistryWebsite', {
+      sources: [s3deploy.Source.asset(distPath)],
+      destinationBucket: websiteBucket,
+      destinationKeyPrefix: 'medanta/thyroidfna',
+      distribution,
+      distributionPaths: ['/*'],
     });
 
     // 11. Create Route53 ARecord Alias pointing to CloudFront Distribution
