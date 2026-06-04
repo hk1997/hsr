@@ -1,10 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Convert an ISO timestamp to a local YYYY-MM-DD string for date comparison.
+const toLocalDateString = (iso) => {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}-${month}-${day}`;
+};
+
+const searchInputStyle = {
+    width: '100%',
+    padding: '10px 12px',
+    borderRadius: '8px',
+    border: '1px solid var(--card-border)',
+    background: 'rgba(255,255,255,0.04)',
+    color: 'var(--text)',
+    fontSize: '14px',
+    boxSizing: 'border-box',
+};
 
 export default function CaseManagement() {
     const [cases, setCases] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [uhidFilter, setUhidFilter] = useState('');
+    const [nameFilter, setNameFilter] = useState('');
+    const [dateFilter, setDateFilter] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,18 +58,76 @@ export default function CaseManagement() {
         navigate(`/procedure/edit/${caseId}/step-1`);
     };
 
+    const hasActiveFilter = uhidFilter.trim() !== '' || nameFilter.trim() !== '' || dateFilter !== '';
+
+    const clearFilters = () => {
+        setUhidFilter('');
+        setNameFilter('');
+        setDateFilter('');
+    };
+
+    const filteredCases = useMemo(() => {
+        const uhidTerm = uhidFilter.trim().toLowerCase();
+        const nameTerm = nameFilter.trim().toLowerCase();
+        return cases.filter((record) => {
+            const matchesUhid = uhidTerm === '' || (record.uhid || '').toLowerCase().includes(uhidTerm);
+            const matchesName = nameTerm === '' || (record.patientName || '').toLowerCase().includes(nameTerm);
+            const matchesDate = dateFilter === '' || toLocalDateString(record.createdAt) === dateFilter;
+            return matchesUhid && matchesName && matchesDate;
+        });
+    }, [cases, uhidFilter, nameFilter, dateFilter]);
+
     if (isLoading) return <div style={{ color: 'var(--primary)', textAlign: 'center', padding: '40px' }}>Loading cases...</div>;
     if (error) return <div style={{ color: '#ff4757', textAlign: 'center', padding: '40px' }}>Error: {error}</div>;
 
     return (
         <div className="glass-panel" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontSize: '20px' }}>Submitted FNA Cases ({cases.length})</h2>
+                <h2 style={{ fontSize: '20px' }}>Submitted FNA Cases ({filteredCases.length})</h2>
                 <button className="btn-secondary" onClick={fetchCases} style={{ padding: '8px 16px', fontSize: '14px' }}>Refresh</button>
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'flex-end', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '160px', flex: '1 1 160px' }}>
+                    <label style={{ color: 'var(--text-muted)', fontSize: '12px' }}>UHID</label>
+                    <input
+                        type="text"
+                        value={uhidFilter}
+                        onChange={(e) => setUhidFilter(e.target.value)}
+                        placeholder="Search by UHID…"
+                        style={searchInputStyle}
+                    />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '160px', flex: '1 1 160px' }}>
+                    <label style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Patient Name</label>
+                    <input
+                        type="text"
+                        value={nameFilter}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                        placeholder="Search by name…"
+                        style={searchInputStyle}
+                    />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '160px', flex: '1 1 160px' }}>
+                    <label style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Date</label>
+                    <input
+                        type="date"
+                        value={dateFilter}
+                        onChange={(e) => setDateFilter(e.target.value)}
+                        style={searchInputStyle}
+                    />
+                </div>
+                {hasActiveFilter && (
+                    <button className="btn-secondary" onClick={clearFilters} style={{ padding: '10px 16px', fontSize: '14px' }}>
+                        Clear
+                    </button>
+                )}
             </div>
 
             {cases.length === 0 ? (
                 <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '40px 0' }}>No cases found in database.</p>
+            ) : filteredCases.length === 0 ? (
+                <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '40px 0' }}>No cases match your filters.</p>
             ) : (
                 <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
@@ -60,7 +142,7 @@ export default function CaseManagement() {
                             </tr>
                         </thead>
                         <tbody>
-                            {cases.map((record) => (
+                            {filteredCases.map((record) => (
                                 <tr key={record.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                                     <td style={{ padding: '16px' }}>{new Date(record.createdAt).toLocaleDateString()}</td>
                                     <td style={{ padding: '16px', fontWeight: '500' }}>{record.patientName || '—'}</td>
