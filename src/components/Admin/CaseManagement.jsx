@@ -11,6 +11,17 @@ const toLocalDateString = (iso) => {
     return `${d.getFullYear()}-${month}-${day}`;
 };
 
+// The case's effective date: explicit caseDate (YYYY-MM-DD) if set, else the createdAt timestamp.
+const getCaseDateString = (record) => record.caseDate || toLocalDateString(record.createdAt);
+
+// Format a YYYY-MM-DD string as a localized date without timezone shifting.
+const formatCaseDate = (record) => {
+    const ds = getCaseDateString(record);
+    if (!ds) return '—';
+    const [year, month, day] = ds.split('-').map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString();
+};
+
 const searchInputStyle = {
     width: '100%',
     padding: '10px 12px',
@@ -72,7 +83,7 @@ export default function CaseManagement() {
         return cases.filter((record) => {
             const matchesUhid = uhidTerm === '' || (record.uhid || '').toLowerCase().includes(uhidTerm);
             const matchesName = nameTerm === '' || (record.patientName || '').toLowerCase().includes(nameTerm);
-            const matchesDate = dateFilter === '' || toLocalDateString(record.createdAt) === dateFilter;
+            const matchesDate = dateFilter === '' || getCaseDateString(record) === dateFilter;
             return matchesUhid && matchesName && matchesDate;
         });
     }, [cases, uhidFilter, nameFilter, dateFilter]);
@@ -144,7 +155,7 @@ export default function CaseManagement() {
                         <tbody>
                             {filteredCases.map((record) => (
                                 <tr key={record.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                                    <td style={{ padding: '16px' }}>{new Date(record.createdAt).toLocaleDateString()}</td>
+                                    <td style={{ padding: '16px' }}>{formatCaseDate(record)}</td>
                                     <td style={{ padding: '16px', fontWeight: '500' }}>{record.patientName || '—'}</td>
                                     <td style={{ padding: '16px', fontWeight: 'bold' }}>{record.uhid || 'N/A'}</td>
                                     <td style={{ padding: '16px' }}>

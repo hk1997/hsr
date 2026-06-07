@@ -3,8 +3,24 @@ import { useFormStore } from '../store/useFormStore';
 import { Camera, QrCode, X, Sparkles, Check, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+// Today's date as a local YYYY-MM-DD string for date inputs.
+const getTodayDate = () => {
+    const d = new Date();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}-${month}-${day}`;
+};
+
 export default function Step1Demographics({ goNext }) {
     const { formData, updateField } = useFormStore();
+
+    // Default the Case Date to today for new cases (preserves saved value when editing).
+    useEffect(() => {
+        if (!formData.caseDate) {
+            updateField('caseDate', getTodayDate());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const [showScanner, setShowScanner] = useState(false);
     const [cameraStream, setCameraStream] = useState(null);
     const [mockInput, setMockInput] = useState('');
@@ -279,6 +295,18 @@ export default function Step1Demographics({ goNext }) {
                             <RefreshCw size={14} /> Search HIS
                         </button>
                     </div>
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label">Case Date *</label>
+                    <input
+                        type="date"
+                        className="glass-input"
+                        value={formData.caseDate || ''}
+                        max={getTodayDate()}
+                        onChange={(e) => updateField('caseDate', e.target.value)}
+                        required
+                    />
                 </div>
 
                 <div className="form-group">
