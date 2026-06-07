@@ -35,11 +35,11 @@ const searchInputStyle = {
 
 // Native date inputs have an intrinsic min-width on WebKit and ignore width:100%.
 // When the filter row wraps on mobile the Date field takes a full-width row, so
-// cap it at 75% to keep it compact and prevent overflow.
+// cap it at 70% to keep it compact and prevent overflow.
 const dateInputStyle = {
     ...searchInputStyle,
     minWidth: 0,
-    maxWidth: '75%',
+    maxWidth: '70%',
 };
 
 export default function CaseManagement() {
