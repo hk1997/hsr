@@ -33,6 +33,14 @@ const searchInputStyle = {
     boxSizing: 'border-box',
 };
 
+// Native date inputs have an intrinsic min-width on WebKit and ignore width:100%,
+// so constrain them to the column to keep them within the panel margins.
+const dateInputStyle = {
+    ...searchInputStyle,
+    minWidth: 0,
+    maxWidth: '100%',
+};
+
 export default function CaseManagement() {
     const [cases, setCases] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -125,7 +133,7 @@ export default function CaseManagement() {
                         type="date"
                         value={dateFilter}
                         onChange={(e) => setDateFilter(e.target.value)}
-                        style={searchInputStyle}
+                        style={dateInputStyle}
                     />
                 </div>
                 {hasActiveFilter && (
