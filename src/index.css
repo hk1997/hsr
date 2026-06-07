@@ -80,9 +80,13 @@ a {
   transition: var(--transition);
 }
 
-/* Native date inputs have an intrinsic min-width on WebKit and ignore
-   width:100%; constrain them so they stay within the form margins. */
+/* Native date inputs on WebKit/Safari ignore width:100% and size to their
+   intrinsic content, rendering narrower than sibling text inputs. Removing the
+   native appearance makes them honor the shared .glass-input full-width box so
+   they align to the same left/right edges as the other fields. */
 input[type="date"].glass-input {
+  -webkit-appearance: none;
+  appearance: none;
   min-width: 0;
   max-width: 100%;
 }
