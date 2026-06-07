@@ -9,6 +9,7 @@ const initialFormState = {
     age: '',
     gender: '',
     uhid: '',
+    caseDate: '',
 
     // Section 2
     dateOfProcedure: '',
