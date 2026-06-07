@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CaseManagement from '../components/Admin/CaseManagement';
 import DoctorManagement from '../components/Admin/DoctorManagement';
-import FloatingActionButton from '../components/FloatingActionButton';
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -60,8 +59,6 @@ export default function AdminDashboard() {
             <main>
                 {activeTab === 'cases' ? <CaseManagement /> : <DoctorManagement />}
             </main>
-
-            <FloatingActionButton />
         </div>
     );
 }

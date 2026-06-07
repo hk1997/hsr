@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Plus } from 'lucide-react';
+import { useFormStore } from '../../store/useFormStore';
 
 // Convert an ISO timestamp to a local YYYY-MM-DD string for date comparison.
 const toLocalDateString = (iso) => {
@@ -74,8 +76,15 @@ export default function CaseManagement() {
         }
     };
 
+    const resetForm = useFormStore((state) => state.resetForm);
+
     const handleEdit = (caseId) => {
         navigate(`/procedure/edit/${caseId}/step-1`);
+    };
+
+    const handleNewCase = () => {
+        resetForm();
+        navigate('/procedure/step-1');
     };
 
     const hasActiveFilter = uhidFilter.trim() !== '' || nameFilter.trim() !== '' || dateFilter !== '';
@@ -104,7 +113,17 @@ export default function CaseManagement() {
         <div className="glass-panel" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <h2 style={{ fontSize: '20px' }}>Submitted FNA Cases ({filteredCases.length})</h2>
-                <button className="btn-secondary" onClick={fetchCases} style={{ padding: '8px 16px', fontSize: '14px' }}>Refresh</button>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                        className="btn-primary"
+                        onClick={handleNewCase}
+                        style={{ padding: '8px 16px', fontSize: '14px', borderRadius: '8px' }}
+                        aria-label="Create New Case"
+                    >
+                        <Plus size={16} /> New Case
+                    </button>
+                    <button className="btn-secondary" onClick={fetchCases} style={{ padding: '8px 16px', fontSize: '14px' }}>Refresh</button>
+                </div>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'flex-end', marginBottom: '24px' }}>
