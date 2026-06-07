@@ -69,6 +69,7 @@ a {
 
 .glass-input {
   width: 100%;
+  box-sizing: border-box;
   padding: 14px 16px;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--card-border);
@@ -77,6 +78,13 @@ a {
   font-size: 16px;
   font-family: inherit;
   transition: var(--transition);
+}
+
+/* Native date inputs have an intrinsic min-width on WebKit and ignore
+   width:100%; constrain them so they stay within the form margins. */
+input[type="date"].glass-input {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .glass-input:focus {
