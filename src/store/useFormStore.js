@@ -104,7 +104,7 @@ export const useFormStore = create((set) => ({
 
         setSubmitting(true);
         try {
-            const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
+            const apiUrl = (import.meta.env.VITE_API_URL || 'https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
 
             let response;
             if (editingCaseId) {

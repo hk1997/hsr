@@ -41,7 +41,7 @@ export default function WizardContainer() {
                 setIsLoadingCase(true);
                 setLoadError(null);
                 try {
-                    const apiUrl = (import.meta.env.VITE_API_URL || 'https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
+                    const apiUrl = (import.meta.env.VITE_API_URL || 'https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod').replace(/\/$/, '');
                     const response = await fetch(`${apiUrl}/cases`);
                     if (!response.ok) throw new Error('Failed to fetch cases');
                     const allCases = await response.json();

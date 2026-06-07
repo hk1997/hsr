@@ -65,7 +65,7 @@ cd ..
 Verify that the following environment files exist:
 - **Frontend Environment (`.env` in root folder):** Should contain:
   ```env
-  VITE_API_URL=https://jdj0yduaka.execute-api.ap-south-1.amazonaws.com/prod/
+  VITE_API_URL=https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod/
   ```
 - **Backend Environment (`backend/.env` in backend folder):** Should contain:
   ```env
