@@ -33,12 +33,13 @@ const searchInputStyle = {
     boxSizing: 'border-box',
 };
 
-// Native date inputs have an intrinsic min-width on WebKit and ignore width:100%,
-// so constrain them to the column to keep them within the panel margins.
+// Native date inputs have an intrinsic min-width on WebKit and ignore width:100%.
+// When the filter row wraps on mobile the Date field takes a full-width row, so
+// cap it at 75% to keep it compact and prevent overflow.
 const dateInputStyle = {
     ...searchInputStyle,
     minWidth: 0,
-    maxWidth: '100%',
+    maxWidth: '75%',
 };
 
 export default function CaseManagement() {
