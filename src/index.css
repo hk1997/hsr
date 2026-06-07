@@ -81,14 +81,15 @@ a {
 }
 
 /* Native date inputs on WebKit/Safari ignore width:100% and size to their
-   intrinsic content, rendering narrower than sibling text inputs. Removing the
-   native appearance makes them honor the shared .glass-input full-width box so
-   they align to the same left/right edges as the other fields. */
+   intrinsic content. Removing the native appearance makes them honor the shared
+   .glass-input box, but the control then expands to the full container width and
+   overflows the viewport on narrow phones. Cap the width at 75% so the date
+   field never overflows the screen. */
 input[type="date"].glass-input {
   -webkit-appearance: none;
   appearance: none;
   min-width: 0;
-  max-width: 100%;
+  max-width: 75%;
 }
 
 .glass-input:focus {
