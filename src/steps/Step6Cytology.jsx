@@ -96,6 +96,152 @@ export default function Step6Cytology({ goNext, goPrev }) {
                             {site.label}
                         </h3>
 
+                        {/* Read-only Site Details Summary */}
+                        <div style={{
+                            background: 'rgba(255, 255, 255, 0.015)',
+                            border: '1px solid rgba(255, 255, 255, 0.05)',
+                            borderRadius: '12px',
+                            padding: '16px',
+                            marginBottom: '20px',
+                            fontSize: '13px',
+                            lineHeight: '1.6',
+                            color: 'var(--text-muted)'
+                        }}>
+                            {site.type === 'Nodule' ? (
+                                <div>
+                                    <div style={{ fontWeight: '600', color: 'var(--primary)', marginBottom: '8px', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+                                        Ultrasound & FNA Details (Nodule)
+                                    </div>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px 16px' }}>
+                                        <div>
+                                            <strong>Location:</strong> {site.lobe || '—'} 
+                                            {site.lobe && site.lobe !== 'Isthmus' && site.position && ` — ${site.position}`}
+                                            {site.positionRemark && site.positionRemark.length > 0 && ` (${site.positionRemark.join(', ')})`}
+                                            {site.lobe === 'Isthmus' && site.isthmicExtension && site.isthmicExtension !== 'None' && ` (${site.isthmicExtension})`}
+                                        </div>
+                                        <div>
+                                            <strong>ACR TIRADS:</strong>{' '}
+                                            <span style={{ 
+                                                display: 'inline-flex', gap: '6px', alignItems: 'center'
+                                            }}>
+                                                {site.radTirads && (
+                                                    <span style={{ 
+                                                        background: 'rgba(255, 255, 255, 0.05)', 
+                                                        padding: '2px 6px', 
+                                                        borderRadius: '4px',
+                                                        fontSize: '11px' 
+                                                    }}>
+                                                        Rad: {site.radTirads}
+                                                    </span>
+                                                )}
+                                                {site.irTirads && (
+                                                    <span style={{ 
+                                                        background: ['TR4', 'TR5'].includes(site.irTirads) ? 'rgba(255, 165, 2, 0.15)' : 'rgba(0, 225, 255, 0.1)', 
+                                                        color: ['TR4', 'TR5'].includes(site.irTirads) ? '#ffa502' : 'var(--primary)', 
+                                                        padding: '2px 6px', 
+                                                        borderRadius: '4px',
+                                                        fontSize: '11px',
+                                                        fontWeight: '600'
+                                                    }}>
+                                                        IR Team: {site.irTirads}
+                                                    </span>
+                                                )}
+                                                {!site.radTirads && !site.irTirads && '—'}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <strong>FNA Type:</strong> {site.fnaType || '—'} {site.needlePasses ? `(${site.needlePasses} passes)` : ''}
+                                        </div>
+                                        <div>
+                                            <strong>ROSE Done:</strong>{' '}
+                                            {site.roseDone ? (
+                                                <span style={{ 
+                                                    background: site.roseResult === 'Adequate' ? 'rgba(46, 213, 115, 0.15)' : 'rgba(255, 71, 87, 0.15)', 
+                                                    color: site.roseResult === 'Adequate' ? '#2ed573' : '#ff4757', 
+                                                    padding: '2px 6px', 
+                                                    borderRadius: '4px',
+                                                    fontSize: '11px',
+                                                    fontWeight: '600'
+                                                }}>
+                                                    Yes ({site.roseResult || 'Result pending'})
+                                                </span>
+                                            ) : 'No'}
+                                        </div>
+                                    </div>
+                                    {site.irImpression && (
+                                        <div style={{ marginTop: '8px', borderTop: '1px dashed rgba(255, 255, 255, 0.05)', paddingTop: '8px' }}>
+                                            <strong>IR Impression:</strong> <span style={{ fontStyle: 'italic', color: '#fff' }}>"{site.irImpression}"</span>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div>
+                                    <div style={{ fontWeight: '600', color: 'var(--primary)', marginBottom: '8px', textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.5px' }}>
+                                        Ultrasound & FNA Details (Lymph Node)
+                                    </div>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px 16px' }}>
+                                        <div>
+                                            <strong>Location:</strong> {site.nodalLevel || '—'} {site.side ? `(${site.side} side)` : ''}
+                                        </div>
+                                        <div>
+                                            <strong>Assessment:</strong>{' '}
+                                            <span style={{ 
+                                                display: 'inline-flex', gap: '6px', alignItems: 'center'
+                                            }}>
+                                                {site.radAssessment && (
+                                                    <span style={{ 
+                                                        background: site.radAssessment === 'Suspicious' ? 'rgba(255, 71, 87, 0.12)' : 'rgba(255, 255, 255, 0.05)', 
+                                                        color: site.radAssessment === 'Suspicious' ? '#ff4757' : 'var(--text-muted)',
+                                                        padding: '2px 6px', 
+                                                        borderRadius: '4px',
+                                                        fontSize: '11px' 
+                                                    }}>
+                                                        Rad: {site.radAssessment}
+                                                    </span>
+                                                )}
+                                                {site.irAssessment && (
+                                                    <span style={{ 
+                                                        background: site.irAssessment === 'Suspicious' ? 'rgba(255, 71, 87, 0.15)' : 'rgba(46, 213, 115, 0.15)', 
+                                                        color: site.irAssessment === 'Suspicious' ? '#ff4757' : '#2ed573', 
+                                                        padding: '2px 6px', 
+                                                        borderRadius: '4px',
+                                                        fontSize: '11px',
+                                                        fontWeight: '600'
+                                                    }}>
+                                                        IR Team: {site.irAssessment}
+                                                    </span>
+                                                )}
+                                                {!site.radAssessment && !site.irAssessment && '—'}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <strong>FNA Type:</strong> {site.fnaType || '—'} {site.needlePasses ? `(${site.needlePasses} passes)` : ''}
+                                        </div>
+                                        <div>
+                                            <strong>ROSE Done:</strong>{' '}
+                                            {site.roseDone ? (
+                                                <span style={{ 
+                                                    background: site.roseResult === 'Adequate' ? 'rgba(46, 213, 115, 0.15)' : 'rgba(255, 71, 87, 0.15)', 
+                                                    color: site.roseResult === 'Adequate' ? '#2ed573' : '#ff4757', 
+                                                    padding: '2px 6px', 
+                                                    borderRadius: '4px',
+                                                    fontSize: '11px',
+                                                    fontWeight: '600'
+                                                }}>
+                                                    Yes ({site.roseResult || 'Result pending'})
+                                                </span>
+                                            ) : 'No'}
+                                        </div>
+                                    </div>
+                                    {site.irImpression && (
+                                        <div style={{ marginTop: '8px', borderTop: '1px dashed rgba(255, 255, 255, 0.05)', paddingTop: '8px' }}>
+                                            <strong>IR Impression:</strong> <span style={{ fontStyle: 'italic', color: '#fff' }}>"{site.irImpression}"</span>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
                         <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                                 <input
