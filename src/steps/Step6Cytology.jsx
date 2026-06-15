@@ -167,6 +167,12 @@ export default function Step6Cytology({ goNext, goPrev }) {
                                                 </span>
                                             ) : 'No'}
                                         </div>
+                                        <div>
+                                            <strong>Operator:</strong> {formData.operator || '—'}
+                                        </div>
+                                        <div>
+                                            <strong>Needle Gauge:</strong> {formData.needleGauge || '—'}
+                                        </div>
                                     </div>
                                     {site.irImpression && (
                                         <div style={{ marginTop: '8px', borderTop: '1px dashed rgba(255, 255, 255, 0.05)', paddingTop: '8px' }}>
@@ -231,6 +237,12 @@ export default function Step6Cytology({ goNext, goPrev }) {
                                                     Yes ({site.roseResult || 'Result pending'})
                                                 </span>
                                             ) : 'No'}
+                                        </div>
+                                        <div>
+                                            <strong>Operator:</strong> {formData.operator || '—'}
+                                        </div>
+                                        <div>
+                                            <strong>Needle Gauge:</strong> {formData.needleGauge || '—'}
                                         </div>
                                     </div>
                                     {site.irImpression && (
