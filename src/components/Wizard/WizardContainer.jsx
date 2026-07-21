@@ -142,16 +142,39 @@ export default function WizardContainer() {
                 {steps.map((step, index) => {
                     const isActive = index === currentStepIndex;
                     const isPast = index < currentStepIndex;
+                    const isClickable = isEditMode || isPast;
+
+                    const handleStepClick = () => {
+                        if (!isClickable || isActive) return;
+                        if (isEditMode && caseId) {
+                            navigate(`/procedure/edit/${caseId}/${step.id}`);
+                        } else {
+                            navigate(`/procedure/${step.id}`);
+                        }
+                    };
+
                     return (
-                        <div key={step.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1, width: '40px' }}>
+                        <div 
+                            key={step.id} 
+                            style={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignItems: 'center', 
+                                zIndex: 1, 
+                                width: '40px',
+                                cursor: isClickable && !isActive ? 'pointer' : 'default'
+                            }}
+                            onClick={handleStepClick}
+                        >
                             <div style={{
                                 width: '32px', height: '32px', borderRadius: '50%',
                                 background: isActive ? 'var(--primary)' : isPast ? 'rgba(0, 225, 255, 0.4)' : 'var(--card-bg)',
-                                border: `2px solid ${isActive || isPast ? 'var(--primary)' : 'var(--card-border)'}`,
+                                border: `2px solid ${isActive || isPast || isEditMode ? 'var(--primary)' : 'var(--card-border)'}`,
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 color: isActive ? '#000' : 'var(--text-light)',
                                 fontWeight: 'bold', fontSize: '14px', marginBottom: '8px',
-                                boxShadow: isActive ? '0 0 15px var(--primary-glow)' : 'none'
+                                boxShadow: isActive ? '0 0 15px var(--primary-glow)' : 'none',
+                                transition: 'all 0.2s ease'
                             }}>
                                 {index + 1}
                             </div>
