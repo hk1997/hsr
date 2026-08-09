@@ -5,7 +5,7 @@ import './Resources.css';
 const Resources = () => {
   return (
     <div className="resources-container">
-      <h1 className="resources-title">Developer Resources</h1>
+      <h1 className="resources-title">Resources</h1>
       
       <div className="resources-grid">
         <a 
