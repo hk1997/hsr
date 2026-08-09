@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import WizardContainer from './components/Wizard/WizardContainer';
 import AdminDashboard from './pages/AdminDashboard';
+import Resources from './pages/Resources';
 import { useFormStore } from './store/useFormStore';
 import { getDraft, saveDraft } from './services/db';
 
@@ -70,6 +71,7 @@ function App() {
         <Route path="/procedure/:stepId" element={<WizardContainer />} />
         <Route path="/procedure/edit/:caseId/:stepId" element={<WizardContainer />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </BrowserRouter>
   );
