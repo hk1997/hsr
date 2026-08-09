@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BookOpen } from 'lucide-react';
 import CaseManagement from '../components/Admin/CaseManagement';
 import DoctorManagement from '../components/Admin/DoctorManagement';
 
@@ -19,6 +20,28 @@ export default function AdminDashboard() {
                         <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Thyroid FNA Case Management</p>
                     </div>
                 </div>
+                
+                <button 
+                    onClick={() => navigate('/resources')}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'rgba(56, 189, 248, 0.1)',
+                        border: '1px solid rgba(56, 189, 248, 0.2)',
+                        color: 'var(--primary)',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'rgba(56, 189, 248, 0.2)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'rgba(56, 189, 248, 0.1)'}
+                >
+                    <BookOpen size={18} />
+                    Resources
+                </button>
             </header>
 
             <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>

@@ -6,7 +6,7 @@ import Resources from './Resources';
 describe('Resources Component', () => {
   it('renders the main heading', () => {
     render(<Resources />);
-    expect(screen.getByText('Developer Resources')).toBeInTheDocument();
+    expect(screen.getByText('Resources', { selector: 'h1' })).toBeInTheDocument();
   });
 
   it('renders the Claude Artifact card with correct content', () => {
