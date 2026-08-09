@@ -1,10 +1,19 @@
 import React from 'react';
-import { ExternalLink, Bot } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ExternalLink, Bot, ArrowLeft } from 'lucide-react';
 import './Resources.css';
 
 const Resources = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="resources-container">
+      <div className="resources-header">
+        <button onClick={() => navigate('/admin')} className="resources-back-btn">
+          <ArrowLeft size={18} />
+          Back to Dashboard
+        </button>
+      </div>
       <h1 className="resources-title">Resources</h1>
       
       <div className="resources-grid">
