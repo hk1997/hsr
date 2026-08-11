@@ -16,12 +16,21 @@ const toLocalDateString = (iso) => {
 // The case's effective date: explicit caseDate (YYYY-MM-DD) if set, else the createdAt timestamp.
 const getCaseDateString = (record) => record.caseDate || toLocalDateString(record.createdAt);
 
-// Format a YYYY-MM-DD string as a localized date without timezone shifting.
 const formatCaseDate = (record) => {
     const ds = getCaseDateString(record);
     if (!ds) return '—';
     const [year, month, day] = ds.split('-').map(Number);
     return new Date(year, month - 1, day).toLocaleDateString();
+};
+
+const getCaseStatusConfig = (record) => {
+    if (record.clinicalDecision) {
+        return { label: 'Decision Entered', color: '#2ed573', bg: 'rgba(46, 213, 115, 0.1)' };
+    }
+    if (record.sites && record.sites.some(s => s.cytoReportReceived)) {
+        return { label: 'Cytology Entered', color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.1)' };
+    }
+    return { label: 'Cytology Pending', color: '#ffa502', bg: 'rgba(255, 165, 2, 0.1)' };
 };
 
 const searchInputStyle = {
@@ -194,13 +203,24 @@ export default function CaseManagement() {
                                         ) : 'None'}
                                     </td>
                                     <td style={{ padding: '16px' }}>
-                                        <span style={{
-                                            display: 'inline-block',
-                                            width: '8px', height: '8px', borderRadius: '50%',
-                                            background: record.caseStatus === 'Closed' ? '#2ed573' : '#ffa502',
-                                            marginRight: '8px'
-                                        }}></span>
-                                        {record.caseStatus}
+                                        {(() => {
+                                            const status = getCaseStatusConfig(record);
+                                            return (
+                                                <span style={{
+                                                    display: 'inline-block',
+                                                    padding: '6px 12px',
+                                                    borderRadius: '16px',
+                                                    fontSize: '12px',
+                                                    fontWeight: '600',
+                                                    color: status.color,
+                                                    background: status.bg,
+                                                    border: `1px solid ${status.color}40`,
+                                                    whiteSpace: 'nowrap'
+                                                }}>
+                                                    {status.label}
+                                                </span>
+                                            );
+                                        })()}
                                     </td>
                                     <td style={{ padding: '16px' }}>
                                         <button
