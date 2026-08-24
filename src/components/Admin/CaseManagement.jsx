@@ -60,7 +60,14 @@ export default function CaseManagement() {
     const [uhidFilter, setUhidFilter] = useState('');
     const [nameFilter, setNameFilter] = useState('');
     const [dateFilter, setDateFilter] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 20;
     const navigate = useNavigate();
+
+    // Reset page to 1 when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [uhidFilter, nameFilter, dateFilter]);
 
     useEffect(() => {
         fetchCases();
@@ -114,6 +121,51 @@ export default function CaseManagement() {
             return matchesUhid && matchesName && matchesDate;
         });
     }, [cases, uhidFilter, nameFilter, dateFilter]);
+
+    const totalPages = Math.ceil(filteredCases.length / ITEMS_PER_PAGE);
+    const paginatedCases = useMemo(() => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredCases.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [filteredCases, currentPage, ITEMS_PER_PAGE]);
+
+    const renderPagination = () => {
+        if (totalPages <= 1) return null;
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', padding: '16px 0' }}>
+                <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    style={{
+                        padding: '6px 12px',
+                        borderRadius: '6px',
+                        border: '1px solid var(--card-border)',
+                        background: currentPage === 1 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)',
+                        color: currentPage === 1 ? 'var(--text-muted)' : 'var(--text)',
+                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+                    }}
+                >
+                    Previous
+                </button>
+                <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    style={{
+                        padding: '6px 12px',
+                        borderRadius: '6px',
+                        border: '1px solid var(--card-border)',
+                        background: currentPage === totalPages ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)',
+                        color: currentPage === totalPages ? 'var(--text-muted)' : 'var(--text)',
+                        cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+                    }}
+                >
+                    Next
+                </button>
+            </div>
+        );
+    };
 
     if (isLoading) return <div style={{ color: 'var(--primary)', textAlign: 'center', padding: '40px' }}>Loading cases...</div>;
     if (error) return <div style={{ color: '#ff4757', textAlign: 'center', padding: '40px' }}>Error: {error}</div>;
@@ -177,80 +229,84 @@ export default function CaseManagement() {
             ) : filteredCases.length === 0 ? (
                 <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '40px 0' }}>No cases match your filters.</p>
             ) : (
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                        <thead>
-                            <tr style={{ borderBottom: '1px solid var(--card-border)' }}>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Date</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Patient</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>UHID</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sites</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Status</th>
-                                <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredCases.map((record) => (
-                                <tr key={record.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                                    <td style={{ padding: '16px' }}>{formatCaseDate(record)}</td>
-                                    <td style={{ padding: '16px', fontWeight: '500' }}>{record.patientName || '—'}</td>
-                                    <td style={{ padding: '16px', fontWeight: 'bold' }}>{record.uhid || 'N/A'}</td>
-                                    <td style={{ padding: '16px' }}>
-                                        {record.sites && record.sites.length > 0 ? (
-                                            <span style={{ background: 'rgba(0, 225, 255, 0.1)', color: 'var(--primary)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>
-                                                {record.sites.length} Identified
-                                            </span>
-                                        ) : 'None'}
-                                    </td>
-                                    <td style={{ padding: '16px' }}>
-                                        {(() => {
-                                            const status = getCaseStatusConfig(record);
-                                            return (
-                                                <span style={{
-                                                    display: 'inline-block',
-                                                    padding: '6px 12px',
-                                                    borderRadius: '16px',
-                                                    fontSize: '12px',
-                                                    fontWeight: '600',
-                                                    color: status.color,
-                                                    background: status.bg,
-                                                    border: `1px solid ${status.color}40`,
-                                                    whiteSpace: 'nowrap'
-                                                }}>
-                                                    {status.label}
-                                                </span>
-                                            );
-                                        })()}
-                                    </td>
-                                    <td style={{ padding: '16px' }}>
-                                        <button
-                                            onClick={() => handleEdit(record.id)}
-                                            style={{
-                                                padding: '6px 16px',
-                                                borderRadius: '8px',
-                                                border: '1px solid var(--primary)',
-                                                background: 'rgba(0, 225, 255, 0.08)',
-                                                color: 'var(--primary)',
-                                                fontSize: '13px',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.2s ease',
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.background = 'rgba(0, 225, 255, 0.2)';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.background = 'rgba(0, 225, 255, 0.08)';
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
-                                    </td>
+                <>
+                    {renderPagination()}
+                    <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                            <thead>
+                                <tr style={{ borderBottom: '1px solid var(--card-border)' }}>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Date</th>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Patient</th>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>UHID</th>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sites</th>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Status</th>
+                                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 'normal' }}>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {paginatedCases.map((record) => (
+                                    <tr key={record.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                                        <td style={{ padding: '16px' }}>{formatCaseDate(record)}</td>
+                                        <td style={{ padding: '16px', fontWeight: '500' }}>{record.patientName || '—'}</td>
+                                        <td style={{ padding: '16px', fontWeight: 'bold' }}>{record.uhid || 'N/A'}</td>
+                                        <td style={{ padding: '16px' }}>
+                                            {record.sites && record.sites.length > 0 ? (
+                                                <span style={{ background: 'rgba(0, 225, 255, 0.1)', color: 'var(--primary)', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>
+                                                    {record.sites.length} Identified
+                                                </span>
+                                            ) : 'None'}
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            {(() => {
+                                                const status = getCaseStatusConfig(record);
+                                                return (
+                                                    <span style={{
+                                                        display: 'inline-block',
+                                                        padding: '6px 12px',
+                                                        borderRadius: '16px',
+                                                        fontSize: '12px',
+                                                        fontWeight: '600',
+                                                        color: status.color,
+                                                        background: status.bg,
+                                                        border: `1px solid ${status.color}40`,
+                                                        whiteSpace: 'nowrap'
+                                                    }}>
+                                                        {status.label}
+                                                    </span>
+                                                );
+                                            })()}
+                                        </td>
+                                        <td style={{ padding: '16px' }}>
+                                            <button
+                                                onClick={() => handleEdit(record.id)}
+                                                style={{
+                                                    padding: '6px 16px',
+                                                    borderRadius: '8px',
+                                                    border: '1px solid var(--primary)',
+                                                    background: 'rgba(0, 225, 255, 0.08)',
+                                                    color: 'var(--primary)',
+                                                    fontSize: '13px',
+                                                    fontWeight: '600',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s ease',
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.background = 'rgba(0, 225, 255, 0.2)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.background = 'rgba(0, 225, 255, 0.08)';
+                                                }}
+                                            >
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {renderPagination()}
+                </>
             )}
         </div>
     );
