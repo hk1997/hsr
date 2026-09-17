@@ -222,5 +222,25 @@ export class BackendStack extends cdk.Stack {
       value: 'https://irflo.net/medanta/thyroidfna',
       description: 'The custom domain URL hosting the frontend',
     });
+
+    // --- Summit 2026 Deployment ---
+    const summitDistPath = path.join(__dirname, '../../summit-2026/dist');
+    if (!fs.existsSync(summitDistPath)) {
+      fs.mkdirSync(summitDistPath, { recursive: true });
+      fs.writeFileSync(path.join(summitDistPath, 'index.html'), '<html><body>Summit Mock Frontend</body></html>');
+    }
+
+    new s3deploy.BucketDeployment(this, 'DeploySummitWebsite', {
+      sources: [s3deploy.Source.asset(summitDistPath)],
+      destinationBucket: websiteBucket,
+      destinationKeyPrefix: 'thyroid-summit-2026',
+      distribution,
+      distributionPaths: ['/thyroid-summit-2026/*'],
+    });
+    
+    new cdk.CfnOutput(this, 'SummitUrl', {
+      value: 'https://irflo.net/thyroid-summit-2026/',
+      description: 'The URL for the Thyroid Summit 2026 landing page',
+    });
   }
 }
