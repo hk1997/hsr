@@ -93,6 +93,16 @@ export class BackendStack extends cdk.Stack {
     });
 
     // --- Summit 2026 Lambdas ---
+    const summitAdminGetRegLambda = new lambda.Function(this, 'SummitAdminGetRegFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'summitAdminGetRegistrations.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: { 
+        TABLE_NAME: summitTable.tableName,
+        ADMIN_SECRET: 'TISAdmin2026'
+      },
+    });
+
     const summitCreateRegLambda = new lambda.Function(this, 'SummitCreateRegFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'summitCreateRegistration.handler',
@@ -126,6 +136,7 @@ export class BackendStack extends cdk.Stack {
     doctorsTable.grantReadWriteData(createDoctorLambda);
     doctorsTable.grantReadWriteData(deleteDoctorLambda);
 
+    summitTable.grantReadData(summitAdminGetRegLambda);
     summitTable.grantReadWriteData(summitCreateRegLambda);
     summitTable.grantReadData(summitGetSeatsLambda);
     summitTable.grantReadWriteData(summitWebhookLambda);
@@ -154,6 +165,9 @@ export class BackendStack extends cdk.Stack {
     summitResource.addResource('register').addMethod('POST', new apigateway.LambdaIntegration(summitCreateRegLambda));
     summitResource.addResource('seats').addMethod('GET', new apigateway.LambdaIntegration(summitGetSeatsLambda));
     summitResource.addResource('webhook').addMethod('POST', new apigateway.LambdaIntegration(summitWebhookLambda));
+    
+    const summitAdminResource = summitResource.addResource('admin');
+    summitAdminResource.addResource('registrations').addMethod('GET', new apigateway.LambdaIntegration(summitAdminGetRegLambda));
 
     // Output the API URL
     new cdk.CfnOutput(this, 'ApiUrl', {
