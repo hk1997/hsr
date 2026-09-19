@@ -180,16 +180,15 @@ function RegistrationForm() {
 
       if (res && res.ok) {
         const data = await res.json();
-        // 2. Here we would launch the Razorpay Checkout Modal
-        // using data.razorpayOrderId
         alert(`Integration step! Backend returned Order ID: ${data.razorpayOrderId}\nThis is where the Razorpay checkout opens.`);
         setIsSubmitting(false);
+      } else if (res) {
+        const errData = await res.json().catch(() => ({}));
+        setGlobalError(errData.error || "Failed to register. Please try again.");
+        setIsSubmitting(false);
       } else {
-        // Fake success for UI preview purposes
-        setTimeout(() => {
-          alert('Registration successful! (Dummy Mode)');
-          setIsSubmitting(false);
-        }, 1500);
+        setGlobalError("Failed to connect to the server. Please check your connection.");
+        setIsSubmitting(false);
       }
     } catch (e) {
       setGlobalError("Failed to connect to the server. Please try again.");

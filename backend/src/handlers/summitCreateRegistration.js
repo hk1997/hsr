@@ -1,5 +1,5 @@
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient, PutCommand } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBDocumentClient, PutCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 const crypto = require('crypto');
 
 const client = new DynamoDBClient({});
@@ -10,6 +10,26 @@ const TABLE_NAME = process.env.TABLE_NAME;
 exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
+
+    // 0. Prevent duplicate registrations by checking email
+    if (!body.email) {
+      return { statusCode: 400, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Email is required' }) };
+    }
+    
+    const existingCheck = await docClient.send(new ScanCommand({
+      TableName: TABLE_NAME,
+      FilterExpression: 'email = :email',
+      ExpressionAttributeValues: { ':email': body.email.trim().toLowerCase() }
+    }));
+
+    if (existingCheck.Items && existingCheck.Items.length > 0) {
+      const existing = existingCheck.Items[0];
+      if (existing.status === 'PAID') {
+        return { statusCode: 400, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'A completed registration with this email already exists.' }) };
+      } else {
+        return { statusCode: 400, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'A pending registration with this email already exists. Please contact support if you need to restart payment.' }) };
+      }
+    }
 
     // 1. Generate a unique Registration ID
     const registrationId = `TIS-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
@@ -23,7 +43,7 @@ exports.handler = async (event) => {
       // Personal Details
       title: body.title,
       name: body.name,
-      email: body.email,
+      email: body.email.trim().toLowerCase(),
       mobile: body.mobile,
       institution: body.institution,
       city: body.city,
