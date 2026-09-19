@@ -12,6 +12,7 @@ import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -20,11 +21,18 @@ export class BackendStack extends cdk.Stack {
     // 1. Define DynamoDB Table (Phase 7 & Phase 10)
     const casesTable = new dynamodb.Table(this, 'FnaCases', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Cost-effective for unpredictable workloads
-      removalPolicy: cdk.RemovalPolicy.RETAIN, // Keep data safe on stack deletion
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
     const doctorsTable = new dynamodb.Table(this, 'FnaDoctors', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+
+    // --- Summit 2026 DB Table ---
+    const summitTable = new dynamodb.Table(this, 'SummitRegistrations', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
@@ -41,62 +49,75 @@ export class BackendStack extends cdk.Stack {
       },
     });
 
-    // 3. Define Lambda Functions (Phase 8 scaffolding)
+    // 3. Define Lambda Functions
     const createCaseLambda = new lambda.Function(this, 'CreateCaseFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'createCase.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: casesTable.tableName,
-      },
+      environment: { TABLE_NAME: casesTable.tableName },
     });
 
     const listCasesLambda = new lambda.Function(this, 'ListCasesFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'listCases.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: casesTable.tableName,
-      },
+      environment: { TABLE_NAME: casesTable.tableName },
     });
 
     const updateCaseLambda = new lambda.Function(this, 'UpdateCaseFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'updateCase.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: casesTable.tableName,
-      },
+      environment: { TABLE_NAME: casesTable.tableName },
     });
 
     const listDoctorsLambda = new lambda.Function(this, 'ListDoctorsFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'listDoctors.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: doctorsTable.tableName,
-      },
+      environment: { TABLE_NAME: doctorsTable.tableName },
     });
 
     const createDoctorLambda = new lambda.Function(this, 'CreateDoctorFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'createDoctor.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: doctorsTable.tableName,
-      },
+      environment: { TABLE_NAME: doctorsTable.tableName },
     });
 
     const deleteDoctorLambda = new lambda.Function(this, 'DeleteDoctorFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'deleteDoctor.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
-      environment: {
-        TABLE_NAME: doctorsTable.tableName,
+      environment: { TABLE_NAME: doctorsTable.tableName },
+    });
+
+    // --- Summit 2026 Lambdas ---
+    const summitCreateRegLambda = new lambda.Function(this, 'SummitCreateRegFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'summitCreateRegistration.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: { TABLE_NAME: summitTable.tableName },
+    });
+
+    const summitGetSeatsLambda = new lambda.Function(this, 'SummitGetSeatsFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'summitGetSeats.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: { TABLE_NAME: summitTable.tableName },
+    });
+
+    const summitWebhookLambda = new lambda.Function(this, 'SummitWebhookFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'summitPaymentWebhook.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src/handlers')),
+      environment: { 
+        TABLE_NAME: summitTable.tableName,
+        SENDER_EMAIL: 'registrations@irflo.net' // SES Verified Identity
       },
     });
 
-    // 4. Grant Permissions (Phase 7 & 10)
+    // 4. Grant Permissions
     casesTable.grantReadWriteData(createCaseLambda);
     casesTable.grantReadData(listCasesLambda);
     casesTable.grantReadWriteData(updateCaseLambda);
@@ -105,31 +126,34 @@ export class BackendStack extends cdk.Stack {
     doctorsTable.grantReadWriteData(createDoctorLambda);
     doctorsTable.grantReadWriteData(deleteDoctorLambda);
 
+    summitTable.grantReadWriteData(summitCreateRegLambda);
+    summitTable.grantReadData(summitGetSeatsLambda);
+    summitTable.grantReadWriteData(summitWebhookLambda);
+
+    // Grant SES send email permission to the webhook lambda
+    summitWebhookLambda.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['ses:SendEmail', 'ses:SendRawEmail'],
+      resources: ['*'],
+    }));
+
     // 5. Connect API Gateway to Lambda
     const casesResource = api.root.addResource('cases');
-
-    // POST /cases
     casesResource.addMethod('POST', new apigateway.LambdaIntegration(createCaseLambda));
-
-    // GET /cases
     casesResource.addMethod('GET', new apigateway.LambdaIntegration(listCasesLambda));
-
-    // PATCH /cases/{id}
     const singleCaseResource = casesResource.addResource('{id}');
     singleCaseResource.addMethod('PATCH', new apigateway.LambdaIntegration(updateCaseLambda));
 
-    // /doctors Resource
     const doctorsResource = api.root.addResource('doctors');
-
-    // GET /doctors
     doctorsResource.addMethod('GET', new apigateway.LambdaIntegration(listDoctorsLambda));
-
-    // POST /doctors
     doctorsResource.addMethod('POST', new apigateway.LambdaIntegration(createDoctorLambda));
-
-    // DELETE /doctors/{id}
     const singleDoctorResource = doctorsResource.addResource('{id}');
     singleDoctorResource.addMethod('DELETE', new apigateway.LambdaIntegration(deleteDoctorLambda));
+
+    // --- Summit 2026 API Routes ---
+    const summitResource = api.root.addResource('summit');
+    summitResource.addResource('register').addMethod('POST', new apigateway.LambdaIntegration(summitCreateRegLambda));
+    summitResource.addResource('seats').addMethod('GET', new apigateway.LambdaIntegration(summitGetSeatsLambda));
+    summitResource.addResource('webhook').addMethod('POST', new apigateway.LambdaIntegration(summitWebhookLambda));
 
     // Output the API URL
     new cdk.CfnOutput(this, 'ApiUrl', {
@@ -200,9 +224,6 @@ export class BackendStack extends cdk.Stack {
     });
 
     // 7. Deploy Website Assets to S3 under medanta/thyroidfna prefix.
-    //    Wired to the CloudFront distribution so each deploy invalidates the
-    //    cache (otherwise CloudFront keeps serving a stale index.html that
-    //    references old, hashed asset bundles).
     new s3deploy.BucketDeployment(this, 'DeployMedantaIrRegistryWebsite', {
       sources: [s3deploy.Source.asset(distPath)],
       destinationBucket: websiteBucket,

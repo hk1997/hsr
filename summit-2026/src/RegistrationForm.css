@@ -1,0 +1,507 @@
+:root {
+  --canvas: #eef1f3;
+  --surface: #ffffff;
+  --ink: #16212b;
+  --muted: #5a6b78;
+  --line: #d5dde2;
+  --line-soft: #e7ecef;
+  --teal: #0f766e;
+  --teal-deep: #0b4f49;
+  --teal-tint: #e6f2f0;
+  --amber: #b45309;
+  --amber-tint: #fbeed9;
+  --red: #b1122a;
+  --red-tint: #fbe6ea;
+  --green: #1a7a3e;
+  --green-tint: #e7f4ec;
+  --shadow: 0 1px 2px rgba(20, 40, 55, 0.06), 0 10px 30px rgba(20, 40, 55, 0.07);
+}
+
+.reg-page {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.reg-page .wrap {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.reg-page h1, .reg-page h2, .reg-page h3 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.reg-page .mono {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+}
+
+/* Header */
+.reg-page header.hero {
+  background: var(--teal-deep);
+  color: #f1fffb;
+  border-bottom: 3px solid var(--teal);
+}
+
+.reg-page .hero .wrap {
+  padding: 34px 20px 30px;
+}
+
+.reg-page .hero .kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12.5px;
+  color: #8fd8cd;
+  margin-bottom: 10px;
+}
+
+.reg-page .hero h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  color: #f6fffc;
+}
+
+.reg-page .hero .meta {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reg-page .hero .pill {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: #dff5f0;
+}
+
+.reg-page .hero .pill b {
+  color: #f6fffc;
+  font-weight: 600;
+}
+
+.reg-page .hero .venues {
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: #bfe8df;
+}
+
+.reg-page .hero .venues span {
+  color: #f6fffc;
+}
+
+/* Main */
+.reg-page main {
+  padding: 26px 0 60px;
+}
+
+.reg-page .card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.reg-page .card h2 {
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+
+.reg-page .card .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+/* Tiers */
+.reg-page .tiers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 560px) {
+  .reg-page .tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.reg-page .tier {
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 15px;
+  position: relative;
+  background: var(--surface);
+}
+
+.reg-page .tier.active {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px var(--teal-tint);
+}
+
+.reg-page .tier.closed {
+  opacity: 0.55;
+}
+
+.reg-page .tier .tname {
+  font-family: "Space Grotesk";
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.reg-page .tier .twin {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.reg-page .tier .badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  background: var(--teal);
+  color: #fff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.reg-page .tier.closed .badge {
+  background: var(--muted);
+}
+
+.reg-page .tier .prow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13.5px;
+}
+
+.reg-page .tier .prow.first {
+  margin-top: 10px;
+}
+
+.reg-page .tier .pk {
+  color: var(--muted);
+}
+
+.reg-page .tier .pv {
+  font-family: "Space Grotesk";
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.reg-page .tier .prow.sel .pk {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.reg-page .tier .prow.sel .pv {
+  color: var(--teal);
+}
+
+/* Form Grid */
+.reg-page .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+
+@media (max-width: 560px) {
+  .reg-page .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.reg-page .field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.reg-page .field.full {
+  grid-column: 1 / -1;
+}
+
+.reg-page label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+}
+
+.reg-page label .req {
+  color: var(--red);
+}
+
+.reg-page input, .reg-page select {
+  font-family: "IBM Plex Sans";
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reg-page input:focus, .reg-page select:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px var(--teal-tint);
+}
+
+.reg-page input[type=file] {
+  font-size: 13px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.reg-page .hint {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.reg-page .err {
+  font-size: 11.5px;
+  color: var(--red);
+  display: none;
+}
+
+.reg-page .field.bad input, .reg-page .field.bad select {
+  border-color: var(--red);
+}
+
+.reg-page .field.bad .err {
+  display: block;
+}
+
+.reg-page .namewrap {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 10px;
+}
+
+/* Workshop Block */
+.reg-page .wsblock {
+  grid-column: 1 / -1;
+  border: 1px solid var(--teal);
+  background: var(--teal-tint);
+  border-radius: 11px;
+  padding: 14px 16px;
+}
+
+.reg-page .wsblock .flag {
+  font-size: 12px;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 9px;
+}
+
+.reg-page .wschk {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.reg-page .wschk input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--teal);
+  flex: none;
+}
+
+.reg-page .wschk input:disabled {
+  cursor: not-allowed;
+}
+
+.reg-page .wschk .t {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.reg-page .seats {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.reg-page .seats .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  flex: none;
+}
+
+.reg-page .seats.low .dot {
+  background: var(--amber);
+}
+
+.reg-page .seats.full .dot {
+  background: var(--red);
+}
+
+.reg-page .seats .n {
+  font-weight: 500;
+}
+
+.reg-page .seats.full {
+  color: var(--red);
+}
+
+/* Consent Checkbox */
+.reg-page .check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  grid-column: 1 / -1;
+  background: var(--teal-tint);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.reg-page .check input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--teal);
+  flex: none;
+}
+
+.reg-page .check .ctxt {
+  font-size: 13.5px;
+}
+
+.reg-page .check .ctxt .s {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* Summary */
+.reg-page .summary {
+  margin-top: 6px;
+  text-align: left;
+}
+
+.reg-page .sumcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+
+.reg-page .sline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+  color: var(--muted);
+}
+
+.reg-page .sline.total {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Space Grotesk";
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+  padding-top: 12px;
+}
+
+.reg-page .sline .mono {
+  color: var(--ink);
+}
+
+.reg-page .paybtn {
+  margin-top: 14px;
+  width: 100%;
+  font-family: "Space Grotesk";
+  font-weight: 500;
+  font-size: 16px;
+  background: var(--teal);
+  color: #fff;
+  border: 0;
+  border-radius: 11px;
+  padding: 14px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.reg-page .paybtn:hover {
+  filter: brightness(1.06);
+}
+
+.reg-page .paybtn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+}
+
+.reg-page .paysub {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 9px;
+}
+
+.reg-page .paysub b {
+  color: var(--ink);
+}
+
+.reg-page .notice {
+  margin-top: 12px;
+  font-size: 12.5px;
+  border-radius: 9px;
+  padding: 10px 12px;
+  display: none;
+}
+
+.reg-page .notice.warn {
+  display: block;
+  background: var(--amber-tint);
+  color: var(--amber);
+}
+
+.reg-page .notice.err {
+  display: block;
+  background: var(--red-tint);
+  color: var(--red);
+}
+
+/* Footer */
+.reg-page footer {
+  border-top: 1px solid var(--line);
+  padding: 22px 0 46px;
+  color: var(--muted);
+  font-size: 12.5px;
+  text-align: center;
+}
