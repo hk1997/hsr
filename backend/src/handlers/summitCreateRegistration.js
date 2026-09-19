@@ -1,5 +1,5 @@
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient, PutCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBDocumentClient, PutCommand, QueryCommand } = require('@aws-sdk/lib-dynamodb');
 const crypto = require('crypto');
 
 const client = new DynamoDBClient({});
@@ -16,9 +16,10 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Email is required' }) };
     }
     
-    const existingCheck = await docClient.send(new ScanCommand({
+    const existingCheck = await docClient.send(new QueryCommand({
       TableName: TABLE_NAME,
-      FilterExpression: 'email = :email',
+      IndexName: 'EmailIndex',
+      KeyConditionExpression: 'email = :email',
       ExpressionAttributeValues: { ':email': body.email.trim().toLowerCase() }
     }));
 

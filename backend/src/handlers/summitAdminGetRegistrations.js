@@ -5,13 +5,22 @@ const dynamoClient = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(dynamoClient);
 
 const TABLE_NAME = process.env.TABLE_NAME;
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'TISAdmin2026';
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
+const crypto = require('crypto');
 
 exports.handler = async (event) => {
   try {
-    // 1. Simple Auth Check
+    if (!ADMIN_SECRET) throw new Error('ADMIN_SECRET environment variable is missing');
+
+    // 1. Auth Check (Timing Safe)
     const authHeader = event.headers.Authorization || event.headers.authorization;
-    if (authHeader !== `Bearer ${ADMIN_SECRET}`) {
+    const expectedAuth = `Bearer ${ADMIN_SECRET}`;
+    
+    if (!authHeader || authHeader.length !== expectedAuth.length) {
+      return { statusCode: 401, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'Unauthorized' }) };
+    }
+    
+    if (!crypto.timingSafeEqual(Buffer.from(authHeader), Buffer.from(expectedAuth))) {
       return {
         statusCode: 401,
         headers: { 'Access-Control-Allow-Origin': '*' },

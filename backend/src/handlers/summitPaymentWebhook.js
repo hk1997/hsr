@@ -14,12 +14,21 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
 
-    // 1. [TODO: LATER] Verify Razorpay Webhook Signature
-    // const signature = event.headers['x-razorpay-signature'];
-    // const expectedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_WEBHOOK_SECRET).update(event.body).digest('hex');
-    // if (signature !== expectedSignature) throw new Error('Invalid signature');
+    // 1. Verify Razorpay Webhook Signature
+    const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET;
+    if (!RAZORPAY_WEBHOOK_SECRET) throw new Error('Missing RAZORPAY_WEBHOOK_SECRET');
 
-    // For now, we assume the webhook body contains the registrationId in its notes (standard Razorpay practice)
+    const signature = event.headers['x-razorpay-signature'] || event.headers['X-Razorpay-Signature'];
+    if (!signature) {
+      return { statusCode: 400, body: 'Missing signature' };
+    }
+
+    const expectedSignature = crypto.createHmac('sha256', RAZORPAY_WEBHOOK_SECRET).update(event.body).digest('hex');
+    
+    if (signature.length !== expectedSignature.length || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+      return { statusCode: 401, body: 'Invalid signature' };
+    }
+
     // E.g., body.payload.payment.entity.notes.registrationId
     const registrationId = body?.payload?.payment?.entity?.notes?.registrationId || body.registrationId;
 
@@ -43,6 +52,11 @@ exports.handler = async (event) => {
     }));
 
     const registration = updateResponse.Attributes;
+    
+    // Basic HTML escaper
+    const escapeHTML = str => String(str).replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag] || tag));
 
     // 3. Send Confirmation Email via AWS SES
     if (registration && registration.email) {
@@ -56,11 +70,11 @@ exports.handler = async (event) => {
           Body: {
             Html: {
               Data: `
-                <h3>Dear ${registration.title} ${registration.name},</h3>
+                <h3>Dear ${escapeHTML(registration.title)} ${escapeHTML(registration.name)},</h3>
                 <p>Thank you for registering for the <strong>Thyroid Intervention Summit 2026</strong>.</p>
                 <p>Your payment has been successfully received, and your registration is confirmed.</p>
-                <p><strong>Registration ID:</strong> ${registrationId}</p>
-                <p><strong>Category:</strong> ${registration.category}</p>
+                <p><strong>Registration ID:</strong> ${escapeHTML(registrationId)}</p>
+                <p><strong>Category:</strong> ${escapeHTML(registration.category)}</p>
                 <p><strong>Hands-on Workshop:</strong> ${registration.workshop ? 'Included (Day 1)' : 'Not Included'}</p>
                 <br/>
                 <p>We look forward to seeing you in New Delhi / Gurugram!</p>

@@ -37,6 +37,12 @@ export class BackendStack extends cdk.Stack {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
+    
+    summitTable.addGlobalSecondaryIndex({
+      indexName: 'EmailIndex',
+      partitionKey: { name: 'email', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
 
     // 2. Define API Gateway (Phase 7)
     const api = new apigateway.RestApi(this, 'MedantaIrRegistryApi', {
