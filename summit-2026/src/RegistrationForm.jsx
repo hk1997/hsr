@@ -60,7 +60,7 @@ function RegistrationForm() {
       if (formData.specialty !== 'IR') return;
       try {
         // We will call the actual API once deployed
-        const res = await fetch('https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod/summit/seats').catch(() => null);
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod'}/summit/seats`).catch(() => null);
         if (res && res.ok) {
           const j = await res.json();
           setSeats({ known: true, remaining: j.remaining });
@@ -172,7 +172,7 @@ function RegistrationForm() {
       };
 
       // Simulating API call to the Lambda endpoint we just built
-      const res = await fetch('https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod/summit/register', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod'}/summit/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
