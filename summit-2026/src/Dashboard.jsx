@@ -14,7 +14,7 @@ function Dashboard() {
     setError('');
     
     try {
-      const res = await fetch('https://irflo.net/api/summit/admin/registrations', {
+      const res = await fetch('https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod/summit/admin/registrations', {
         headers: {
           'Authorization': `Bearer ${password}`
         }
@@ -35,7 +35,7 @@ function Dashboard() {
 
   const fetchRegistrations = async () => {
     try {
-      const res = await fetch('https://irflo.net/api/summit/admin/registrations', {
+      const res = await fetch('https://0g82gy1lng.execute-api.ap-south-1.amazonaws.com/prod/summit/admin/registrations', {
         headers: {
           'Authorization': `Bearer ${password}`
         }
