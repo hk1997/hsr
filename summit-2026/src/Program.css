@@ -212,3 +212,13 @@
   .fac-entry:first-child{border-top:none}
   .fac-name{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);display:block}
   .fac-desig{font-size:12.5px;color:var(--ink-soft);display:block;margin-top:2px}
+/* Nav styles */
+nav.top{position:sticky;top:0;z-index:40;background:#ffffff;border-bottom:1px solid #d5dde2;box-shadow:0 1px 2px rgba(20,40,55,.06),0 10px 30px rgba(20,40,55,.07)}
+nav.top .brand{font-family:"Space Grotesk", sans-serif;font-weight:700;font-size:15px;color:#16212b;text-decoration:none;margin-right:auto}
+nav.top .brand span{color:#0f766e}
+nav.top a.lnk{color:#5a6b78;text-decoration:none;font-size:14px;font-weight:500;padding:8px 12px;border-radius:8px}
+nav.top a.lnk:hover{color:#16212b;background:#e6f2f0}
+nav.top a.lnk.active{color:#0f766e}
+nav.top a.cta{background:#0f766e;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:9px 16px;border-radius:9px}
+nav.top a.cta:hover{filter:brightness(1.07)}
+@media(max-width:560px){nav.top .brand{font-size:13px}nav.top a.lnk{padding:8px 8px}}
