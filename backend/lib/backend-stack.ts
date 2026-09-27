@@ -279,6 +279,24 @@ export class BackendStack extends cdk.Stack {
       distributionPaths: ['/thyroid-summit-2026/*'],
     });
     
+    
+    // --- Root Redirect to Summit ---
+    const rootDistPath = path.join(__dirname, '../../root-dist');
+    if (!fs.existsSync(rootDistPath)) {
+      fs.mkdirSync(rootDistPath, { recursive: true });
+    }
+    fs.writeFileSync(
+      path.join(rootDistPath, 'index.html'), 
+      '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/thyroid-summit-2026/" /></head><body></body></html>'
+    );
+
+    new s3deploy.BucketDeployment(this, 'DeployRootRedirect', {
+      sources: [s3deploy.Source.asset(rootDistPath)],
+      destinationBucket: websiteBucket,
+      distribution,
+      distributionPaths: ['/index.html', '/'],
+    });
+
     new cdk.CfnOutput(this, 'SummitUrl', {
       value: 'https://irflo.net/thyroid-summit-2026/',
       description: 'The URL for the Thyroid Summit 2026 landing page',
