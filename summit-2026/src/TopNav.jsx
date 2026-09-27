@@ -12,7 +12,7 @@ const TopNav = () => {
         <Link to="/" className="top-nav-brand">Thyroid Intervention Summit <span>2026</span></Link>
         <Link to="/" className={`top-nav-lnk ${path === '/' ? 'active' : ''}`}>Home</Link>
         <Link to="/program" className={`top-nav-lnk ${path === '/program' ? 'active' : ''}`}>Scientific Program</Link>
-        <Link to="/register" className="top-nav-cta">Register</Link>
+        <a href="#" onClick={(e) => { e.preventDefault(); alert('Registration opens soon'); }} className="top-nav-cta">Register</a>
       </div>
     </nav>
   );
