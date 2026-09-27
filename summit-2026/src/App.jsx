@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './Home'
 import Program from './Program'
 import RegistrationForm from './RegistrationForm'
@@ -13,6 +13,7 @@ function App() {
         <Route path="/program" element={<Program />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/admin" element={<Dashboard />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </HashRouter>
   )
