@@ -276,7 +276,7 @@ export class BackendStack extends cdk.Stack {
       destinationBucket: websiteBucket,
       destinationKeyPrefix: 'thyroid-summit-2026',
       distribution,
-      distributionPaths: ['/thyroid-summit-2026/*'],
+      distributionPaths: ['/*'],
     });
     
     
@@ -287,14 +287,14 @@ export class BackendStack extends cdk.Stack {
     }
     fs.writeFileSync(
       path.join(rootDistPath, 'index.html'), 
-      '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/thyroid-summit-2026/" /></head><body></body></html>'
+      '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/thyroid-summit-2026/" /><!-- bust --></head><body></body></html>'
     );
 
     new s3deploy.BucketDeployment(this, 'DeployRootRedirect', {
       sources: [s3deploy.Source.asset(rootDistPath)],
       destinationBucket: websiteBucket,
       distribution,
-      distributionPaths: ['/index.html', '/'],
+      distributionPaths: ['/*'],
     });
 
     new cdk.CfnOutput(this, 'SummitUrl', {
