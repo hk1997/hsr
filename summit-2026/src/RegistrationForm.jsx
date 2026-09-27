@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './RegistrationForm.css';
+import TopNav from './TopNav';
 
 // Keep configuration out of the component
 const CONFIG = {
@@ -197,7 +198,9 @@ function RegistrationForm() {
   };
 
   return (
-    <div className="reg-page">
+    <>
+      <TopNav />
+      <div className="reg-page">
       <header className="hero">
         <div className="wrap">
           <div className="kicker">CME · thyroid ablation &amp; intervention · Delhi-NCR</div>
@@ -406,6 +409,7 @@ function RegistrationForm() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 

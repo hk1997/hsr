@@ -1,0 +1,61 @@
+/* Top Nav styles */
+.top-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #d5dde2;
+  box-shadow: 0 1px 2px rgba(20,40,55,.06),0 10px 30px rgba(20,40,55,.07);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+.top-nav-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.top-nav-brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #16212b;
+  text-decoration: none;
+  margin-right: auto;
+}
+.top-nav-brand span {
+  color: #0f766e;
+}
+.top-nav-lnk {
+  color: #5a6b78;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.top-nav-lnk:hover {
+  color: #16212b;
+  background: #e6f2f0;
+}
+.top-nav-lnk.active {
+  color: #0f766e;
+}
+.top-nav-cta {
+  background: #0f766e;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 9px;
+}
+.top-nav-cta:hover {
+  filter: brightness(1.07);
+}
+@media (max-width: 560px) {
+  .top-nav-brand { font-size: 13px; }
+  .top-nav-lnk { padding: 8px 8px; }
+}

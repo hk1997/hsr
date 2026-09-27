@@ -4,20 +4,15 @@
 import React, { useState } from 'react';
 import './Program.css';
 import { Link } from 'react-router-dom';
+import TopNav from './TopNav';
 
 const Program = () => {
   const [activeTab, setActiveTab] = useState('1');
   return (
     <>
       
-<nav className="top">
-  <div className="wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px', height: '56px', maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
-    <Link to="/" className="brand">Thyroid Intervention Summit <span>2026</span></Link>
-    <Link to="/" className="lnk">Home</Link>
-    <Link to="/program" className="lnk active">Scientific Program</Link>
-    <Link to="/register" className="cta">Register</Link>
-  </div>
-</nav>
+
+<TopNav />
 <div className="sheet">
 
   {/*  ===== HEADER =====  */}
