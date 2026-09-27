@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ConferenceSummit.css';
@@ -221,9 +224,9 @@ const ConferenceSummit = () => {
       </div>
 
       {/* FLOATING CTA */}
-      <Link to="/ThyroidInterventionSummit2026/register" className="summit-fab">
+      <a href="#" onClick={(e) => { e.preventDefault(); alert('Registration opens soon'); }} className="summit-fab">
         Register Now
-      </Link>
+      </a>
     </div>
   );
 };

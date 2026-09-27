@@ -293,6 +293,7 @@ export class BackendStack extends cdk.Stack {
     new s3deploy.BucketDeployment(this, 'DeployRootRedirect', {
       sources: [s3deploy.Source.asset(rootDistPath)],
       destinationBucket: websiteBucket,
+      prune: false,
       distribution,
       distributionPaths: ['/*'],
     });
