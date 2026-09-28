@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './RegistrationForm.css';
 
 function Dashboard() {
@@ -27,7 +27,7 @@ function Dashboard() {
       } else {
         setError('Invalid password or unauthorized.');
       }
-    } catch (err) {
+    } catch (err) { // eslint-disable-line no-unused-vars
       setError('Failed to connect to the server.');
     }
     setLoading(false);
@@ -44,7 +44,7 @@ function Dashboard() {
         const data = await res.json();
         setRegistrations(data.registrations || []);
       }
-    } catch (err) {
+    } catch (err) { // eslint-disable-line no-unused-vars
       console.error(err);
     }
   };

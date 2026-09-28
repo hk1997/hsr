@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unknown-property */
+ 
 import React, { useState } from 'react';
 import './Program.css';
 import { Link } from 'react-router-dom';
@@ -402,7 +402,7 @@ const Program = () => {
         <h3 className="slot-title">Post-Ablation Follow-Up — VRR Reporting, Regrowth &amp; Cancer Detection</h3>
         <div className="talk-split">20 min lecture + 5 min discussion</div>
         <p className="slot-desc">Evidence-based surveillance protocol, volume reduction ratio (VRR) interpretation, follow-up imaging at 1/3/6/12 months, mechanisms of regrowth and repeat-treatment algorithm, plus red flags and salvage pathways for de-novo or occult malignancy on follow-up.</p>
-        <div className="faculty">Dr. Navin M. Mulamani<span style={{color: 'var(--grey)', fontWeight: '400'}}> · Belgaum</span></div>
+        <div className="faculty">Dr. Navin M. Mulimani<span style={{color: 'var(--grey)', fontWeight: '400'}}> · Belgaum</span></div>
       </div>
     </div>
 
@@ -487,7 +487,7 @@ const Program = () => {
         <div className="fac-entry"><span className="fac-name">Dr. Shahnawaz Bashir</span><span className="fac-desig">Head of Unit, Interventional Radiology, Max Hospital, Saket, New Delhi</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Prabhjyot Singh Chowhan</span><span className="fac-desig">Consultant, Interventional Radiology, Medanta – The Medicity, Gurugram</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Gaurav Gangwani</span><span className="fac-desig">Consultant, Interventional Radiology, Lilavati Hospital & Research Centre, Mumbai</span></div>
-        <div className="fac-entry"><span className="fac-name">Dr. Navin M. Mulamani</span><span className="fac-desig">Consultant, Interventional Radiology, Belgaum</span></div>
+        <div className="fac-entry"><span className="fac-name">Dr. Navin M. Mulimani</span><span className="fac-desig">Consultant, Interventional Radiology, Belgaum</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Sanchita Gupta</span><span className="fac-desig">Assistant Professor, Interventional Radiology, AIIMS, New Delhi</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Tara Prasad Tripathy</span><span className="fac-desig">Assistant Professor, Interventional Radiology, AIIMS Bhubaneswar</span></div>
       </div>

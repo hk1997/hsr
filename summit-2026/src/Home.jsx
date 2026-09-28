@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unknown-property */
+ 
 import React from 'react';
 import './Home.css';
 import { Link } from 'react-router-dom';
