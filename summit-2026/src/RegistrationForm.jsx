@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import './RegistrationForm.css';
 import TopNav from './TopNav';
 
@@ -68,7 +68,7 @@ function RegistrationForm() {
         } else {
           setSeats({ known: false, remaining: CONFIG.workshopCap });
         }
-      } catch (e) {
+      } catch (e) { // eslint-disable-line no-unused-vars
         setSeats({ known: false, remaining: CONFIG.workshopCap });
       }
     }
@@ -191,7 +191,7 @@ function RegistrationForm() {
         setGlobalError("Failed to connect to the server. Please check your connection.");
         setIsSubmitting(false);
       }
-    } catch (e) {
+    } catch (e) { // eslint-disable-line no-unused-vars
       setGlobalError("Failed to connect to the server. Please try again.");
       setIsSubmitting(false);
     }
@@ -222,7 +222,7 @@ function RegistrationForm() {
           {/* TIERS */}
           <div className="card">
             <h2>Registration fees</h2>
-            <div className="sub">Consultant and Fellow/Trainee fees are shown side by side; your applicable window is highlighted automatically by today's date.</div>
+            <div className="sub">Consultant and Fellow/Trainee fees are shown side by side; your applicable window is highlighted automatically by today&apos;s date.</div>
             <div className="tiers">
               {TIER_META.map(tm => {
                 const c = CONFIG.prices[tm.key].consultant;
@@ -391,7 +391,7 @@ function RegistrationForm() {
                  `Proceed to secure payment · ${formatCurrency(totals.total)}`}
               </button>
               
-              <div className="paysub">Payments processed securely by <b>Razorpay</b>. You'll be redirected to complete payment.</div>
+              <div className="paysub">Payments processed securely by <b>Razorpay</b>. You&apos;ll be redirected to complete payment.</div>
               
               {globalWarn && <div className="notice warn">{globalWarn}</div>}
               {globalError && <div className="notice err">{globalError}</div>}
