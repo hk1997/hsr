@@ -476,7 +476,7 @@ const Program = () => {
         <div className="fac-entry"><span className="fac-name">Dr. S. S. Baijal</span><span className="fac-desig">Chairman, Diagnostic & Interventional Radiology, Medanta – The Medicity, Gurugram</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Arun Gupta</span><span className="fac-desig">Chairperson & Senior Consultant, Interventional Radiology, Sir Ganga Ram Hospital, New Delhi</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Jyoti Kumar</span><span className="fac-desig">Director Professor, Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
-        <div className="fac-entry"><span className="fac-name">Dr. Alpana Manchanda</span><span className="fac-desig">Director Professor, Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
+        <div className="fac-entry"><span className="fac-name">Dr. Alpana Manchanda</span><span className="fac-desig">Director Professor &amp; HOD Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Karthikeyan Damodharan</span><span className="fac-desig">Director, Vascular & Interventional Radiology, MIOT International, Chennai</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Anubhav Khandelwal</span><span className="fac-desig">Director, Interventional Radiology, Medanta – The Medicity, Gurugram</span></div>
         <div className="fac-entry"><span className="fac-name">Dr. Rohit Khandelwal</span><span className="fac-desig">Director, Interventional Radiology, Medanta, Noida</span></div>
