@@ -410,7 +410,7 @@ const Program = () => {
       <div className="slot-time"><span className="t">13:00</span><span className="d">60 min</span></div>
       <div className="slot-body">
         <h3 className="slot-title">Lunch Break</h3>
-        <p className="slot-desc">Buffet lunch · Industry-sponsored lunch symposium available in Room B (optional)</p>
+
       </div>
     </div>
 
