@@ -111,7 +111,7 @@
   .hint .arw{animation:none}
 }
 .deck-wrapper {
-  background: var(--teal-deep);
+  background: #0a5551;
   color: var(--cream);
   font-family: var(--serif);
   position: fixed;
