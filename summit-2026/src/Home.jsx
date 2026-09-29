@@ -110,7 +110,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="deck-wrapper">
       <a href="#" onClick={handleRegisterClick} className="reg-pill">Register now</a>
 
       <button 
@@ -218,7 +218,7 @@ const Home = () => {
         </section>
 
       </main>
-    </>
+    </div>
   );
 };
 
