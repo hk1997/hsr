@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const PANELS = [
   { id: 'banner' },
@@ -13,6 +14,27 @@ const PANELS = [
 const Home = () => {
   const deckRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setActiveIndex(current => {
+        const next = current >= PANELS.length - 1 ? 0 : current + 1;
+        const deck = deckRef.current;
+        if (deck) {
+          const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+          deck.scrollTo({
+            left: next * deck.clientWidth,
+            behavior: mediaQuery.matches ? 'auto' : 'smooth'
+          });
+        }
+        return next; // we let scroll sync it too, but just in case
+      });
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [isPaused]);
 
   useEffect(() => {
     const deck = deckRef.current;
@@ -92,10 +114,18 @@ const Home = () => {
   };
 
   return (
-    <div className="deck-wrapper">
+    <div className="deck-wrapper"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+    >
 
 
-<a className="reg-pill" href="#" onClick={handleRegisterClick}>Register</a>
+<div className="top-nav">
+        <Link to="/program" className="prog-pill">Scientific program</Link>
+        <a className="reg-pill" href="#" onClick={handleRegisterClick}>Register</a>
+      </div>
 
 <div className="deck" id="deck" ref={deckRef}>
 
