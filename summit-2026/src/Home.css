@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-#root { max-width: none !important; padding: 0 !important; margin: 0 !important; height: 100%; text-align: left !important; }
-body { display: block !important; }
 
 @media (prefers-reduced-motion: reduce) {
   .deck { scroll-behavior: auto; }
@@ -17,8 +15,8 @@ body { display: block !important; }
   --display:'Playfair Display',Georgia,serif;
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:var(--teal-deep)}
-body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+
+
 
 /* ---- Deck ---- */
 .deck{display:flex;height:100vh;height:100dvh;overflow-x:auto;overflow-y:hidden;
@@ -111,4 +109,14 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 @media(prefers-reduced-motion:reduce){
   .deck{scroll-behavior:auto}
   .hint .arw{animation:none}
+}
+.deck-wrapper {
+  background: var(--teal-deep);
+  color: var(--cream);
+  font-family: var(--serif);
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
 }
