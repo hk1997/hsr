@@ -3,11 +3,16 @@ import './Home.css';
 
 const PANELS = [
   { id: 'banner', title: 'Banner' },
-  { id: 'concept', title: 'The Concept' },
-  { id: 'hands-on', title: 'Hands-On' },
-  { id: 'multidisciplinary', title: 'Under One Roof' },
-  { id: 'faculty', title: 'The Faculty' },
-  { id: 'cta', title: 'Join us in November' }
+  { id: 'concept', title: 'About the summit' },
+  { id: 'hands-on', title: 'Hands-on RFA & MWA' },
+  { id: 'patient-selection', title: 'Patient selection' },
+  { id: 'multidisciplinary', title: 'Truly multidisciplinary' },
+  { id: 'international-faculty', title: 'International faculty' },
+  { id: 'evidence', title: 'Evidence, honestly weighed' },
+  { id: 'cme', title: 'CME accredited' },
+  { id: 'schedule', title: 'At a glance' },
+  { id: 'faculty', title: 'Faculty' },
+  { id: 'registration', title: 'Registration' }
 ];
 
 const Home = () => {
@@ -152,37 +157,49 @@ const Home = () => {
         </section>
 
         {/* Panel 2: CONCEPT + WHO */}
-        <section className="panel" id="concept" data-index="1" tabIndex="0" aria-label="The concept">
+        <section className="panel" id="concept" data-index="1" tabIndex="0" aria-label="About the summit">
           <div className="pinner">
-            <p className="eyebrow">The Concept</p>
+            <p className="eyebrow">About the summit</p>
             <h2 className="ptitle">Thyroid intervention, <em>from every angle</em></h2>
             <p className="ptext">The Thyroid Intervention Summit 2026 brings the full thyroid-nodule pathway into one room — imaging and cytology, patient selection, ablation technique and energy, and the surgical and endocrine perspectives that decide who should be treated and how.</p>
-            <div className="who"><b>Who it's for</b>Organised by Dr. Anubhav Khandelwal... Around 100 delegates — practising IR, endocrine surgery, nuclear medicine, endocrinology and cytopathology specialists, and DrNB-level trainees — are expected.</div>
+            <div className="who">
+              <b>Who it's for</b>
+              Organised by Dr. Anubhav Khandelwal — Organising Secretary and Director of Interventional Radiology at Medanta – The Medicity — under Course Director Dr. S. S. Baijal, the meeting is designed to be genuinely multidisciplinary rather than a single-specialty gathering. Day 1 is a pre-conference hands-on workshop held as part of ISTS 2026 at Medanta, Gurgaon. Day 2 is a full-day IR-Tutorials scientific programme at Holiday Inn, Aerocity, New Delhi, closing with High Tea. Around 100 delegates — practising IR, endocrine surgery, nuclear medicine, endocrinology and cytopathology specialists, and DrNB-level trainees — are expected.
+            </div>
           </div>
         </section>
 
         {/* Panel 3: HANDS-ON */}
-        <section className="panel" id="hands-on" data-index="2" tabIndex="0" aria-label="Hands-on workshop">
+        <section className="panel" id="hands-on" data-index="2" tabIndex="0" aria-label="Hands-on RFA & MWA">
           <div className="pinner">
-            <p className="eyebrow">Hands-On</p>
+            <p className="eyebrow">Why attend</p>
             <h2 className="ptitle">Hands-on <em>RFA &amp; MWA</em></h2>
             <p className="ptext">Parallel-rotation stations on Day 1 for radiofrequency and microwave ablation — open to Interventional Radiology / Radiology delegates, limited to 50 seats.</p>
             <div className="chips">
+              <span className="chip">RFA &amp; MWA</span>
               <span className="chip">Day 1</span>
-              <span className="chip">Parallel-rotation</span>
               <span className="chip">50 seats</span>
             </div>
           </div>
         </section>
 
-        {/* Panel 4: MULTIDISCIPLINARY */}
-        <section className="panel" id="multidisciplinary" data-index="3" tabIndex="0" aria-label="Multidisciplinary">
+        {/* Panel 4: Patient selection */}
+        <section className="panel" id="patient-selection" data-index="3" tabIndex="0" aria-label="Patient selection">
           <div className="pinner">
-            <p className="eyebrow">Under One Roof</p>
+            <p className="eyebrow">Why attend</p>
+            <h2 className="ptitle">Patient selection <em>as the throughline</em></h2>
+            <p className="ptext">A dedicated focus on who to treat and when — decision-making surfaced across both days, not buried in a single talk.</p>
+          </div>
+        </section>
+
+        {/* Panel 5: MULTIDISCIPLINARY */}
+        <section className="panel" id="multidisciplinary" data-index="4" tabIndex="0" aria-label="Truly multidisciplinary">
+          <div className="pinner">
+            <p className="eyebrow">Why attend</p>
             <h2 className="ptitle">Truly <em>multidisciplinary</em></h2>
             <p className="ptext">IR, endocrine surgery, nuclear medicine, endocrinology and cytopathology on the same faculty and the same panel.</p>
             <div className="chips">
-              <span className="chip">IR</span>
+              <span className="chip">Interventional Radiology</span>
               <span className="chip">Endocrine Surgery</span>
               <span className="chip">Nuclear Medicine</span>
               <span className="chip">Endocrinology</span>
@@ -191,28 +208,92 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Panel 5: FACULTY / ACCESS */}
-        <section className="panel" id="faculty" data-index="4" tabIndex="0" aria-label="The faculty">
+        {/* Panel 6: International faculty */}
+        <section className="panel" id="international-faculty" data-index="5" tabIndex="0" aria-label="International faculty">
           <div className="pinner">
-            <p className="eyebrow">The Faculty</p>
-            <h2 className="ptitle">23 faculty across <em>five specialties</em></h2>
-            <p className="ptext">Organising Secretary Dr. Anubhav Khandelwal, Course Director Dr. S. S. Baijal, and International Faculty Prof. Marcin Barczyński.</p>
+            <p className="eyebrow">Why attend</p>
+            <h2 className="ptitle">International <em>faculty</em></h2>
+            <p className="ptext">Prof. Marcin Barczyński (Jagiellonian University, Kraków) joins the faculty for the surgical and expanding-indications perspective.</p>
             <div className="chips">
-              <span className="chip">Dr. Anubhav Khandelwal</span>
-              <span className="chip">Dr. S. S. Baijal</span>
               <span className="chip">Prof. Marcin Barczyński</span>
             </div>
           </div>
         </section>
 
-        {/* Panel 6: CTA */}
-        <section className="panel p-cta" id="cta" data-index="5" tabIndex="0" aria-label="Registration">
+        {/* Panel 7: Evidence, honestly weighed */}
+        <section className="panel" id="evidence" data-index="6" tabIndex="0" aria-label="Evidence, honestly weighed">
           <div className="pinner">
-            <div className="cta-title">Registration</div>
-            <div className="cta-meta">27–28 Nov 2026 · Delhi-NCR</div>
-            <div className="cta-venue">Day 1 · Friday, 27 Nov 2026 · Medanta – The Medicity, Gurgaon<br/>Day 2 · Saturday, 28 Nov 2026 · Holiday Inn, Aerocity, New Delhi</div>
+            <p className="eyebrow">Why attend</p>
+            <h2 className="ptitle">Evidence, <em>honestly weighed</em></h2>
+            <p className="ptext">Guidelines, RCT and non-RCT evidence, TI-RADS and Bethesda cytology — presented with where the evidence is strong and where it isn't.</p>
+          </div>
+        </section>
+
+        {/* Panel 8: CME accredited */}
+        <section className="panel" id="cme" data-index="7" tabIndex="0" aria-label="CME accredited">
+          <div className="pinner">
+            <p className="eyebrow">Why attend</p>
+            <h2 className="ptitle">CME <em>accredited</em></h2>
+            <p className="ptext">The meeting carries CME accreditation (in process) — certificates issued to registered delegates.</p>
+          </div>
+        </section>
+
+        {/* Panel 9: SCHEDULE / At a glance */}
+        <section className="panel p-cta" id="schedule" data-index="8" tabIndex="0" aria-label="At a glance">
+          <div className="pinner">
+            <div className="cta-title">Two days, two sites</div>
+            <div className="cta-meta">At a glance</div>
+            <div className="cta-venue">
+              Day 1 · pre-conference workshop<br/>
+              Friday, 27 Nov 2026<br/>
+              13:30 – 18:30 · under ISTS 2026<br/>
+              Medanta – The Medicity, Gurgaon
+              <br/><br/>
+              Day 2 · IR-Tutorials<br/>
+              Saturday, 28 Nov 2026<br/>
+              08:30 – 15:05 · closing High Tea<br/>
+              Holiday Inn, Aerocity, New Delhi
+            </div>
+            <div className="cta-contact">See the full session-by-session breakdown on the Scientific Programme page.</div>
+          </div>
+        </section>
+
+        {/* Panel 10: FACULTY / ACCESS */}
+        <section className="panel" id="faculty" data-index="9" tabIndex="0" aria-label="The faculty">
+          <div className="pinner">
+            <p className="eyebrow">Faculty</p>
+            <h2 className="ptitle">23 faculty across <em>five specialties</em></h2>
+            <p className="ptext">The faculty spans: Interventional Radiology &amp; Radiology · Endocrine Surgery · Nuclear Medicine · Endocrinology · Cytopathology — grouped by specialty and ordered by seniority. The full faculty list appears in the conference booklet.</p>
+            <div className="who" style={{marginTop: '0', border: '0', padding: '0'}}>
+              <div style={{marginBottom: '16px'}}>
+                <b>Organising Secretary</b>
+                Dr. Anubhav Khandelwal — Director, Interventional Radiology, Medanta – The Medicity, Gurgaon
+              </div>
+              <div style={{marginBottom: '16px'}}>
+                <b>Course Director</b>
+                Dr. S. S. Baijal — Chairman, Diagnostic &amp; Interventional Radiology, Medanta
+              </div>
+              <div>
+                <b>International Faculty</b>
+                Prof. Marcin Barczyński — Jagiellonian University, Kraków, Poland
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Panel 11: CTA */}
+        <section className="panel p-cta" id="registration" data-index="10" tabIndex="0" aria-label="Registration">
+          <div className="pinner">
+            <div className="cta-title">Fees</div>
+            <div className="cta-meta">Registration</div>
+            <div className="cta-venue" style={{marginBottom: '16px'}}>
+              Early bird · until 15 Oct<br/>
+              ₹3,000 consultant · ₹1,500 fellow/trainee
+              <br/><br/>
+              Regular · 16 Oct – 20 Nov<br/>
+              ₹5,000 consultant · ₹1,500 fellow/trainee
+            </div>
             <a className="btn mt" href="#" onClick={handleRegisterClick}>Register now</a>
-            <div className="eb">Early bird · until 15 Oct: ₹3,000 consultant · ₹1,500 fellow/trainee<br/>Regular · 16 Oct – 20 Nov: ₹5,000 consultant · ₹1,500 fellow/trainee</div>
             <div className="cta-contact">Hands-on workshop (IR / Radiology only) may be added during registration — seats are limited to 50. Fellows and trainees register at the concessional fee with proof of status.</div>
           </div>
         </section>
