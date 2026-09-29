@@ -120,7 +120,7 @@ const Home = () => {
       <a href="#" onClick={handleRegisterClick} className="reg-pill">Register now</a>
 
       <button 
-        className="nav-btn prev" 
+        className="nav prev" 
         onClick={() => scrollToIndex(activeIndex - 1)}
         disabled={activeIndex <= 0}
         aria-label="Previous"
@@ -128,7 +128,7 @@ const Home = () => {
         &#8249;
       </button>
       <button 
-        className="nav-btn next" 
+        className="nav next" 
         onClick={() => scrollToIndex(activeIndex + 1)}
         disabled={activeIndex >= PANELS.length - 1}
         aria-label="Next"
@@ -142,7 +142,7 @@ const Home = () => {
             key={panel.id}
             className={`dot ${idx === activeIndex ? 'active' : ''}`}
             onClick={() => scrollToIndex(idx)}
-            aria-label={`Go to section ${idx + 1}: ${panel.title}`}
+            aria-label={`Go to section ${idx + 1}`}
           />
         ))}
       </div>
@@ -225,63 +225,53 @@ const Home = () => {
         </section>
 
         {/* Panel 9: Two days, two sites */}
-        <section className="panel" id="schedule" data-index="8" tabIndex="0" aria-label="Two days, two sites">
+        <section className="panel p-cta" id="schedule" data-index="8" tabIndex="0" aria-label="Two days, two sites">
           <div className="pinner">
-            <p className="eyebrow">At a glance</p>
-            <h2 className="ptitle">Two days, <em>two sites</em></h2>
-            <div className="details-block">
-              <div className="details-item">
-                <b>Day 1 · pre-conference workshop</b>
-                <span>Friday, 27 Nov 2026<br/>13:30 – 18:30 · under ISTS 2026<br/>Medanta – The Medicity, Gurgaon</span>
-              </div>
-              <div className="details-item">
-                <b>Day 2 · IR-Tutorials</b>
-                <span>Saturday, 28 Nov 2026<br/>08:30 – 15:05 · closing High Tea<br/>Holiday Inn, Aerocity, New Delhi</span>
-              </div>
+            <div className="cta-meta">At a glance</div>
+            <div className="cta-title">Two days, two sites</div>
+            <div className="cta-venue" style={{ marginTop: '24px' }}>
+              Day 1 · pre-conference workshop<br/>
+              Friday, 27 Nov 2026 (13:30 – 18:30 · under ISTS 2026)<br/>
+              Medanta – The Medicity, Gurgaon
+              <br/><br/>
+              Day 2 · IR-Tutorials<br/>
+              Saturday, 28 Nov 2026 (08:30 – 15:05 · closing High Tea)<br/>
+              Holiday Inn, Aerocity, New Delhi
             </div>
           </div>
         </section>
 
         {/* Panel 10: Faculty */}
-        <section className="panel" id="faculty" data-index="9" tabIndex="0" aria-label="Faculty">
+        <section className="panel p-cta" id="faculty" data-index="9" tabIndex="0" aria-label="Faculty">
           <div className="pinner">
-            <p className="eyebrow">Faculty</p>
-            <h2 className="ptitle">23 faculty across <em>five specialties</em></h2>
-            <div className="details-block">
-              <div className="details-item">
-                <b>Organising Secretary</b>
-                <span>Dr. Anubhav Khandelwal<br/>Director, Interventional Radiology, Medanta – The Medicity, Gurgaon</span>
-              </div>
-              <div className="details-item">
-                <b>Course Director</b>
-                <span>Dr. S. S. Baijal<br/>Chairman, Diagnostic &amp; Interventional Radiology, Medanta</span>
-              </div>
-              <div className="details-item">
-                <b>International Faculty</b>
-                <span>Prof. Marcin Barczyński<br/>Jagiellonian University, Kraków, Poland</span>
-              </div>
+            <div className="cta-meta">Faculty</div>
+            <div className="cta-title">23 faculty across five specialties</div>
+            <div className="cta-venue" style={{ marginTop: '24px' }}>
+              <b>Organising Secretary</b><br/>
+              Dr. Anubhav Khandelwal, Director, Interventional Radiology, Medanta – The Medicity, Gurgaon
+              <br/><br/>
+              <b>Course Director</b><br/>
+              Dr. S. S. Baijal, Chairman, Diagnostic &amp; Interventional Radiology, Medanta
+              <br/><br/>
+              <b>International Faculty</b><br/>
+              Prof. Marcin Barczyński, Jagiellonian University, Kraków, Poland
             </div>
           </div>
         </section>
 
         {/* Panel 11: Registration */}
-        <section className="panel" id="registration" data-index="10" tabIndex="0" aria-label="Registration fees">
+        <section className="panel p-cta" id="registration" data-index="10" tabIndex="0" aria-label="Registration fees">
           <div className="pinner">
-            <p className="eyebrow">Registration</p>
-            <h2 className="ptitle">Fees</h2>
-            <div className="details-block">
-              <div className="details-item">
-                <b>Early bird · until 15 Oct</b>
-                <span>₹3,000 consultant · ₹1,500 fellow/trainee</span>
-              </div>
-              <div className="details-item">
-                <b>Regular · 16 Oct – 20 Nov</b>
-                <span>₹5,000 consultant · ₹1,500 fellow/trainee</span>
-              </div>
+            <div className="cta-title">Fees</div>
+            <div className="cta-venue" style={{ marginTop: '24px' }}>
+              <b>Early bird · until 15 Oct</b><br/>
+              ₹3,000 consultant · ₹1,500 fellow/trainee
+              <br/><br/>
+              <b>Regular · 16 Oct – 20 Nov</b><br/>
+              ₹5,000 consultant · ₹1,500 fellow/trainee
             </div>
-            <p className="ptext" style={{ fontSize: '14px', marginTop: '22px' }}>
-              Hands-on workshop (IR / Radiology only) may be added during registration — seats are limited to 50. Fellows and trainees register at the concessional fee with proof of status.
-            </p>
+            <a className="btn mt" href="#" onClick={handleRegisterClick}>Register now</a>
+            <div className="eb">Hands-on workshop (IR / Radiology only) may be added during registration — seats are limited to 50. Fellows and trainees register at the concessional fee with proof of status.</div>
           </div>
         </section>
 
