@@ -211,6 +211,7 @@ export class BackendStack extends cdk.Stack {
     // 9. Request SSL Certificate in us-east-1 for CloudFront
     const certificate = new acm.DnsValidatedCertificate(this, 'SiteCertificate', {
       domainName: 'irflo.net',
+      subjectAlternativeNames: ['www.irflo.net'],
       hostedZone,
       region: 'us-east-1',
     });
@@ -225,7 +226,7 @@ export class BackendStack extends cdk.Stack {
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
       },
-      domainNames: ['irflo.net'],
+      domainNames: ['irflo.net', 'www.irflo.net'],
       certificate,
       errorResponses: [
         {
@@ -254,6 +255,13 @@ export class BackendStack extends cdk.Stack {
 
     // 11. Create Route53 ARecord Alias pointing to CloudFront Distribution
     new route53.ARecord(this, 'SiteAliasRecord', {
+      zone: hostedZone,
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
+    });
+
+    // 12. Create Route53 ARecord Alias for www subdomain pointing to CloudFront
+    new route53.ARecord(this, 'WwwSiteAliasRecord', {
+      recordName: 'www.irflo.net',
       zone: hostedZone,
       target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
     });
