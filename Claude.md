@@ -138,7 +138,9 @@ When Claude performs this task, it **must** strictly follow the instructions bel
    ```
 3. **Locate & Modify Files:** Find relevant frontend or backend files and make changes carefully, preserving code patterns.
 4. **Run Local Verifications & Manual Testing:**
-   - **Frontend Verification:**
+   - **Frontend Verification (Thyroid Summit Static Site):**
+     There is no build process required. Run `npm run dev` and manually verify the changes to `index.html`, `program.html`, and `register.html` in the browser.
+   - **Frontend Verification (Medanta React App):**
      Run `npm run lint` and `npm run build` to ensure there are no build or compilation errors.
    - **Backend Verification:**
      Navigate to `/backend` and run `npm run test` (uses Jest) and `npm run build` (compiles TypeScript) to verify tests and build integrity.
@@ -232,12 +234,14 @@ When given the above prompt, Claude will execute the following operations under 
 
 When Claude is making changes, it should refer to the following structure of this repository:
 
-### Tech Stack
-- **Frontend:** React (v19) + Vite, CSS, React Router DOM (v7), Zustand (state management), React Hook Form, Tailwind CSS (if requested/used).
-- **Backend:** Node.js + TypeScript, AWS CDK (for cloud infrastructure), AWS SDK, Jest (for backend testing).
+### Tech Stack & Project Modes
+This repository currently hosts two distinct components:
+1. **Thyroid Intervention Summit (Static Site):** The root HTML files (`index.html`, `program.html`, `register.html`) represent a purely static HTML/CSS website for the Thyroid Intervention Summit. No React, complex routing, or build steps are required to edit these files; any changes should be made directly to the raw HTML files.
+2. **Medanta IR Registry (React/AWS App):** The original React + Vite + AWS CDK app remains in the repository for other functionality.
 
 ### Project Layout
-- `/src`: Frontend React source code.
+- `/index.html`, `/program.html`, `/register.html`: Static pages for the Thyroid Intervention Summit. Any changes related to the summit must be made directly in these files.
+- `/src`: Frontend React source code for the Medanta IR Registry.
   - `/src/steps`: Step-by-step form wizards (e.g., `Step1Demographics.jsx`, `Step3Ultrasound.jsx`).
 - `/backend`: AWS CDK app and Lambda handler code.
   - `/backend/src/handlers`: Lambda functions (e.g., `createCase.js`, `createDoctor.js`).
