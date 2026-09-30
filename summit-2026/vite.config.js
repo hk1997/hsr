@@ -1,8 +1,16 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
   base: '/thyroid-summit-2026/',
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        program: resolve(__dirname, 'program.html'),
+        register: resolve(__dirname, 'register.html')
+      }
+    }
+  }
 })

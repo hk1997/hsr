@@ -139,7 +139,7 @@ When Claude performs this task, it **must** strictly follow the instructions bel
 3. **Locate & Modify Files:** Find relevant frontend or backend files and make changes carefully, preserving code patterns.
 4. **Run Local Verifications & Manual Testing:**
    - **Frontend Verification (Thyroid Summit Static Site):**
-     There is no build process required. Run `npm run dev` and manually verify the changes to `index.html`, `program.html`, and `register.html` in the browser.
+     Navigate to `/summit-2026` and run `npm run dev`. Manually verify the changes to `index.html`, `program.html`, and `register.html` in the browser at the `/thyroid-summit-2026/` path.
    - **Frontend Verification (Medanta React App):**
      Run `npm run lint` and `npm run build` to ensure there are no build or compilation errors.
    - **Backend Verification:**
@@ -236,11 +236,11 @@ When Claude is making changes, it should refer to the following structure of thi
 
 ### Tech Stack & Project Modes
 This repository currently hosts two distinct components:
-1. **Thyroid Intervention Summit (Static Site):** The root HTML files (`index.html`, `program.html`, `register.html`) represent a purely static HTML/CSS website for the Thyroid Intervention Summit. No React, complex routing, or build steps are required to edit these files; any changes should be made directly to the raw HTML files.
-2. **Medanta IR Registry (React/AWS App):** The original React + Vite + AWS CDK app remains in the repository for other functionality.
+1. **Thyroid Intervention Summit (Static Site):** The files in `summit-2026/` (`index.html`, `program.html`, `register.html`) represent a purely static HTML/CSS website for the Thyroid Intervention Summit. No React or complex routing is used. Changes should be made directly to the raw HTML files. A simple Vite configuration bundles the assets and pages.
+2. **Medanta IR Registry (React/AWS App):** The original React + Vite + AWS CDK app remains in the root repository for other functionality.
 
 ### Project Layout
-- `/index.html`, `/program.html`, `/register.html`: Static pages for the Thyroid Intervention Summit. Any changes related to the summit must be made directly in these files.
+- `/summit-2026`: Static pages for the Thyroid Intervention Summit (`index.html`, `program.html`, `register.html`). Any changes related to the summit must be made directly in these files.
 - `/src`: Frontend React source code for the Medanta IR Registry.
   - `/src/steps`: Step-by-step form wizards (e.g., `Step1Demographics.jsx`, `Step3Ultrasound.jsx`).
 - `/backend`: AWS CDK app and Lambda handler code.
