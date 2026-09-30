@@ -8,7 +8,7 @@
   --display:'Playfair Display',Georgia,serif;
 }
 *{box-sizing:border-box}
-.deck-wrapper{margin:0;height:100%;overflow:hidden;background:#132d2c;position:fixed;inset:0;width:100vw;height:100vh;}
+.deck-wrapper{margin:0;height:100%;overflow:hidden;background:var(--teal-deep);position:fixed;inset:0;width:100vw;height:100vh;}
 .deck-wrapper{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
 
 /* ---- Deck ---- */

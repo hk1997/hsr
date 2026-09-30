@@ -120,6 +120,7 @@ const Home = () => {
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
     >
+      <div className="bgfixed"></div>
       <div className="toppills">
         <Link to="/program" className="pill prog-pill">Programme</Link>
         <a className="pill reg-pill" href="#" onClick={handleRegisterClick}>Register</a>
