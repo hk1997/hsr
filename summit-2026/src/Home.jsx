@@ -125,7 +125,7 @@ const Home = () => {
         <Link to="/program" className="pill prog-pill">Programme</Link>
         <a className="pill reg-pill" href="#" onClick={handleRegisterClick}>Register</a>
       </div>
-      <div className="deck" id="deck" ref={deckRef} onScroll={handleScroll}>
+      <div className="deck" id="deck" ref={deckRef}>
 
   {/* 1 · BANNER */}
   <section className="panel p-banner" aria-label="Welcome">
