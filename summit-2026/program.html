@@ -222,9 +222,60 @@
   .fac-entry:first-child{border-top:none}
   .fac-name{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);display:block}
   .fac-desig{font-size:12.5px;color:var(--ink-soft);display:block;margin-top:2px}
+
+/* ---- Fixed chrome ---- */
+.toppills{position:fixed;top:20px;right:22px;z-index:50;display:flex;gap:10px;align-items:center}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  padding:10px 18px;border-radius:22px;text-decoration:none;white-space:nowrap}
+.reg-pill{background:var(--gold);color:var(--teal-deep);box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.reg-pill:hover{filter:brightness(1.06)}
+.prog-pill{background:transparent;color:var(--cream);border:1px solid rgba(244,241,234,.4)}
+
+@media(max-width:640px){
+  .toppills{top:14px;right:14px}
+  .pill{padding:9px 14px;font-size:10.5px}
+}
+
+/* International Glass Panel */
+.intl-fac-glass {
+  background: linear-gradient(135deg, rgba(14,124,118,0.25) 0%, rgba(217,181,107,0.12) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(126,199,193,0.2);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.08), 0 16px 40px rgba(0,0,0,0.25);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.intl-fac-title {
+  font-family: var(--display);
+  font-size: 24px;
+  color: var(--gold-lt);
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  position: relative;
+}
+.intl-fac-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(217,181,107,0.6), transparent);
+}
+.intl-fac-glass .fac-entry { border-color: rgba(217,181,107,0.15); margin-bottom: 14px; padding-bottom: 14px; }
+.intl-fac-glass .fac-entry:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+
 </style>
 </head>
 <body>
+
+<div class="toppills">
+  <a class="pill prog-pill" href="index.html">Home</a>
+  <a class="pill reg-pill" href="register.html">Register</a>
+</div>
+
 <div class="sheet">
 
   <!-- ===== HEADER ===== -->
@@ -694,33 +745,37 @@
   <section class="day" id="day3">
     <h2 class="day-title">Faculty <em>&amp; Affiliations</em></h2>
     <p class="day-meta">Designations &amp; affiliations</p>
+    
     <div class="faculty-list">
+      <div class="intl-fac-glass">
+        <h3 class="intl-fac-title">International Faculty</h3>
+        <div class="fac-entry"><span class="fac-name">Dr. Marcin Barczyński</span><span class="fac-desig">Professor of Surgery & Head, Dept. of Endocrine Surgery, Jagiellonian University Medical College, Kraków, Poland</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Alan Alper Sag</span><span class="fac-desig">Associate Professor, Clinical Interventional Radiology, University of Miami Miller School of Medicine / Jackson Memorial Hospital, Miami, USA</span></div>
+      </div>
+      
       <div class="fac-group">
         <h3 class="fac-group-title">Radiology & Interventional Radiology</h3>
         <div class="fac-entry"><span class="fac-name">Dr. S. S. Baijal</span><span class="fac-desig">Chairman, Diagnostic & Interventional Radiology, Medanta – The Medicity, Gurgaon</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Arun Gupta</span><span class="fac-desig">Chairperson & Senior Consultant, Interventional Radiology, Sir Ganga Ram Hospital, New Delhi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Jyoti Kumar</span><span class="fac-desig">Director Professor Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Alpana Manchanda</span><span class="fac-desig">Director Professor &amp; HOD Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Karthikeyan Damodharan</span><span class="fac-desig">Director, Vascular & Interventional Radiology, MIOT International, Chennai</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Anubhav Khandelwal</span><span class="fac-desig">Director, Interventional Radiology, Medanta – The Medicity, Gurgaon</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Rohit Khandelwal</span><span class="fac-desig">Director, Interventional Radiology, Medanta, Noida</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. M. C. Uthappa</span><span class="fac-desig">Director, Interventional Radiology & Interventional Oncology, Gleneagles Hospitals, Bengaluru</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Puneet Garg</span><span class="fac-desig">Professor, Interventional Radiology, VMMC & Safdarjang Hospital, New Delhi</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Arun Gupta</span><span class="fac-desig">Chairperson & Senior Consultant, Interventional Radiology, Sir Ganga Ram Hospital, New Delhi</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Alpana Manchanda</span><span class="fac-desig">Director Professor &amp; HOD Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Jyoti Kumar</span><span class="fac-desig">Director Professor Radiodiagnosis, Maulana Azad Medical College, New Delhi</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Ajit Yadav</span><span class="fac-desig">Vice Chairperson & Senior Consultant, Interventional Radiology, Sir Ganga Ram Hospital, New Delhi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Abhishek Bansal</span><span class="fac-desig">Senior Consultant & Chief of Interventional Radiology, Aakash Healthcare, Dwarka, New Delhi</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Karthikeyan Damodharan</span><span class="fac-desig">Director, Vascular & Interventional Radiology, MIOT International, Chennai</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Shahnawaz Bashir</span><span class="fac-desig">Head of Unit, Interventional Radiology, Max Hospital, Saket, New Delhi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Prabhjyot Singh Chowhan</span><span class="fac-desig">Consultant, Interventional Radiology, Medanta – The Medicity, Gurgaon</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Rohit Khandelwal</span><span class="fac-desig">Director, Interventional Radiology, Medanta, Noida</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Puneet Garg</span><span class="fac-desig">Professor, Interventional Radiology, VMMC & Safdarjang Hospital, New Delhi</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Abhishek Bansal</span><span class="fac-desig">Senior Consultant & Chief of Interventional Radiology, Aakash Healthcare, Dwarka, New Delhi</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Gaurav Gangwani</span><span class="fac-desig">Consultant, Interventional Radiology, Lilavati Hospital & Research Centre, Mumbai</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Navin M. Mulimani</span><span class="fac-desig">Consultant, Interventional Radiology, KLES Dr. Prabhakar Kore Hospital &amp; MRC, Belagavi</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Sanchita Gupta</span><span class="fac-desig">Assistant Professor, Interventional Radiology, AIIMS, New Delhi</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Tara Prasad Tripathy</span><span class="fac-desig">Assistant Professor, Interventional Radiology, AIIMS Bhubaneswar</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Alan Alper Sag</span><span class="fac-desig">Associate Professor, Clinical Interventional Radiology, University of Miami Miller School of Medicine / Jackson Memorial Hospital, Miami, USA</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Prabhjyot Singh Chowhan</span><span class="fac-desig">Consultant, Interventional Radiology, Medanta – The Medicity, Gurgaon</span></div>
+        <div class="fac-entry"><span class="fac-name">Dr. Sanchita Gupta</span><span class="fac-desig">Assistant Professor, Interventional Radiology, AIIMS, New Delhi</span></div>
       </div>
       <div class="fac-group">
         <h3 class="fac-group-title">Surgery</h3>
-        <div class="fac-entry"><span class="fac-name">Dr. Marcin Barczyński</span><span class="fac-desig">Professor of Surgery & Head, Dept. of Endocrine Surgery, Jagiellonian University Medical College, Kraków, Poland</span></div>
         <div class="fac-entry"><span class="fac-name">Dr. Aru Chhabra Handa</span><span class="fac-desig">Director, ENT and Head &amp; Neck Surgery, Medanta – The Medicity, Gurgaon</span></div>
-        <div class="fac-entry"><span class="fac-name">Dr. Kanika Rana</span><span class="fac-desig">Senior Consultant, Head & Neck Onco-Surgery, Medanta – The Medicity, Gurgaon</span></div>
       </div>
       <div class="fac-group">
         <h3 class="fac-group-title">Nuclear Medicine</h3>
@@ -737,6 +792,7 @@
         <div class="fac-entry"><span class="fac-name">Dr. Haimanti Sarin</span><span class="fac-desig">Director, Cytopathology, Medanta – The Medicity, Gurgaon</span></div>
       </div>
     </div>
+
   </section>
 
   <!-- ===== FOOTER ===== -->
