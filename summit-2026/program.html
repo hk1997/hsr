@@ -267,6 +267,25 @@
 .intl-fac-glass .fac-entry { border-color: rgba(217,181,107,0.15); margin-bottom: 14px; padding-bottom: 14px; }
 .intl-fac-glass .fac-entry:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
 
+
+/* Background image */
+.bgfixed {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--teal-deep);
+}
+.bgfixed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(16px);
+  transform: scale(1.05); /* prevent blurred edges */
+  opacity: 0.8;
+}
+
 </style>
 </head>
 <body>
@@ -276,6 +295,7 @@
   <a class="pill reg-pill" href="register.html">Register</a>
 </div>
 
+<div class="bgfixed" aria-hidden="true"><img src="/thyroid-summit-2026/assets/bg_program.jpg" alt=""></div>
 <div class="sheet">
 
   <!-- ===== HEADER ===== -->
