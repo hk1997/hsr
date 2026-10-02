@@ -77,7 +77,7 @@ exports.handler = async (event) => {
                 <p><strong>Category:</strong> ${escapeHTML(registration.category)}</p>
                 <p><strong>Hands-on Workshop:</strong> ${registration.workshop ? 'Included (Day 1)' : 'Not Included'}</p>
                 <br/>
-                <p>We look forward to seeing you in New Delhi / Gurugram!</p>
+                <p>We look forward to seeing you in New Delhi / Gurgaon!</p>
                 <p>Best regards,<br/>The Organizing Committee</p>
               `
             }
