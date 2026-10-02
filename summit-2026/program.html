@@ -286,6 +286,45 @@
   opacity: 0.8;
 }
 
+
+/* ===== Fixed glass ribbon behind Home / Register =====
+   Full-bleed translucent bar pinned to the top; the programme scrolls
+   beneath it. Header padding is offset by the ribbon height so nothing
+   is hidden at scroll 0. */
+:root{--ribbon-h:58px}
+.toppills{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;justify-content:flex-end;align-items:center;gap:10px;
+  min-height:var(--ribbon-h);
+  padding:10px calc(22px + env(safe-area-inset-right,0px))
+          10px calc(22px + env(safe-area-inset-left,0px));
+  padding-top:calc(10px + env(safe-area-inset-top,0px));
+  background:rgba(7,46,44,.62);
+  -webkit-backdrop-filter:blur(16px) saturate(1.5);
+  backdrop-filter:blur(16px) saturate(1.5);
+  border-bottom:1px solid rgba(244,241,234,.16);
+  box-shadow:0 10px 30px rgba(10,25,23,.20);
+}
+/* opaque fallback where backdrop-filter is unsupported */
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .toppills{background:rgba(7,46,44,.94)}
+}
+/* program.html never defined --cream, so this resolved to the dark body
+   colour and the Home label was near-invisible */
+.prog-pill{color:#f4f1ea;border:1px solid rgba(244,241,234,.45)}
+.prog-pill:hover{border-color:#f4f1ea;background:rgba(244,241,234,.10)}
+/* keep the header's first line clear of the ribbon */
+.hdr{padding-top:calc(46px + var(--ribbon-h))}
+@media(max-width:640px){
+  :root{--ribbon-h:52px}
+  .toppills{padding-left:calc(14px + env(safe-area-inset-left,0px));
+            padding-right:calc(14px + env(safe-area-inset-right,0px))}
+  .hdr{padding-top:calc(34px + var(--ribbon-h))}
+}
+@media print{
+  .toppills{display:none}
+  .hdr{padding-top:46px}
+}
 </style>
 </head>
 <body>
