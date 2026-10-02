@@ -365,6 +365,58 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .p-cta .btn.mt{margin-top:14px}
 }
 
+
+/* ===== CTA panel · fluid fit for modern iPhones (iPhone 17 / 16 / 15 class) =====
+   Replaces the brittle 3-tier height snapping for this panel with continuous
+   scaling, real safe-area insets (viewport-fit=cover is on, so these are needed),
+   and a scroll fallback so the card can never be clipped by .panel{overflow:hidden}. */
+:root{
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+}
+/* keep fixed chrome clear of the Dynamic Island and the home indicator */
+.toppills{top:calc(14px + var(--safe-t));right:calc(14px + var(--safe-r))}
+.dots{bottom:calc(16px + var(--safe-b))}
+
+@media(max-width:640px){
+  .p-cta{
+    padding-top:calc(50px + var(--safe-t))!important;
+    padding-bottom:calc(44px + var(--safe-b))!important;
+    padding-left:calc(14px + var(--safe-l))!important;
+    padding-right:calc(14px + var(--safe-r))!important;
+    justify-content:flex-start;
+    overflow-y:auto;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;
+  }
+  /* centred while it fits, top-aligned (and scrollable) when it does not */
+  .p-cta>.pinner{margin-top:auto;margin-bottom:auto}
+  /* 44px side padding on a 402px screen left only 262px of text width */
+  .p-cta .glasscard{padding:22px 18px;border-radius:18px;max-width:100%}
+
+  .p-cta .cta-logo{width:clamp(84px,24vw,112px);max-width:none;margin:0 auto clamp(8px,1.4vh,14px)}
+  .p-cta .cta-title{font-size:clamp(25px,7.2vw,32px);line-height:1.14;margin:0 0 4px}
+  .p-cta .cta-meta{font-size:clamp(12px,3.4vw,14.5px);letter-spacing:.1em;
+    margin:clamp(8px,1.4vh,14px) 0 clamp(10px,1.6vh,16px)}
+  .p-cta .cta-venue{font-size:clamp(13px,3.6vw,15px);line-height:1.5;margin:0}
+  .p-cta .cta-venue .cv-day{font-size:1em;line-height:1.5;margin:0 0 clamp(10px,1.4vh,16px)}
+  .p-cta .cta-venue .cv-day:last-child{margin-bottom:0}
+  .p-cta .btn.mt{margin-top:clamp(14px,2.2vh,22px);padding:15px 32px;
+    font-size:13px;letter-spacing:.15em}
+  .p-cta .eb{margin-top:11px;font-size:11.5px;line-height:1.45}
+  .p-cta .cta-contact{margin-top:clamp(14px,2.2vh,24px);font-size:12.5px;line-height:1.75}
+}
+/* shortest phones: drop the logo rather than squeeze everything else */
+@media(max-width:640px) and (max-height:620px){
+  .p-cta .cta-logo{display:none}
+}
+/* landscape phones and other short viewports: same no-clip guarantee */
+@media(max-height:700px){
+  .p-cta{justify-content:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .p-cta>.pinner{margin-top:auto;margin-bottom:auto}
+}
+
 </style>
 
 </head>
