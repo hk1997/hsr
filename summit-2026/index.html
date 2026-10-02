@@ -417,6 +417,19 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .p-cta>.pinner{margin-top:auto;margin-bottom:auto}
 }
 
+
+/* hands-on panel · fee waiver given its own line, eyebrow treatment */
+.p-hands .hfree{font-family:var(--mono);font-weight:500;
+  font-size:clamp(10px,2.5vw,11.5px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-lt);margin:16px 0 0;line-height:1.75;
+  text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.p-hands .hfree::before{content:"";display:inline-block;width:20px;height:1px;
+  background:currentColor;opacity:.55;vertical-align:middle;margin:0 11px 3px 0}
+@media(max-width:640px){
+  .p-hands .hfree{letter-spacing:.14em;margin-top:13px}
+  .p-hands .hfree::before{width:14px;margin-right:8px}
+}
+.p-hands .hfree .nb{white-space:nowrap}
 </style>
 
 </head>
@@ -498,7 +511,8 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
       <h2 class="ptitle">Hands-on Session <em>on Day&nbsp;1</em></h2>
       <p class="hline">Phantom-based stations in <strong>RFA</strong> and <strong>MWA</strong></p>
       <p class="hline">Real technique under real-time guidance.</p>
-      <p class="pseq">50 seats &nbsp;—&nbsp; <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a> : <i>Free registration for Fellows / Trainees</i></p>
+      <p class="pseq">50 seats &nbsp;—&nbsp; <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a></p>
+      <p class="hfree">Free registration for <span class="nb">Fellows&nbsp;/&nbsp;Trainees</span></p>
     </div>
   </section>
 
