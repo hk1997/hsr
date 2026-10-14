@@ -161,7 +161,16 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 .glasscard .chip{background:rgba(255,255,255,.06);border-color:rgba(126,199,193,.45)}
 .p-cta .glasscard{max-width:680px;padding:40px 44px}
 .banner-img{border-radius:14px;border:0;box-shadow:none}
-.panel.p-banner{background:#072e2c!important;background-image:none!important}
+/* home panel carries its own artwork; the rest of the deck keeps the
+   fixed lecture-hall photo behind it */
+.panel.p-banner{
+  background:#06121f!important;
+  background-image:linear-gradient(180deg,rgba(5,14,26,.58),rgba(5,14,26,.42) 45%,rgba(5,14,26,.66)),
+                   url("/thyroid-summit-2026/assets/bg_home.jpg")!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+}
 .p-hands .hline{font-family:var(--serif);font-size:clamp(17px,2.1vw,22px);line-height:1.45;color:#f4f1ea;margin:14px 0 0;text-shadow:0 1px 14px rgba(0,0,0,.55)}
 .p-hands .hline strong{font-weight:600;color:var(--tealsoft)}
 .p-hands .ptitle{margin-bottom:6px}
