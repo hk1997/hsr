@@ -479,6 +479,22 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 @media(max-width:640px) and (max-height:950px){.mh-btns{margin-top:14px}}
 @media(max-width:640px) and (max-height:690px){.mh-btns{margin-top:10px}}
 @media(max-width:640px) and (max-height:600px){.mh-btns{margin-top:8px}}
+
+/* home banner: slight glass mat around the artwork. The PNG is opaque
+   (alpha 252-255), so a backdrop-filter on the image itself would show
+   nothing — the padding box is what the glass reads through. */
+.p-banner .banner-img{
+  padding:7px;
+  background:rgba(255,255,255,.055);
+  -webkit-backdrop-filter:blur(8px) saturate(1.25);
+  backdrop-filter:blur(8px) saturate(1.25);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:18px;
+  box-shadow:0 16px 44px rgba(3,10,20,.42),inset 0 1px 0 rgba(255,255,255,.22);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .p-banner .banner-img{background:rgba(255,255,255,.10)}
+}
 </style>
 
 </head>
