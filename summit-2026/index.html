@@ -521,6 +521,119 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .mh-eb{font-size:clamp(13.5px,3.9vw,16px);line-height:1.4}
   .p-cta .eb{font-size:clamp(12.5px,3.4vw,14px);line-height:1.45}
 }
+
+/* ===== Early-bird countdown hero =====
+   Shown on the home panel only while early-bird registration is still
+   open (1-2 days out). Outside that window body.eb-live is absent and
+   the normal hero renders untouched. */
+.cdhero{display:none}
+body.eb-live .cdhero{display:flex;flex-direction:column;align-items:center;width:100%}
+body.eb-live .p-banner .banner-img,
+body.eb-live .p-banner>.pinner>.btn.mt,
+body.eb-live .p-banner>.pinner>.eb,
+body.eb-live .p-banner>.pinner>.hint,
+body.eb-live .p-banner .mhero{display:none!important}
+body.eb-live .p-banner>.pinner{max-width:1180px!important}
+
+.cd-top{display:grid;grid-template-columns:1fr 1px 1fr;gap:clamp(18px,3vw,46px);
+  align-items:center;width:100%}
+.cd-top::before{content:"";grid-column:2;grid-row:1;align-self:stretch;
+  background:linear-gradient(180deg,rgba(244,241,234,0),rgba(244,241,234,.28),rgba(244,241,234,0))}
+.cd-left{grid-column:1;grid-row:1}
+.cd-right{grid-column:3;grid-row:1}
+
+/* --- left --- */
+.cd-eyebrow{font-family:var(--mono);font-size:clamp(9.5px,1.05vw,12px);letter-spacing:.3em;
+  text-transform:uppercase;color:var(--tealsoft);margin:0 0 14px}
+.cd-title{font-family:var(--display);font-weight:600;margin:0;line-height:.98;
+  font-size:clamp(34px,5.2vw,68px);letter-spacing:-1px;color:#f6f3ec;
+  text-shadow:0 4px 30px rgba(0,0,0,.55)}
+.cd-title span,.cd-title em{display:block}
+.cd-title em{font-style:italic;font-weight:500;color:#7fd4e8}
+.cd-venues{font-family:var(--serif);font-style:italic;margin:16px 0 0;
+  font-size:clamp(12.5px,1.35vw,17px);color:#dfe8e6;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.cd-chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+.cd-chip{font-family:var(--mono);font-size:clamp(9.5px,1.05vw,12px);letter-spacing:.2em;
+  text-transform:uppercase;color:#cfe6e3;border:1px solid rgba(207,230,227,.45);
+  border-radius:4px;padding:9px 15px;white-space:nowrap}
+.cd-chip.is-gold{color:var(--gold-lt);border-color:rgba(217,181,107,.75)}
+
+/* --- right: the number --- */
+.cd-right{display:flex;flex-direction:column;align-items:center;text-align:center}
+.cd-count{display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,22px)}
+.cd-n{font-family:var(--display);font-weight:700;line-height:.82;
+  font-size:clamp(78px,12vw,170px);letter-spacing:-4px;
+  background:linear-gradient(170deg,#fff3d2 4%,#e9c477 34%,#b9842c 68%,#f0d79b 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 10px 26px rgba(185,138,46,.35))}
+.cd-unit{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.cd-unit b{font-family:var(--mono);font-weight:700;color:#f6f3ec;
+  font-size:clamp(24px,3.6vw,52px);letter-spacing:.02em}
+.cd-unit i{font-style:normal;font-family:var(--mono);color:#7fd4e8;
+  font-size:clamp(17px,2.6vw,38px);letter-spacing:.04em;margin-top:6px;
+  padding-bottom:7px;border-bottom:2px solid var(--gold-lt)}
+
+/* --- right: the 4-day strip --- */
+.cd-strip{display:grid;grid-template-columns:repeat(4,1fr);
+  margin:clamp(16px,2.4vh,30px) 0 0;width:100%;max-width:560px;
+  border:1px solid rgba(127,212,232,.28);border-radius:12px;
+  background:rgba(8,26,44,.42);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden}
+.cd-cell{padding:clamp(9px,1.4vh,15px) 4px;text-align:center;border-left:1px solid rgba(127,212,232,.18)}
+.cd-cell:first-child{border-left:0}
+.cd-cell .dow{display:block;font-family:var(--mono);font-size:clamp(9px,1vw,11.5px);
+  letter-spacing:.2em;color:#9fc4d8}
+.cd-cell .dnum{display:block;font-family:var(--display);font-weight:600;
+  font-size:clamp(23px,2.9vw,38px);line-height:1.1;color:#f6f3ec;margin-top:2px}
+.cd-cell .dmon{display:block;font-family:var(--mono);font-size:clamp(8px,.9vw,10.5px);
+  letter-spacing:.16em;color:#9fc4d8}
+.cd-cell.is-on{background:rgba(185,138,46,.17);box-shadow:inset 0 0 0 1px rgba(217,181,107,.85)}
+.cd-cell.is-on .dnum,.cd-cell.is-on .dow,.cd-cell.is-on .dmon{color:var(--gold-lt)}
+
+/* --- right: the deadline line --- */
+.cd-eb{font-family:var(--mono);margin:clamp(12px,2vh,20px) 0 0;line-height:1.75;
+  font-size:clamp(11px,1.25vw,15px);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-lt);text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.cd-eb strong{display:block;font-weight:700;color:#ffe3ad;letter-spacing:.2em}
+
+/* --- shared CTA + swipe --- */
+.cd-cta{display:inline-flex;align-items:center;gap:12px;
+  margin:clamp(20px,3.2vh,40px) 0 0;padding:16px 42px;border-radius:10px;
+  font-family:var(--mono);font-weight:600;font-size:clamp(12.5px,1.25vw,15px);
+  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#3a2a06;
+  background:linear-gradient(180deg,#fbe4ab,#e2b964);
+  box-shadow:0 16px 40px rgba(185,138,46,.32),inset 0 1px 0 rgba(255,255,255,.6);
+  transition:transform .12s ease,box-shadow .12s ease}
+.cd-cta:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(185,138,46,.42),inset 0 1px 0 rgba(255,255,255,.6)}
+.cd-swipe{margin:clamp(14px,2.2vh,26px) 0 0;background:none;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:clamp(10.5px,1.05vw,12.5px);letter-spacing:.24em;
+  text-transform:uppercase;color:var(--tealsoft);display:inline-flex;align-items:center;gap:9px}
+.cd-swipe span{animation:nudge 1.5s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.cd-swipe span{animation:none}}
+
+/* --- stacked layout on phones --- */
+@media(max-width:860px){
+  .cd-top{grid-template-columns:1fr;gap:clamp(16px,3vh,28px)}
+  .cd-top::before{display:none}
+  .cd-left{grid-column:1;grid-row:1}
+  .cd-right{grid-column:1;grid-row:2}
+  .cd-left{text-align:center}
+  .cd-chips{justify-content:center}
+  .cd-title{font-size:clamp(30px,8.4vw,46px)}
+  .cd-venues{font-size:clamp(12px,3.1vw,15px)}
+  .cd-eyebrow{font-size:clamp(9px,2.4vw,11px);letter-spacing:.22em;margin-bottom:10px}
+  .cd-chip{font-size:clamp(9px,2.4vw,11px);padding:7px 12px;letter-spacing:.14em}
+  .cd-n{font-size:clamp(66px,20vw,104px)}
+  .cd-unit b{font-size:clamp(22px,6.4vw,34px)}
+  .cd-unit i{font-size:clamp(15px,4.4vw,24px)}
+  .cd-eb{font-size:clamp(10px,2.7vw,12.5px);letter-spacing:.13em}
+  .cd-cta{width:100%;max-width:420px;justify-content:center;padding:15px 20px}
+}
+@media(max-width:640px){
+  body.eb-live .p-banner{padding:calc(58px + env(safe-area-inset-top,0px)) 16px 54px!important;
+    justify-content:flex-start;overflow-y:auto}
+  body.eb-live .p-banner>.pinner{margin-top:auto;margin-bottom:auto}
+}
 </style>
 
 </head>
@@ -538,6 +651,29 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   <section class="panel p-banner" aria-label="Welcome">
     <h1 class="sr-only">Thyroid Intervention Summit 2026 — 27–28 November 2026, Delhi-NCR</h1>
     <div class="pinner" style="max-width:900px;display:flex;flex-direction:column;align-items:center">
+      <div class="cdhero" id="cdHero" hidden>
+        <div class="cd-top">
+          <div class="cd-left">
+            <p class="cd-eyebrow">IR &middot; CME &middot; 27&ndash;28 Nov 2026 &middot; Delhi-NCR</p>
+            <p class="cd-title"><span>Thyroid</span><em>Intervention</em><span>Summit</span></p>
+            <p class="cd-venues">Medanta &ndash; The Medicity, Gurgaon &nbsp;&bull;&nbsp; Holiday Inn Aerocity, New Delhi</p>
+            <div class="cd-chips">
+              <span class="cd-chip">ISTS 2026 &middot; Pre-Conference</span>
+              <span class="cd-chip is-gold">IR-Tutorials</span>
+            </div>
+          </div>
+          <div class="cd-right">
+            <div class="cd-count">
+              <span class="cd-n" id="cdNum">00</span>
+              <span class="cd-unit"><b id="cdUnit">DAYS</b><i>TO GO</i></span>
+            </div>
+            <div class="cd-strip" id="cdStrip" aria-hidden="true"></div>
+            <p class="cd-eb">Early bird registration ends<br><strong id="cdWhen">tonight at midnight</strong></p>
+          </div>
+        </div>
+        <a class="cd-cta" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now <span aria-hidden="true">&rarr;</span></a>
+        <button type="button" class="cd-swipe" id="cdSwipe">Swipe to explore <span aria-hidden="true">&rarr;</span></button>
+      </div>
       <img class="banner-img" src="/thyroid-summit-2026/assets/bg_banner_glass.png" alt="Thyroid Intervention Summit 2026 · IR CME · 27–28 Nov 2026 · Delhi-NCR · Medanta – The Medicity, Gurgaon and Holiday Inn Aerocity, New Delhi · ISTS 2026 Pre-Conference · IR-Tutorials">
       <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
       <div class="eb">Early bird registration ends October 25th</div>
@@ -714,6 +850,70 @@ sync();
     if(d>1)c.textContent=d+' days to go';else if(d===1)c.textContent='Tomorrow';}
   var b=document.getElementById('mhSwipe');
   if(b)b.addEventListener('click',function(){var dk=document.querySelector('.deck');if(dk)dk.scrollBy({left:dk.clientWidth,behavior:'smooth'});});
+})();
+</script>
+
+<script>
+/* Early-bird countdown. Deadline is the end of 25 Oct 2026 IST, i.e.
+   2026-10-26T00:00:00+05:30, evaluated in IST whatever the viewer's zone.
+   Days remaining counts IST calendar days inclusive of today, so the 24th
+   shows 02 and the 25th shows 01. Outside 1-2 days the normal hero renders
+   and, once the deadline passes, every early-bird line is removed. */
+(function(){
+  var IST = 5.5*3600000, DEADLINE_Y=2026, DEADLINE_M=9, DEADLINE_D=25; /* month is 0-based */
+  var DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  var MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+  function istNow(){
+    /* ?tisNow=2026-10-25T09:00 previews another moment (IST). */
+    var q=new URLSearchParams(location.search).get('tisNow');
+    var ms = q ? Date.parse(q.length<=16 ? q+':00+05:30' : q) : Date.now();
+    if(isNaN(ms)) ms=Date.now();
+    return new Date(ms+IST); /* read its UTC fields as IST wall clock */
+  }
+  function istMidnightUTC(y,m,d){ return Date.UTC(y,m,d) - IST; }
+
+  var now=istNow();
+  var todayUTCms=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
+  var deadlineDayUTCms=Date.UTC(DEADLINE_Y,DEADLINE_M,DEADLINE_D);
+  var daysLeft=Math.round((deadlineDayUTCms-todayUTCms)/86400000)+1; /* inclusive */
+
+  if(daysLeft<=0){
+    /* early bird is over: strip the line everywhere, leave the hero alone */
+    document.querySelectorAll('.eb,.mh-eb').forEach(function(n){ n.remove(); });
+    return;
+  }
+  if(daysLeft>2) return; /* too early for the countdown treatment */
+
+  var hero=document.getElementById('cdHero');
+  if(!hero) return;
+  document.body.classList.add('eb-live');
+  hero.hidden=false;
+
+  document.getElementById('cdNum').textContent = daysLeft<10 ? '0'+daysLeft : ''+daysLeft;
+  document.getElementById('cdUnit').textContent = daysLeft===1 ? 'DAY' : 'DAYS';
+  document.getElementById('cdWhen').textContent = daysLeft===1 ? 'tonight at midnight' : 'tomorrow midnight';
+
+  /* four cells anchored on the deadline: D-2, D-1, D, D+1 */
+  var strip=document.getElementById('cdStrip'), html='';
+  for(var i=-2;i<=1;i++){
+    var dt=new Date(Date.UTC(DEADLINE_Y,DEADLINE_M,DEADLINE_D+i));
+    html+='<div class="cd-cell'+(i===0?' is-on':'')+'">'+
+          '<span class="dow">'+DOW[dt.getUTCDay()]+'</span>'+
+          '<span class="dnum">'+dt.getUTCDate()+'</span>'+
+          '<span class="dmon">'+MON[dt.getUTCMonth()]+' '+dt.getUTCFullYear()+'</span></div>';
+  }
+  strip.innerHTML=html;
+
+  var sw=document.getElementById('cdSwipe');
+  if(sw) sw.addEventListener('click',function(){
+    var dk=document.getElementById('deck'); if(dk) dk.scrollBy({left:dk.clientWidth,behavior:'smooth'});
+  });
+
+  /* flip to 01 DAY, then away entirely, without needing a reload */
+  var nextBoundary=istMidnightUTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1);
+  var wait=nextBoundary-Date.now();
+  if(wait>0 && wait<86400000) setTimeout(function(){ location.reload(); }, wait+1500);
 })();
 </script>
 </body>
