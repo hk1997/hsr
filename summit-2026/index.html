@@ -16,7 +16,7 @@
 <meta name="description" content="A two-day CME on thyroid ablation and intervention — hands-on RFA & MWA, and a multidisciplinary faculty of IR, surgery, nuclear medicine, endocrinology and cytopathology. 27–28 Nov 2026, Delhi-NCR.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --teal:#0e7c76; --teal-dark:#0a3f3c; --teal-deep:#072e2c;
@@ -25,6 +25,7 @@
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --serif:'Spectral',Georgia,serif;
   --display:'Playfair Display',Georgia,serif;
+  --sans:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--teal-deep)}
@@ -543,56 +544,63 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
 .cd-right{grid-column:3;grid-row:1}
 
 /* --- left --- */
-.cd-eyebrow{font-family:var(--mono);font-size:clamp(9.5px,1.05vw,12px);letter-spacing:.3em;
-  text-transform:uppercase;color:var(--tealsoft);margin:0 0 14px}
-.cd-title{font-family:var(--display);font-weight:600;margin:0;line-height:.98;
-  font-size:clamp(34px,5.2vw,68px);letter-spacing:-1px;color:#f6f3ec;
+.cd-eyebrow{font-family:var(--mono);font-size:clamp(10px,1.15vw,14px);letter-spacing:.3em;
+  text-transform:uppercase;color:var(--tealsoft);margin:0 0 18px}
+.cd-title{font-family:var(--display);font-weight:600;margin:0;line-height:1.0;
+  font-size:clamp(38px,5.8vw,84px);letter-spacing:-1.5px;color:#f6f3ec;
   text-shadow:0 4px 30px rgba(0,0,0,.55)}
 .cd-title span,.cd-title em{display:block}
 .cd-title em{font-style:italic;font-weight:500;color:#7fd4e8}
-.cd-venues{font-family:var(--serif);font-style:italic;margin:16px 0 0;
-  font-size:clamp(12.5px,1.35vw,17px);color:#dfe8e6;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.cd-venues{font-family:var(--serif);font-style:italic;margin:20px 0 0;
+  font-size:clamp(13px,1.5vw,19px);color:#e6edeb;text-shadow:0 1px 12px rgba(0,0,0,.5)}
 .cd-chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
-.cd-chip{font-family:var(--mono);font-size:clamp(9.5px,1.05vw,12px);letter-spacing:.2em;
+.cd-chip{font-family:var(--mono);font-size:clamp(10px,1.15vw,14px);letter-spacing:.2em;
   text-transform:uppercase;color:#cfe6e3;border:1px solid rgba(207,230,227,.45);
-  border-radius:4px;padding:9px 15px;white-space:nowrap}
+  border-radius:5px;padding:12px 19px;white-space:nowrap}
 .cd-chip.is-gold{color:var(--gold-lt);border-color:rgba(217,181,107,.75)}
 
 /* --- right: the number --- */
-.cd-right{display:flex;flex-direction:column;align-items:center;text-align:center}
+.cd-right{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+/* warm bloom behind the numeral, as in the reference */
+.cd-right::before{content:"";position:absolute;z-index:0;pointer-events:none;
+  left:50%;top:-14%;width:116%;aspect-ratio:1;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(255,196,106,.26),rgba(255,170,80,.10) 48%,rgba(255,170,80,0) 72%)}
+.cd-right>*{position:relative;z-index:1}
 .cd-count{display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,22px)}
-.cd-n{font-family:var(--display);font-weight:700;line-height:.82;
-  font-size:clamp(78px,12vw,170px);letter-spacing:-4px;
+.cd-n{font-family:var(--display);font-weight:700;line-height:.78;
+  font-size:clamp(98px,17.6vw,258px);letter-spacing:-6px;
   background:linear-gradient(170deg,#fff3d2 4%,#e9c477 34%,#b9842c 68%,#f0d79b 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 10px 26px rgba(185,138,46,.35))}
+  filter:drop-shadow(0 6px 18px rgba(255,205,120,.30)) drop-shadow(0 22px 60px rgba(185,138,46,.42))}
 .cd-unit{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
-.cd-unit b{font-family:var(--mono);font-weight:700;color:#f6f3ec;
-  font-size:clamp(24px,3.6vw,52px);letter-spacing:.02em}
-.cd-unit i{font-style:normal;font-family:var(--mono);color:#7fd4e8;
-  font-size:clamp(17px,2.6vw,38px);letter-spacing:.04em;margin-top:6px;
-  padding-bottom:7px;border-bottom:2px solid var(--gold-lt)}
+.cd-unit b{font-family:var(--sans);font-weight:800;color:#fbfaf6;
+  font-size:clamp(30px,5.3vw,78px);letter-spacing:-.01em;line-height:.95;
+  text-shadow:0 3px 24px rgba(0,0,0,.45)}
+.cd-unit i{font-style:normal;font-family:var(--sans);font-weight:600;color:#7fd4e8;
+  font-size:clamp(24px,4.3vw,64px);letter-spacing:.03em;line-height:1;margin-top:10px;
+  padding-bottom:12px;border-bottom:3px solid var(--gold-lt);
+  text-shadow:0 3px 20px rgba(0,0,0,.4)}
 
 /* --- right: the 4-day strip --- */
 .cd-strip{display:grid;grid-template-columns:repeat(4,1fr);
-  margin:clamp(16px,2.4vh,30px) 0 0;width:100%;max-width:560px;
+  margin:clamp(18px,2.8vh,36px) 0 0;width:100%;max-width:660px;
   border:1px solid rgba(127,212,232,.28);border-radius:12px;
   background:rgba(8,26,44,.42);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden}
 .cd-cell{padding:clamp(9px,1.4vh,15px) 4px;text-align:center;border-left:1px solid rgba(127,212,232,.18)}
 .cd-cell:first-child{border-left:0}
-.cd-cell .dow{display:block;font-family:var(--mono);font-size:clamp(9px,1vw,11.5px);
-  letter-spacing:.2em;color:#9fc4d8}
+.cd-cell .dow{display:block;font-family:var(--mono);font-size:clamp(9.5px,1.1vw,13.5px);
+  letter-spacing:.2em;color:#a8cde0}
 .cd-cell .dnum{display:block;font-family:var(--display);font-weight:600;
-  font-size:clamp(23px,2.9vw,38px);line-height:1.1;color:#f6f3ec;margin-top:2px}
-.cd-cell .dmon{display:block;font-family:var(--mono);font-size:clamp(8px,.9vw,10.5px);
-  letter-spacing:.16em;color:#9fc4d8}
+  font-size:clamp(27px,3.5vw,49px);line-height:1.08;color:#f6f3ec;margin-top:3px}
+.cd-cell .dmon{display:block;font-family:var(--mono);font-size:clamp(8.5px,1vw,12px);
+  letter-spacing:.16em;color:#a8cde0}
 .cd-cell.is-on{background:rgba(185,138,46,.17);box-shadow:inset 0 0 0 1px rgba(217,181,107,.85)}
 .cd-cell.is-on .dnum,.cd-cell.is-on .dow,.cd-cell.is-on .dmon{color:var(--gold-lt)}
 
 /* --- right: the deadline line --- */
-.cd-eb{font-family:var(--mono);margin:clamp(12px,2vh,20px) 0 0;line-height:1.75;
-  font-size:clamp(11px,1.25vw,15px);letter-spacing:.18em;text-transform:uppercase;
+.cd-eb{font-family:var(--mono);margin:clamp(14px,2.2vh,24px) 0 0;line-height:1.8;
+  font-size:clamp(12px,1.4vw,18px);letter-spacing:.2em;text-transform:uppercase;
   color:var(--gold-lt);text-shadow:0 1px 12px rgba(0,0,0,.5)}
 .cd-eb strong{display:block;font-weight:700;color:#ffe3ad;letter-spacing:.2em}
 
@@ -628,6 +636,24 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
   .cd-unit i{font-size:clamp(15px,4.4vw,24px)}
   .cd-eb{font-size:clamp(10px,2.7vw,12.5px);letter-spacing:.13em}
   .cd-cta{width:100%;max-width:420px;justify-content:center;padding:15px 20px}
+}
+/* very small phones: fit the hero outright instead of making it scroll */
+@media(max-width:400px){
+  .cd-top{gap:14px}
+  .cd-eyebrow{margin-bottom:8px;letter-spacing:.18em}
+  .cd-title{font-size:clamp(26px,7.8vw,34px)}
+  .cd-venues{margin-top:12px;font-size:12px;line-height:1.45}
+  .cd-chips{margin-top:12px;gap:8px}
+  .cd-chip{padding:6px 10px;font-size:9.5px;letter-spacing:.1em}
+  .cd-n{font-size:clamp(54px,17vw,68px)}
+  .cd-unit b{font-size:clamp(19px,5.6vw,24px)}
+  .cd-unit i{font-size:clamp(13px,3.9vw,17px);margin-top:6px;padding-bottom:7px;border-bottom-width:2px}
+  .cd-strip{margin-top:14px}
+  .cd-cell{padding:7px 3px}
+  .cd-cell .dnum{font-size:clamp(21px,6.3vw,26px)}
+  .cd-eb{margin-top:12px;font-size:9.8px;letter-spacing:.1em;line-height:1.65}
+  .cd-cta{margin-top:16px;padding:13px 16px;font-size:12px;letter-spacing:.14em}
+  .cd-swipe{margin-top:12px;font-size:10px;letter-spacing:.16em}
 }
 @media(max-width:640px){
   body.eb-live .p-banner{padding:calc(58px + env(safe-area-inset-top,0px)) 16px 54px!important;
@@ -665,7 +691,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
           <div class="cd-right">
             <div class="cd-count">
               <span class="cd-n" id="cdNum">00</span>
-              <span class="cd-unit"><b id="cdUnit">DAYS</b><i>TO GO</i></span>
+              <span class="cd-unit"><b id="cdUnit">DAYS</b><i>LEFT</i></span>
             </div>
             <div class="cd-strip" id="cdStrip" aria-hidden="true"></div>
             <p class="cd-eb">Early bird registration ends<br><strong id="cdWhen">tonight at midnight</strong></p>
