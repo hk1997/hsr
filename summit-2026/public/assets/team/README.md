@@ -15,7 +15,7 @@ Expected filenames:
 | Dr. Sudhir Yadav | `sudhir-yadav.jpg` |
 | Dr. Varun Yadav | `varun-yadav.jpg` |
 | Dr. Prabhjyot Singh Chowhan | `prabhjyot-singh-chowhan.jpg` |
-| Dr. Faizan Malik | `faizan-malik.jpg` |
+| Dr. Malik Faizan Abass | `malik-faizan-abass.jpg` |
 | Dr. Vinamrita Patni | `vinamrita-patni.jpg` |
 | Dr. Gaurav Meel | `gaurav-meel.jpg` |
 | Dr. Nisarg Sachani | `nisarg-sachani.jpg` |
