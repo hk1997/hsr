@@ -1,6 +1,6 @@
 # Organising team photographs
 
-Drop a portrait here named `<slug>.jpg` and it replaces that person's initials
+Drop a portrait here named `<slug>.webp` and it replaces that person's initials
 monogram automatically. No code change is needed — a missing file simply leaves
 the monogram in place.
 
@@ -8,20 +8,21 @@ Expected filenames:
 
 | Member | File |
 |---|---|
-| Dr. S. S. Baijal | `s-s-baijal.jpg` |
-| Dr. Anubhav Khandelwal | `anubhav-khandelwal.jpg` |
-| Dr. Rohit Khandelwal | `rohit-khandelwal.jpg` |
-| Dr. Anurag Mehndiratta | `anurag-mehndiratta.jpg` |
-| Dr. Sudhir Yadav | `sudhir-yadav.jpg` |
-| Dr. Varun Yadav | `varun-yadav.jpg` |
-| Dr. Prabhjyot Singh Chowhan | `prabhjyot-singh-chowhan.jpg` |
-| Dr. Malik Faizan Abass | `malik-faizan-abass.jpg` |
-| Dr. Vinamrita Patni | `vinamrita-patni.jpg` |
-| Dr. Gaurav Meel | `gaurav-meel.jpg` |
-| Dr. Nisarg Sachani | `nisarg-sachani.jpg` |
-| Dr. Sourav Agarwal | `sourav-agarwal.jpg` |
-| Dr. Avinesh Dhandhi | `avinesh-dhandhi.jpg` |
+| Dr. S. S. Baijal | `s-s-baijal.webp` |
+| Dr. Anubhav Khandelwal | `anubhav-khandelwal.webp` |
+| Dr. Rohit Khandelwal | `rohit-khandelwal.webp` |
+| Dr. Anurag Mehndiratta | `anurag-mehndiratta.webp` |
+| Dr. Sudhir Yadav | `sudhir-yadav.webp` |
+| Dr. Varun Yadav | `varun-yadav.webp` |
+| Dr. Prabhjyot Singh Chowhan | `prabhjyot-singh-chowhan.webp` |
+| Dr. Malik Faizan Abass | `malik-faizan-abass.webp` |
+| Dr. Vinamrita Patni | `vinamrita-patni.webp` |
+| Dr. Gaurav Meel | `gaurav-meel.webp` |
+| Dr. Nisarg Sachani | `nisarg-sachani.webp` |
+| Dr. Sourav Agarwal | `sourav-agarwal.webp` |
+| Dr. Avinesh Dhandhi | `avinesh-dhandhi.webp` |
 
-Square crop, head and shoulders, 400x400 px or larger. They are displayed as
-circles at 104px (82px on phones), so anything above ~250px is enough for a
-2x screen.
+Cut-outs with a transparent background, 520x650, subject standing on the
+bottom edge. Supply a PNG with alpha and it will be trimmed, scaled and
+converted; a photo with a background will show its rectangle and look wrong
+beside the others. Anyone without a file keeps an initials monogram.
