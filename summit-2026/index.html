@@ -455,7 +455,7 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
    keeping the gold primary treatment and Programme as the outline. */
 .mh-btns{display:none}
 @media(max-width:640px){
-  .mh-btns{display:flex;gap:10px;width:100%;margin:16px 0 0}
+  .mh-btns{display:flex;flex-wrap:wrap;gap:10px;width:100%;margin:16px 0 0}
   .mh-btns .mh-btn{flex:1 1 0;min-width:0;width:auto;margin:0;
     padding-left:8px;padding-right:8px;
     border:1px solid transparent;/* match the outline button's box model */
@@ -472,6 +472,9 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
     text-shadow:0 1px 10px rgba(0,0,0,.45)}
   .mh-btns .mh-btn-alt:hover,.mh-btns .mh-btn-alt:active{background:rgba(244,241,234,.20);
     border-color:rgba(244,241,234,.75)}
+  /* "Organising team" is too long to share a row with the other two, so it
+     takes a full-width second row rather than squeezing all three. */
+  .mh-btns .mh-btn-wide{flex:1 0 100%}
   @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
     .mh-btns .mh-btn-alt{background:rgba(244,241,234,.17)}
   }
@@ -733,6 +736,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
         <div class="mh-btns">
           <a class="mh-btn mh-btn-alt" href="program.html">Programme</a>
           <a class="mh-btn" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
+          <a class="mh-btn mh-btn-alt mh-btn-wide" href="program.html#organising-team">Organising team</a>
         </div>
         <p class="mh-eb">Early bird registration ends October 25th</p>
         <button type="button" class="mh-swipe" id="mhSwipe">Swipe to find out <span class="mh-arw" aria-hidden="true">›</span></button>

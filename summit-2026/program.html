@@ -367,8 +367,30 @@
   .ot-name{font-size:14px}
   .ot-desig{font-size:11.5px}
 }
+/* contact band under the team grid - same details as the home deck's
+   closing panel (tis2026cme@gmail.com / +91-9928043393) */
+.ot-contact{margin-top:30px;padding:20px 24px;border:1px solid var(--line);
+  border-radius:14px;background:linear-gradient(180deg,#f4faf9,#fbfaf7);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:10px 30px;text-align:center}
+.ot-ct-l{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--teal);flex:1 0 100%}
+.ot-ct-r{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 30px}
+.ot-ct-i{display:inline-flex;align-items:baseline;gap:9px}
+/* the label sits outside the anchor so the rule only underlines the value */
+.ot-ct-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.ot-ct-i a{font-size:14.5px;color:var(--ink);text-decoration:none;
+  border-bottom:1px solid rgba(14,124,118,.35);padding-bottom:1px}
+.ot-ct-i a:hover{color:var(--teal);border-bottom-color:var(--teal)}
+@media(max-width:640px){
+  .ot-contact{margin-top:22px;padding:16px 14px;gap:8px 0}
+  .ot-ct-r{flex-direction:column;gap:12px}
+  .ot-ct-i a{font-size:14px}
+}
 @media print{
   .ot-card{break-inside:avoid;page-break-inside:avoid}
+  .ot-contact{break-inside:avoid;background:none}
 }
 </style>
 </head>
@@ -960,6 +982,13 @@
           <span class="ot-avatar"><span class="ot-mono">AD</span><img class="ot-photo" src="/thyroid-summit-2026/assets/team/avinesh-dhandhi.webp" alt="" loading="lazy" onerror="this.remove()"></span>
           <figcaption><span class="ot-name">Dr. Avinesh Dhandhi</span><span class="ot-desig">Fellow, Interventional Radiology, Medanta &ndash; The Medicity, Gurgaon</span></figcaption>
         </figure>
+    </div>
+    <div class="ot-contact">
+      <span class="ot-ct-l">Enquiries</span>
+      <p class="ot-ct-r">
+        <span class="ot-ct-i"><span class="ot-ct-k">Email</span><a href="mailto:tis2026cme@gmail.com">tis2026cme@gmail.com</a></span>
+        <span class="ot-ct-i"><span class="ot-ct-k">Mob</span><a href="tel:+919928043393">+91-9928043393</a></span>
+      </p>
     </div>
   </section>
 
