@@ -974,6 +974,25 @@
 <button class="printbtn" onclick="window.print()">Print / PDF</button>
 
 <script>
+  var TAB_ALIAS={programme:'1','day-1':'1','day1':'1','day-2':'2','day2':'2',
+                faculty:'3','organising-team':'4','organizing-team':'4',team:'4'};
+  function showDay(d){
+    var panel=document.getElementById('day'+d); if(!panel) return false;
+    document.querySelectorAll('.tab').forEach(function(t){
+      t.classList.toggle('active', t.getAttribute('data-day')===String(d)); });
+    document.querySelectorAll('.day').forEach(function(x){ x.classList.remove('active'); });
+    panel.classList.add('active');
+    return true;
+  }
+  function fromHash(){
+    var h=(location.hash||'').replace(/^#/,'').toLowerCase();
+    if(!h) return;
+    var d=TAB_ALIAS[h] || (/^day([1-4])$/.test(h) ? RegExp.$1 : null);
+    if(d) showDay(d);
+  }
+  fromHash();
+  window.addEventListener('hashchange',fromHash);
+
   document.querySelectorAll('.tab').forEach(function(tab){
     tab.addEventListener('click',function(){
       var d=this.getAttribute('data-day');
