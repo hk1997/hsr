@@ -1,0 +1,32 @@
+name: Check referenced assets exist
+
+on:
+  pull_request:
+    paths: ['summit-2026/**']
+  push:
+    branches: [main]
+    paths: ['summit-2026/**']
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every /thyroid-summit-2026/assets/... reference must resolve
+        run: |
+          python3 - <<'PY'
+          import re, sys, pathlib
+          root = pathlib.Path('summit-2026')
+          missing = []
+          for html in root.glob('*.html'):
+              text = html.read_text(encoding='utf-8')
+              for ref in set(re.findall(r'/thyroid-summit-2026/assets/([^"\')\s]+)', text)):
+                  if not (root / 'public' / 'assets' / ref).exists():
+                      missing.append(f'{html.name} -> {ref}')
+          if missing:
+              print('Referenced asset files that do not exist in the repo:\n')
+              for m in sorted(missing):
+                  print('  ' + m)
+              sys.exit(1)
+          print('All referenced assets resolve.')
+          PY

@@ -660,6 +660,22 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
     justify-content:flex-start;overflow-y:auto}
   body.eb-live .p-banner>.pinner{margin-top:auto;margin-bottom:auto}
 }
+
+/* link from the faculty panel through to the organising team */
+.p-fac .fac-link{display:inline-flex;align-items:center;gap:9px;margin-top:16px;
+  padding:11px 20px;border-radius:999px;text-decoration:none;
+  font-family:var(--mono);font-size:clamp(11px,1.15vw,13px);letter-spacing:.17em;
+  text-transform:uppercase;color:var(--cream);
+  background:rgba(244,241,234,.09);border:1px solid rgba(244,241,234,.42);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:background .14s ease,border-color .14s ease,transform .14s ease}
+.p-fac .fac-link:hover{background:rgba(244,241,234,.17);
+  border-color:rgba(244,241,234,.7);transform:translateY(-1px)}
+.p-fac .fac-link span{transition:transform .14s ease}
+.p-fac .fac-link:hover span{transform:translateX(3px)}
+@media(max-width:640px){
+  .p-fac .fac-link{margin-top:10px;padding:9px 15px;font-size:10.5px;letter-spacing:.12em}
+}
 </style>
 
 </head>
@@ -796,6 +812,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
         <div class="ifac"><span class="iname">Dr Alan Alper Sag</span><span class="irole">Associate Professor, Clinical Interventional Radiology</span><span class="iaff">University of Miami Miller School of Medicine / Jackson Memorial Hospital, Miami, USA</span></div>
       </div>
       <p class="pseq">Two days with the people shaping thyroid interventions.<br>Patient selection at the heart of every discussion.</p>
+      <a class="fac-link" href="program.html#organising-team">Meet the organising team <span aria-hidden="true">&rarr;</span></a>
     </div>
   </section>
 
