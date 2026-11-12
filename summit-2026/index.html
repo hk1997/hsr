@@ -99,8 +99,18 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   padding:10px 18px;border-radius:22px;text-decoration:none;white-space:nowrap}
 .reg-pill{background:var(--gold);color:var(--teal-deep);box-shadow:0 6px 18px rgba(0,0,0,.28)}
 .reg-pill:hover{filter:brightness(1.06)}
-.prog-pill{background:transparent;color:var(--cream);border:1px solid rgba(244,241,234,.4)}
-.prog-pill:hover{border-color:var(--cream);background:rgba(244,241,234,.08)}
+/* The deck scrolls behind these fixed pills, so the backdrop changes panel to
+   panel. A dark glass fill keeps the cream text legible over all of them. */
+.prog-pill{background:rgba(6,18,31,.70);color:var(--cream);
+  border:1px solid rgba(244,241,234,.46);
+  backdrop-filter:blur(14px) saturate(1.35);
+  -webkit-backdrop-filter:blur(14px) saturate(1.35);
+  box-shadow:0 6px 18px rgba(3,10,20,.30)}
+.prog-pill:hover{border-color:var(--cream);background:rgba(6,18,31,.84)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .prog-pill{background:rgba(6,18,31,.82)}
+  .prog-pill:hover{background:rgba(6,18,31,.9)}
+}
 /* Three pills would overrun the row on a phone, and the mobile hero already
    carries a full-width Organising team button, so this one is desktop-only. */
 @media(max-width:640px){.team-pill{display:none}}
