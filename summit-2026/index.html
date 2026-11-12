@@ -447,9 +447,15 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   text-shadow:0 1px 12px rgba(0,0,0,.5)}
 .p-hands .hfree::before{content:"";display:inline-block;width:20px;height:1px;
   background:currentColor;opacity:.55;vertical-align:middle;margin:0 11px 3px 0}
+/* eligibility footnote, deliberately quieter than the waiver line above */
+.p-hands .hnote{font-family:var(--mono);font-weight:400;
+  font-size:clamp(8.5px,1.9vw,9.5px);letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(244,241,234,.58);margin:7px 0 0;line-height:1.7;
+  padding-left:31px;text-indent:-9px}
 @media(max-width:640px){
   .p-hands .hfree{letter-spacing:.14em;margin-top:13px}
   .p-hands .hfree::before{width:14px;margin-right:8px}
+  .p-hands .hnote{letter-spacing:.09em;padding-left:22px;text-indent:-8px}
 }
 .p-hands .hfree .nb{white-space:nowrap}
 
@@ -793,6 +799,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <p class="hline">Real technique under real-time guidance.</p>
       <p class="pseq">50 seats &nbsp;—&nbsp; <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a></p>
       <p class="hfree">Hands-on workshop fee waived off for <span class="nb">Trainees&nbsp;/&nbsp;Fellows</span></p>
+      <p class="hnote">* Hands-on workshop is only for <span class="nb">Interventional Radiologists</span></p>
     </div>
   </section>
 
