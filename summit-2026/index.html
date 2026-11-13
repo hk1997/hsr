@@ -114,6 +114,14 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 /* Three pills would overrun the row on a phone, and the mobile hero already
    carries a full-width Organising team button, so this one is desktop-only. */
 @media(max-width:640px){.team-pill{display:none}}
+/* the Register pill wraps to its own line on phones, which left the em-dash
+   dangling at the end of the seats line; stack the two deliberately instead */
+@media(max-width:392px){
+  .p-hands .pseq .seq-dash{display:none}
+  /* a block box always starts its own line, so the stack cannot flip back to
+     one row once the dash is gone and its width is freed */
+  .p-hands .pseq .hreg{display:flex;width:fit-content;margin-top:10px}
+}
 .nav{position:fixed;top:50%;transform:translateY(-50%);z-index:50;width:52px;height:52px;border-radius:50%;
   border:1px solid rgba(244,241,234,.3);background:rgba(7,46,44,.55);backdrop-filter:blur(6px);
   color:var(--cream);font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;
@@ -807,7 +815,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <h2 class="ptitle">Hands-on Session <em>on Day&nbsp;1</em></h2>
       <p class="hline">Phantom-based stations in <strong>RFA</strong> and <strong>MWA</strong></p>
       <p class="hline">Real technique under real-time guidance.</p>
-      <p class="pseq">50 seats &nbsp;—&nbsp; <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a></p>
+      <p class="pseq"><span class="nb">30/50</span> Seats Left ..!!<span class="seq-dash">&nbsp;—&nbsp;</span> <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a></p>
       <p class="hfree">Hands-on workshop fee waived off for Radiology &amp; IR <span class="nb">Trainees&nbsp;/&nbsp;Fellows</span></p>
       <p class="hnote">* Hands-on workshop is limited to <span class="nb">Interventional Radiologists</span> only</p>
     </div>
