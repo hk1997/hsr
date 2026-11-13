@@ -156,7 +156,7 @@ const Home = () => {
       <h2 className="ptitle">Hands-on Session <em>on Day&nbsp;1</em></h2>
       <p className="hline">Phantom-based stations in <strong>RFA</strong> and <strong>MWA</strong></p>
       <p className="hline">Real technique under real-time guidance.</p>
-      <p className="pseq">50 seats &nbsp;—&nbsp; <a className="hreg" href="register.html">Register Now</a></p>
+      <p className="pseq"><span className="nb">30/50</span> Seats Left ..!! &nbsp;—&nbsp; <a className="hreg" href="register.html">Register Now</a></p>
     </div>
   </section>
 
