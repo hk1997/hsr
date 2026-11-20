@@ -741,7 +741,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
               <span class="cd-unit"><b id="cdUnit">DAYS</b><i>LEFT</i></span>
             </div>
             <div class="cd-strip" id="cdStrip" aria-hidden="true"></div>
-            <p class="cd-eb">Early bird registration ends<br><strong id="cdWhen">tonight at midnight</strong></p>
+            <p class="cd-eb">Registration closes<br><strong id="cdWhen">tonight at midnight</strong></p>
           </div>
         </div>
         <a class="cd-cta" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now <span aria-hidden="true">&rarr;</span></a>
@@ -749,7 +749,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       </div>
       <img class="banner-img" src="/thyroid-summit-2026/assets/bg_banner_glass.webp" alt="Thyroid Intervention Summit 2026 · IR CME · 27–28 Nov 2026 · Delhi-NCR · Medanta – The Medicity, Gurgaon and Holiday Inn Aerocity, New Delhi · ISTS 2026 Pre-Conference · IR-Tutorials">
       <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
-      <div class="eb">Early bird registration ends October 25th</div>
+      <div class="eb">Registration Closes on 22nd Nov 2026</div>
       <div class="hint">Swipe to explore <span class="arw">→</span></div>
       <div class="mhero" aria-hidden="false">
         <div class="mh-glow" aria-hidden="true"></div>
@@ -766,7 +766,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
           <a class="mh-btn" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
           <a class="mh-btn mh-btn-alt mh-btn-wide" href="program.html#organising-team">Organising team</a>
         </div>
-        <p class="mh-eb">Early bird registration ends October 25th</p>
+        <p class="mh-eb">Registration Closes on 22nd Nov 2026</p>
         <button type="button" class="mh-swipe" id="mhSwipe">Swipe to find out <span class="mh-arw" aria-hidden="true">›</span></button>
       </div>
     </div>
@@ -857,7 +857,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <div class="cta-meta">27–28 Nov 2026 · Delhi-NCR</div>
       <div class="cta-venue"><div class="cv-day"><span class="cv-d">Day 1</span><br>Medanta – The Medicity, Gurgaon<br>ISTS 2026 Pre-Conference Workshop<br>Hands-on Workshop for IRs</div><div class="cv-day"><span class="cv-d">Day 2</span><br>Holiday Inn, Aerocity, New Delhi<br>Scientific Programme (IR-Tutorials)</div></div>
       <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
-      <div class="eb">Early bird registration ends October 25th</div>
+      <div class="eb">Registration Closes on 22nd Nov 2026</div>
       <div class="cta-contact">Enquiries: <a href="mailto:tis2026cme@gmail.com">tis2026cme@gmail.com</a><br>Mob: <a href="tel:+919928043393">+91-9928043393</a></div>
     </div>
   </section>
@@ -930,13 +930,18 @@ sync();
 </script>
 
 <script>
-/* Early-bird countdown. Deadline is the end of 25 Oct 2026 IST, i.e.
-   2026-10-26T00:00:00+05:30, evaluated in IST whatever the viewer's zone.
-   Days remaining counts IST calendar days inclusive of today, so the 24th
-   shows 02 and the 25th shows 01. Outside 1-2 days the normal hero renders
-   and, once the deadline passes, every early-bird line is removed. */
+/* Registration deadline. Ends with 22 Nov 2026 IST, i.e.
+   2026-11-23T00:00:00+05:30, evaluated in IST whatever the viewer's zone.
+   The "Registration Closes" lines show up to and including the 22nd and
+   remove themselves on the 23rd, so the page cannot advertise a date that
+   has already passed.
+
+   COUNTDOWN_HERO gates the full-page "02 DAYS LEFT" takeover built for the
+   early-bird deadline. It is off: the deadline is now 1-2 days away and
+   switching it on would replace the whole home page. Set it true to use it. */
 (function(){
-  var IST = 5.5*3600000, DEADLINE_Y=2026, DEADLINE_M=9, DEADLINE_D=25; /* month is 0-based */
+  var COUNTDOWN_HERO=false;
+  var IST = 5.5*3600000, DEADLINE_Y=2026, DEADLINE_M=10, DEADLINE_D=22; /* month is 0-based */
   var DOW=['SUN','MON','TUE','WED','THU','FRI','SAT'];
   var MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
@@ -955,11 +960,11 @@ sync();
   var daysLeft=Math.round((deadlineDayUTCms-todayUTCms)/86400000)+1; /* inclusive */
 
   if(daysLeft<=0){
-    /* early bird is over: strip the line everywhere, leave the hero alone */
+    /* the date has passed: strip the lines everywhere, leave the hero alone */
     document.querySelectorAll('.eb,.mh-eb').forEach(function(n){ n.remove(); });
     return;
   }
-  if(daysLeft>2) return; /* too early for the countdown treatment */
+  if(!COUNTDOWN_HERO || daysLeft>2) return;
 
   var hero=document.getElementById('cdHero');
   if(!hero) return;
