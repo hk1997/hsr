@@ -80,18 +80,8 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   transition:transform .12s ease,box-shadow .12s ease}
 .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.34);filter:brightness(.98)}
 .btn.mt{margin-top:30px}
-.eb{margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--tealsoft)}
-/* Hero deadline block. Scoped to .p-banner and .mhero so the closing CTA
-   panel keeps its single plain line and its cream button. */
-.p-banner .eb,.mhero .mh-eb{display:flex;flex-direction:column;align-items:center;
-  gap:7px;margin:20px 0 0;font-family:inherit;font-size:inherit;letter-spacing:normal;color:inherit}
-.eb-k{font-family:var(--mono);font-size:clamp(10px,.78vw,12px);letter-spacing:.3em;
-  text-transform:uppercase;color:var(--gold-lt);white-space:nowrap}
-.eb-d{font-family:var(--display);font-weight:600;font-size:clamp(26px,2.1vw,32px);
-  line-height:1.08;color:var(--cream);white-space:nowrap}
-.eb-d em{font-style:normal;color:var(--gold-lt)}
 /* gold CTA, matching the REGISTER pill in the top row */
-.p-banner .btn.mt{margin-top:18px;background:var(--gold);color:var(--teal-deep);
+.p-banner .btn.mt{margin-top:30px;background:var(--gold);color:var(--teal-deep);
   box-shadow:0 8px 24px rgba(0,0,0,.30);transition:transform .25s ease,box-shadow .25s ease,filter .25s ease}
 .p-banner .btn.mt:hover{filter:brightness(1.07);
   box-shadow:0 16px 40px rgba(0,0,0,.34),0 0 26px rgba(217,181,107,.26)}
@@ -237,7 +227,7 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 @media(max-width:640px){
   .p-banner{padding:56px 22px 40px!important;align-items:center}
   .p-banner .pinner{max-width:none!important;width:100%}
-  .p-banner .banner-img,.p-banner .btn,.p-banner .eb,.p-banner .hint{display:none!important}
+  .p-banner .banner-img,.p-banner .btn,.p-banner .hint{display:none!important}
   .mhero{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;width:100%;max-width:420px;margin:0 auto}
   .mh-glow{position:absolute;top:-6%;left:50%;width:120vw;height:120vw;max-width:520px;max-height:520px;transform:translateX(-50%);
     background:radial-gradient(closest-side,rgba(14,124,118,.55),rgba(14,124,118,.18) 55%,rgba(7,46,44,0) 100%);pointer-events:none;z-index:0}
@@ -258,10 +248,6 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .mh-hook{margin:20px 0 0;font-family:var(--display);font-style:normal;font-weight:500;font-size:18px;line-height:1.2;color:var(--gold-lt);letter-spacing:.2px}
   .mh-btn{display:block;width:100%;margin:16px 0 0;padding:15px 0;border-radius:12px;background:var(--gold-lt);color:#072e2c;font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:500;box-shadow:0 10px 30px rgba(217,181,107,.25)}
   .mh-btn:focus-visible,.mh-swipe:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
-  .mh-eb{margin:14px 0 0;font-family:var(--serif);font-size:13.5px;color:var(--tealsoft)}
-  .mhero .eb-k{font-size:clamp(9px,2.6vw,10.5px);letter-spacing:.26em}
-  .mhero .eb-d{font-size:clamp(22px,6.4vw,28px)}
-  .mhero .mh-btns{margin-top:14px}
   .mh-swipe{margin:14px 0 0;background:none;border:0;padding:8px 12px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-lt);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
   .mh-arw{font-style:normal;font-size:22px;line-height:1;display:inline-block;animation:mhNudge 1.6s ease-in-out infinite}
   @keyframes mhNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
@@ -269,7 +255,7 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .mh-mark{animation:mhMark 1.1s cubic-bezier(.2,.7,.2,1) both}
   .mh-title>span{animation:mhRise .8s cubic-bezier(.2,.7,.2,1) both}
   .mh-title .l1{animation-delay:.35s}.mh-title .l2{animation-delay:.5s}.mh-title .l3{animation-delay:.65s}
-  .mh-date,.mh-days,.mh-hook,.mh-btn,.mh-eb,.mh-swipe{animation:mhFade .7s ease both;animation-delay:.95s}
+  .mh-date,.mh-days,.mh-hook,.mh-btn,.mh-swipe{animation:mhFade .7s ease both;animation-delay:.95s}
   @keyframes mhMark{from{opacity:0;transform:scale(.82);filter:drop-shadow(0 0 0 rgba(217,181,107,0))}to{opacity:1;transform:none}}
   @keyframes mhRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
   @keyframes mhFade{from{opacity:0}to{opacity:1}}
@@ -461,7 +447,6 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .p-cta .cta-venue .cv-day:last-child{margin-bottom:0}
   .p-cta .btn.mt{margin-top:clamp(14px,2.2vh,22px);padding:15px 32px;
     font-size:13px;letter-spacing:.15em}
-  .p-cta .eb{margin-top:11px;font-size:11.5px;line-height:1.45}
   .p-cta .cta-contact{margin-top:clamp(14px,2.2vh,24px);font-size:12.5px;line-height:1.75}
 }
 /* shortest phones: drop the logo rather than squeeze everything else */
@@ -558,16 +543,10 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   .p-cta .cta-meta{margin:10px 0 0}
   .p-cta .cta-venue .cv-day{margin-bottom:10px}
   .p-cta .btn.mt{margin-top:16px}
-  .p-cta .eb{margin-top:10px}
   .p-cta .cta-contact{margin-top:14px}
 }
 
-/* early-bird deadline: larger, so it is not read as a footnote */
-.eb{font-size:15px;letter-spacing:.05em}
-.p-cta .eb{font-size:14px;line-height:1.45}
 @media(max-width:640px){
-  .mh-eb{line-height:1.4}
-  .p-cta .eb{font-size:clamp(12.5px,3.4vw,14px);line-height:1.45}
 }
 
 /* ===== Early-bird countdown hero =====
@@ -578,7 +557,6 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 body.eb-live .cdhero{display:flex;flex-direction:column;align-items:center;width:100%}
 body.eb-live .p-banner .banner-img,
 body.eb-live .p-banner>.pinner>.btn.mt,
-body.eb-live .p-banner>.pinner>.eb,
 body.eb-live .p-banner>.pinner>.hint,
 body.eb-live .p-banner .mhero{display:none!important}
 body.eb-live .p-banner>.pinner{max-width:1180px!important}
@@ -765,10 +743,6 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
         <button type="button" class="cd-swipe" id="cdSwipe">Swipe to explore <span aria-hidden="true">&rarr;</span></button>
       </div>
       <img class="banner-img" src="/thyroid-summit-2026/assets/bg_banner_glass.webp" alt="Thyroid Intervention Summit 2026 · IR CME · 27–28 Nov 2026 · Delhi-NCR · Medanta – The Medicity, Gurgaon and Holiday Inn Aerocity, New Delhi · ISTS 2026 Pre-Conference · IR-Tutorials">
-      <div class="eb">
-        <span class="eb-k">Final call for registration</span>
-        <span class="eb-d">22 <em>November</em> 2026</span>
-      </div>
       <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
       <div class="hint">Swipe to explore <span class="arw">→</span></div>
       <div class="mhero" aria-hidden="false">
@@ -781,10 +755,6 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
           <div class="mh-day"><b>Day 2 · New Delhi</b><span>Scientific programme<br><i class="mh-ven v2">Holiday Inn, Aerocity</i></span></div>
         </div>
         <p class="mh-hook">Save the Thyroid - Choose the Patient</p>
-        <p class="mh-eb">
-          <span class="eb-k">Final call for registration</span>
-          <span class="eb-d">22 <em>November</em> 2026</span>
-        </p>
         <div class="mh-btns">
           <a class="mh-btn mh-btn-alt" href="program.html">Programme</a>
           <a class="mh-btn" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
@@ -880,7 +850,6 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <div class="cta-meta">27–28 Nov 2026 · Delhi-NCR</div>
       <div class="cta-venue"><div class="cv-day"><span class="cv-d">Day 1</span><br>Medanta – The Medicity, Gurgaon<br>ISTS 2026 Pre-Conference Workshop<br>Hands-on Workshop for IRs</div><div class="cv-day"><span class="cv-d">Day 2</span><br>Holiday Inn, Aerocity, New Delhi<br>Scientific Programme (IR-Tutorials)</div></div>
       <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
-      <div class="eb">Registration Closes on 22nd Nov 2026</div>
       <div class="cta-contact">Enquiries: <a href="mailto:tis2026cme@gmail.com">tis2026cme@gmail.com</a><br>Mob: <a href="tel:+919928043393">+91-9928043393</a></div>
     </div>
   </section>
