@@ -80,6 +80,24 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
   transition:transform .12s ease,box-shadow .12s ease}
 .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.34);filter:brightness(.98)}
 .btn.mt{margin-top:30px}
+/* Registration closed notice, in place of the register CTAs. */
+.rclosed{margin:26px auto 0;max-width:640px;text-align:center;padding:18px 26px;
+  border-radius:16px;background:rgba(10,46,44,.34);border:1px solid rgba(244,241,234,.18);
+  backdrop-filter:blur(14px) saturate(1.35);-webkit-backdrop-filter:blur(14px) saturate(1.35)}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .rclosed{background:rgba(7,28,32,.78)}
+}
+.rc-h{margin:0;font-family:var(--display);font-weight:600;
+  font-size:clamp(18px,1.45vw,23px);line-height:1.22;color:var(--cream)}
+.rc-h em{font-style:normal;color:var(--gold-lt)}
+.rc-b{margin:9px 0 0;font-family:var(--serif);font-size:clamp(12.5px,1vw,15px);
+  line-height:1.55;color:var(--creamdim)}
+.p-cta .rclosed{margin-top:20px}
+.mhero .rclosed{margin:16px 0 0;padding:15px 16px;max-width:100%}
+@media(max-width:640px){
+  .rc-h{font-size:clamp(16px,4.4vw,19px)}
+  .rc-b{font-size:clamp(12px,3.3vw,13.5px)}
+}
 /* gold CTA, matching the REGISTER pill in the top row */
 .p-banner .btn.mt{margin-top:30px;background:var(--gold);color:var(--teal-deep);
   box-shadow:0 8px 24px rgba(0,0,0,.30);transition:transform .25s ease,box-shadow .25s ease,filter .25s ease}
@@ -227,7 +245,8 @@ body{font-family:var(--serif);color:var(--cream);-webkit-font-smoothing:antialia
 @media(max-width:640px){
   .p-banner{padding:56px 22px 40px!important;align-items:center}
   .p-banner .pinner{max-width:none!important;width:100%}
-  .p-banner .banner-img,.p-banner .btn,.p-banner .hint{display:none!important}
+  .p-banner .banner-img,.p-banner .btn,.p-banner .hint,
+  .p-banner>.pinner>.rclosed{display:none!important}
   .mhero{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;width:100%;max-width:420px;margin:0 auto}
   .mh-glow{position:absolute;top:-6%;left:50%;width:120vw;height:120vw;max-width:520px;max-height:520px;transform:translateX(-50%);
     background:radial-gradient(closest-side,rgba(14,124,118,.55),rgba(14,124,118,.18) 55%,rgba(7,46,44,0) 100%);pointer-events:none;z-index:0}
@@ -709,7 +728,6 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
 <div class="toppills">
   <a class="pill prog-pill team-pill" href="program.html#organising-team">Organising team</a>
   <a class="pill prog-pill" href="program.html">Programme</a>
-  <a class="pill reg-pill" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register</a>
 </div>
 
 <div class="bgfixed" aria-hidden="true"><img src="/thyroid-summit-2026/assets/bg_befdabee.jpg" alt=""></div>
@@ -739,11 +757,13 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
             <p class="cd-eb">Registration closes<br><strong id="cdWhen">tonight at midnight</strong></p>
           </div>
         </div>
-        <a class="cd-cta" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now <span aria-hidden="true">&rarr;</span></a>
         <button type="button" class="cd-swipe" id="cdSwipe">Swipe to explore <span aria-hidden="true">&rarr;</span></button>
       </div>
       <img class="banner-img" src="/thyroid-summit-2026/assets/bg_banner_glass.webp" alt="Thyroid Intervention Summit 2026 · IR CME · 27–28 Nov 2026 · Delhi-NCR · Medanta – The Medicity, Gurgaon and Holiday Inn Aerocity, New Delhi · ISTS 2026 Pre-Conference · IR-Tutorials">
-      <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
+      <div class="rclosed">
+        <p class="rc-h">Registration Has Closed. <em>Excitement Is Building.</em></p>
+        <p class="rc-b">Thank you for the overwhelming interest in TIS 2026.<br>We look forward to welcoming all our registered delegates on November 27&ndash;28!</p>
+      </div>
       <div class="hint">Swipe to explore <span class="arw">→</span></div>
       <div class="mhero" aria-hidden="false">
         <div class="mh-glow" aria-hidden="true"></div>
@@ -757,8 +777,11 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
         <p class="mh-hook">Save the Thyroid - Choose the Patient</p>
         <div class="mh-btns">
           <a class="mh-btn mh-btn-alt" href="program.html">Programme</a>
-          <a class="mh-btn" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
-          <a class="mh-btn mh-btn-alt mh-btn-wide" href="program.html#organising-team">Organising team</a>
+          <a class="mh-btn mh-btn-alt" href="program.html#organising-team">Organising team</a>
+        </div>
+        <div class="rclosed">
+          <p class="rc-h">Registration Has Closed. <em>Excitement Is Building.</em></p>
+          <p class="rc-b">Thank you for the overwhelming interest in TIS 2026.<br>We look forward to welcoming all our registered delegates on November 27&ndash;28!</p>
         </div>
         <button type="button" class="mh-swipe" id="mhSwipe">Swipe to find out <span class="mh-arw" aria-hidden="true">›</span></button>
       </div>
@@ -808,7 +831,7 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <h2 class="ptitle">Hands-on Session <em>on Day&nbsp;1</em></h2>
       <p class="hline">Phantom-based stations in <strong>RFA</strong> and <strong>MWA</strong></p>
       <p class="hline">Real technique under real-time guidance.</p>
-      <p class="pseq"><span class="nb">Only 10</span> Seats Left..!!<span class="seq-dash">&nbsp;—&nbsp;</span> <a class="hreg" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register Now</a></p>
+      <p class="pseq">Registration is closed</p>
       <p class="hfree">Hands-on workshop fee waived off for Radiology &amp; IR <span class="nb">Trainees&nbsp;/&nbsp;Fellows</span></p>
       <p class="hnote">* Hands-on workshop is limited to <span class="nb">Interventional Radiologists</span> only</p>
     </div>
@@ -849,7 +872,10 @@ body.eb-live .p-banner>.pinner{max-width:1180px!important}
       <div class="cta-title">Join us in November</div>
       <div class="cta-meta">27–28 Nov 2026 · Delhi-NCR</div>
       <div class="cta-venue"><div class="cv-day"><span class="cv-d">Day 1</span><br>Medanta – The Medicity, Gurgaon<br>ISTS 2026 Pre-Conference Workshop<br>Hands-on Workshop for IRs</div><div class="cv-day"><span class="cv-d">Day 2</span><br>Holiday Inn, Aerocity, New Delhi<br>Scientific Programme (IR-Tutorials)</div></div>
-      <a class="btn mt" href="https://in.eregnow.com/ticketing/thyroid-summit-2026" target="_blank" rel="noopener">Register now</a>
+      <div class="rclosed">
+        <p class="rc-h">Registration Has Closed. <em>Excitement Is Building.</em></p>
+        <p class="rc-b">Thank you for the overwhelming interest in TIS 2026.<br>We look forward to welcoming all our registered delegates on November 27&ndash;28!</p>
+      </div>
       <div class="cta-contact">Enquiries: <a href="mailto:tis2026cme@gmail.com">tis2026cme@gmail.com</a><br>Mob: <a href="tel:+919928043393">+91-9928043393</a></div>
     </div>
   </section>
